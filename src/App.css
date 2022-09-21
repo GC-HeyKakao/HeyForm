@@ -1,0 +1,72 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.basicCard {
+  /* border: 2px solid black; */
+}
+
+.main-bg {
+  height: 100px;
+  padding-top: 33%;
+  background-size: 35%;
+  color: black;
+  background-image: url("main_bg.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.main-logo {
+  height: 100px;
+  background-size: 35%;
+  background-image: url("main_logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* .kakao-login {
+  height: auto;
+  background-size: 100%;
+  background-image: url("kakao_login.png");
+  background-repeat: no-repeat;
+  background-position: center;
+} */
+
+.surveyDiv {
+  border: 2px solid black;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
