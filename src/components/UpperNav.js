@@ -10,7 +10,7 @@ function UpperNav() {
 		<Navbar bg="primary" variant="dark">
 			<Row>
 				<Col md={"2"} style={{paddingLeft: 10}}>
-					<Navbar.Brand onClick={()=>navigate("/main")} ><img src="main_logo.png" width="60%" style={{paddingLeft: "2%"}}/>{' '}</Navbar.Brand>
+					<Navbar.Brand onClick={()=>navigate("/main")} ><img src="logo.png" className="main-logo" width="60%" style={{paddingLeft: "2%"}}/>{' '}</Navbar.Brand>
 				</Col>
 				<Col md={"6"}>
 					<Nav className="me-auto">
