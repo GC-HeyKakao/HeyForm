@@ -10,6 +10,7 @@ import {CreateSurvey} from './route/CreateSurvey.js'
 import {Workspace} from './route/Workspace.js'
 import {GuidePage} from './route/GuidePage.js'
 import {LoginPage} from './route/LoginPage.js'
+import { MyPage } from './route/MyPage';
 
 function App() {
   let navigate = useNavigate();
@@ -27,6 +28,7 @@ function App() {
         <Route path="/workspace" element={<Workspace />}/>
         <Route path="/guide" element={<GuidePage />}/>
         <Route path="/login" element={<LoginPage />}/>
+        <Route path="/mypage" element={<MyPage />}/>
       </Routes>
     </>
   );

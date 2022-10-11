@@ -8,7 +8,7 @@ function UpperNav() {
 
   return(
 		<Navbar bg="primary" variant="dark">
-			<Row>
+			<Row style={{width: 1500}}>
 				<Col md={"2"} style={{paddingLeft: 10}}>
 					<Navbar.Brand onClick={()=>navigate("/main")} ><img src="logo.png" className="main-logo" width="60%" style={{paddingLeft: "2%"}}/>{' '}</Navbar.Brand>
 				</Col>

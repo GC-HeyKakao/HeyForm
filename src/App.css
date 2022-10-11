@@ -73,6 +73,8 @@
   }
 }
 
+/*MainPage*/
+
 .topBtn {
   position: fixed; 
   opacity: 0; 
@@ -136,7 +138,6 @@
   outline: 0 none; 
 }
 
-
 .startBtn {
   display: block;
   width:20%;
@@ -161,10 +162,26 @@
   outline: 0 none; 
 }
 
+.wraper {
+  display: flex;
+  flex-direction: column;
+  height: 92vh;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer {
+  background-color: #282c34;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  color: white;
+  text-align: right; 
+}
+
+
 /*FAQ*/
-
-
-
 .fqa-parent {
   display: flex;
   align-items: center;
@@ -218,6 +235,7 @@
   font-size: 20px;
   margin-right: 10px;
 }
+
 
 /*WriteAsk*/
 
