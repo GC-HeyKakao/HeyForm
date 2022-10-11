@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Card, ListGroup, Row, Col, Accordion } from 'react-bootstrap'
 import React from 'react';
-import { FAQ } from '../components/FAQ/FAQ'
-import { FaqCreate } from '../components/FAQ/FaqCreate'
-import { FaqReply } from '../components/FAQ/FaqReply'
+import { FAQ } from '../components/Guide/FAQ/FAQ'
+import { FaqCreate } from '../components/Guide/FAQ/FaqCreate'
+import { FaqReply } from '../components/Guide/FAQ/FaqReply'
 import { Footer } from '../components/Footer.js'
-import { WriteAsk } from '../WriteAsk';
+import { WriteAsk } from '../components/Guide/WriteAsk';
 
 
 // function alertDialogBox(message) {

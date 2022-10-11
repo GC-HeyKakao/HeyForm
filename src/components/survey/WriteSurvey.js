@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import {Form, Button, InputGroup, CloseButton} from 'react-bootstrap'
-import {DropdownCmpt} from '../DropdownCmpt'
+import {DropdownCmpt} from '../Guide/DropdownCmpt'
 
 function WriteSurvey(props) {
 	let surveyTypeList = ["주관식", "객관식", "선형배율", "등급(별점)", "리커트", "신뢰도 측정"];

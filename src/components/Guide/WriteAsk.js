@@ -1,7 +1,6 @@
 //import { useState, useEffect } from 'react';
 import React, { useState } from 'react';
-import './App.css';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { CKEdiftor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //import ReactHtmlParser from 'react-html-parser';
 // import Modal from 'react-modal';

@@ -1,6 +1,6 @@
 import { useState, useEffect} from 'react';
 import {Card, Nav, InputGroup, Form, FloatingLabel, Button, Row, Col, CloseButton, Dropdown, DropdownButton, SplitButton, ButtonGroup} from 'react-bootstrap';
-import {DropdownCmpt} from '../components/DropdownCmpt.js'
+import {DropdownCmpt} from '../components/Guide/DropdownCmpt.js'
 import { WriteSurvey } from '../components/survey/WriteSurvey.js';
 import {ResultSurvey} from '../components/survey/ResultSurvey.js'
 
