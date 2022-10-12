@@ -35,7 +35,7 @@ const Slider = () => {
     
     />
     
-    <div>{currentValue}</div>
+    {/* <div>{currentValue}</div> */}
     </>
   );
 };

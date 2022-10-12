@@ -285,3 +285,37 @@
   display:flex;
   padding:15px; 
 } */
+
+
+/* Likertchart.js */
+fieldset.likertScale .likertIndicator {
+  border: solid #0D6EFD;
+  background-color: white;
+  border-radius: 1.0em;
+}
+
+fieldset.likertScale .likertLine {
+  display: inline-block;
+  width: 50%;
+  vertical-align: top;
+  margin-top: 0.5em;
+  border-top: 3px solid #0D6EFD;
+}
+fieldset.likertScale .likertResponse > input:checked + .likertIndicator {
+  background-color: #0D6EFD;
+}
+
+.center-wrapper-150 {
+  width: 150px;
+  margin: auto;
+}
+
+.center-wrapper-120 {
+  width: 120px;
+  margin: auto;
+}
+
+.center {
+  width:fit-content;
+  margin:auto;
+}
