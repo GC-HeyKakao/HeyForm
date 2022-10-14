@@ -58,7 +58,7 @@ function FAQ({ className }) {
           return true;
         })
       );
-    }, );
+    }, []);
   
     return (
       <div>
@@ -69,7 +69,7 @@ function FAQ({ className }) {
           setCatecory={setCatecory}
         /> */}
         <div className="fqa-parent">
-          <div className="faq-list">
+          <div className="faq-list" style={{paddingTop:20}}>
             {showList.map((item, index) => getQnACard(item, index))}     
           </div>
         </div>

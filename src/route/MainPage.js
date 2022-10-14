@@ -1,16 +1,30 @@
 import { useNavigate } from 'react-router-dom'
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { AboutProduct } from '../components/Main/AboutProduct.js'
 import { Footer } from '../components/Footer.js'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserInfoContextStore } from '..//UserInfoContext';
+import { KAKAO_AUTH_URL } from '..//OAuth';
 
 function MainPage() {
 
 	let navigate = useNavigate();
+	const UserInfo = useContext(UserInfoContextStore);
+	console.log(UserInfo);
+	const token = UserInfo.token;
 
+	// 로그인되면 뜨는 창에 사용
+	const [user, setUser] = useState(false);
+	const [nonUser, setNonUser] = useState(false);
+
+	// 스크롤 읽어와서 이벤트 구현
 	const [ScrollY, setScrollY] = useState(0); //현재 스크롤의 값
 	const [scrollBtnStatus, setScrollBtnStatus] = useState(false); // 스크롤 버튼 상태
 	const [startBtnStatus, setStartBtnStatus] = useState(true); // 시작하기 버튼 상태
+
+	const handleLogin = () => {
+		window.location.href = KAKAO_AUTH_URL;
+	};
 
 	const handleFollow = () => {
 		setScrollY(window.pageYOffset);
@@ -59,15 +73,50 @@ function MainPage() {
 		return () => {
 			window.removeEventListener('scroll', handleFollow)
 		}
-	})
+	}, [ScrollY])
+
+
+	useEffect(() => {
+		if (UserInfo.id != -1 && UserInfo.first) {
+			setUser(true);
+			UserInfo.setFirst(false);
+			console.log("-1아니므로 user");
+
+		} else if (UserInfo.first) {
+			setUser(false);
+			setNonUser(true);
+			UserInfo.setFirst(false);
+			console.log("-1이므로 nonuser");
+		}
+	}, [])
 
 	return (
 		<>
+			<Modal show={user} onHide={() => {setUser(false)}}>
+				<Modal.Header closeButton onClick={() => navigate("/main")}>
+					<Modal.Title>로그인 성공</Modal.Title>
+				</Modal.Header>
+				<Modal.Body style={{ textAlign: "center" }}>
+					<h2>🙌 {UserInfo.name}님 환영합니다 🙌<br /></h2>
+					<h4>지금 바로 헤이폼을 사용해보세요💙 </h4>
+				</Modal.Body>
+			</Modal>
+
+			<Modal show={nonUser} onHide={() => {setNonUser(false)}}>
+				<Modal.Header closeButton onClick={() => navigate("/main")}>
+					<Modal.Title>🙌 환영합니다 🙌</Modal.Title>
+				</Modal.Header>
+				<Modal.Body style={{ textAlign: "center" }}>
+					<h2>헤이폼이 처음이신가요?<br /></h2>
+					<h4>📝 로그인 후 설문을 작성해보세요 📝 </h4>
+				</Modal.Body>
+			</Modal>
+
 			<div className="wraper">
 				<div className="content">
 					<AboutProduct />
 					<Button className={startBtnStatus ? "startBtn active" : "startBtn"}
-						variant="primary" size="lg" onClick={() => navigate("/mypage")}>
+						variant="primary" size="lg" onClick={UserInfo.id == -1 ? handleLogin : () => navigate("/create")}>
 						시작하기
 					</Button> {/*로그인 되어있지 않으면 로그인창으로*/}
 

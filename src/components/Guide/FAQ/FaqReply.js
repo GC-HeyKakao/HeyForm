@@ -59,7 +59,7 @@ function FaqReply({ className }) {
           return true;
         })
       );
-    }, );
+    }, []);
   
     return (
       <div>
@@ -69,7 +69,7 @@ function FaqReply({ className }) {
           category={category}
           setCatecory={setCatecory}
         /> */}
-        <div className="fqa-parent">
+        <div className="fqa-parent" style={{paddingTop:20}}>
           <div className="faq-list">
             {showList.map((item, index) => getQnACard(item, index))}     
           </div>

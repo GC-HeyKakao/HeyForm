@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const qnaList_create = [
   {
       question: '자동 추천되는 UI는 바꿀 수 없나요?', 
-      answer: '네. UI를 변경하는 기능은 제공되지 않습니다. 만약 추천된 ui가 적절하지 않다고 생각되신다면 카테코리 변경을 통해 디자인을 변경해주세요.' ,
+      answer: '네. UI를 변경하는 기능은 제공되지 않습니다. 만약 추천된 ui가 적절하지 않다고 생각되신다면 카테고리 변경을 통해 디자인을 변경해주세요.' ,
   },
   {
       question: "이메일 보내기와 카카오톡 메시지 모두 선택할 수는 없나요?",
@@ -59,7 +59,7 @@ function FaqCreate({ className }) {
           return true;
         })
       );
-    }, );
+    }, []);
   
     return (
       <div>
@@ -69,7 +69,7 @@ function FaqCreate({ className }) {
           category={category}
           setCatecory={setCatecory}
         /> */}
-        <div className="fqa-parent">
+        <div className="fqa-parent" style={{paddingTop:20}}>
           <div className="faq-list">
             {showList.map((item, index) => getQnACard(item, index))}     
           </div>

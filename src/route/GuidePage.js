@@ -63,7 +63,6 @@ function GuidePage() {
 
                                         <Col>
                                             <FaqReply />
-                                            {/* <Card style={{height: 700, paddingTop: 20, textAlign: "center"}}>설문 응답시</Card> */}
 
                                         </Col>
 
@@ -73,7 +72,7 @@ function GuidePage() {
 
                                             <Col>
                                                 <WriteAsk />
-                                                {/* <Card style={{height: 700, paddingTop: 20, textAlign: "center"}}>문의하기</Card> */}
+                                                
 
                                             </Col>
 

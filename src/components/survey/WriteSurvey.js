@@ -6,11 +6,12 @@ import Likertchart from './Likertchart';
 import Slider from './Slider';
 
 function WriteSurvey(props) {
-	let surveyTypeList = ["주관식", "객관식", "별점", "리커트", "감정바"];
+	let surveyTypeList = ["단답식", "객관식", "별점", "리커트", "감정바"];
 	let [selectedType, setSelectedType] = useState('Type');
 	let [qsItemList, setQsItemList] = useState([]);
 	let [qs, setQs] = useState('');
 	let [star, setStar] = useState(5);
+	let [cate, setCategory] = useState("category");
 
 	useEffect(() => {
 		setQs('')
@@ -26,28 +27,25 @@ function WriteSurvey(props) {
 				style={{ paddingBottom: "1%" }} setSelected={setSelectedType} defaultTitle="Type" />
 			{
 				{
-					"주관식":
+					"단답식":
 						<Form.Control size="sm" type="text" placeholder="질문을 입력하세요" onChange={(e) => {
 							setQs(e.target.value);
 							props.setCurQs(e.target.value);
 						}} />,
 					"객관식":
 						<>
-							<InputGroup>
-								<InputGroup.Radio checked={false}
-									onChange={(e) => {
-										if (e.target.checked == true) {
-											let copy = [...qsItemList, ''];
-											setQsItemList(copy);
-											props.setCurQsItemList(copy);
-										}
-									}} />
-								<Form.Control placeholder="질문을 입력하세요"
-									onChange={(e) => {
+							<Form.Control
+									onChange={(e)=>{
 										setQs(e.target.value);
 										props.setCurQs(e.target.value);
-									}} />
-							</InputGroup>
+									}}/>
+
+							<Button style={{ marginTop: "2%", marginBottom: "2%"}} size="sm" onClick={()=>
+									{
+										let copy = [...qsItemList, ''];
+										setQsItemList(copy);
+										props.setCurQsItemList(copy);}
+									}> 문항추가 </Button>
 							{
 								qsItemList.map((choice, idx) => {
 									return (
@@ -92,16 +90,17 @@ function WriteSurvey(props) {
 						</>,
 					"감정바":
 						<>
-							<Form.Control size="sm" type="text" placeholder="질문을 입력하세요" onChange={(e) => {
+							<Form.Control style={{marginBottom: "2%"}} size="sm" type="text" placeholder="질문을 입력하세요" onChange={(e) => {
 								setQs(e.target.value);
 								props.setCurQs(e.target.value);
+								setCategory(props.category)
 							}} />
-							<Slider />
+							<Slider category = {props.category} />
 						</>,
 				}[selectedType]
 			}
 			<br />
-			<Button variant="primary" style={{ marginLeft: "43.7%" }}
+			<Button variant="primary" style={{ marginLeft: "43.7%", marginTop:"5%" }}
 				onClick={() => {
 					if (qs != '') {
 						let copy = [...props.savedQsList];

@@ -1,6 +1,21 @@
 import {Card, Dropdown, DropdownButton, ListGroup, Button, Row, Col, Container, Form, Accordion} from 'react-bootstrap'
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Workspace() {
+
+	let navigate = useNavigate();
+
+	//공유 시간 및 날짜
+	//렌더링되는 시점의 날짜 및 시간 가져오기
+	var today = new Date();
+	var year = today.getFullYear();
+	var month = ('0' + (today.getMonth() + 1)).slice(-2);
+	var preMonth = ('0' + (today.getMonth())).slice(-2);
+	var day = ('0' + today.getDate()).slice(-2);
+
+	var dateString = year + '-' + month + '-' + day;
+	var preDateString = year + '-' + preMonth + '-' + day;
+
 	return (
 		<>
 			<Row>
@@ -17,18 +32,18 @@ function Workspace() {
 					<Col md="7">
 						<Row>
 							<Col>
-								<Form.Control type="date" defaultValue={"2022-09-21"}></Form.Control>
+								<Form.Control type="date" defaultValue={preDateString}></Form.Control>
 							</Col>
 							<Col>
-								<Form.Control type="date" defaultValue={"2022-09-22"}></Form.Control>
+								<Form.Control type="date" defaultValue={dateString}></Form.Control>
 							</Col>
 						</Row>
 					</Col>
 					<Col md="1">
-						<Button variant="primary">결과 보기</Button>
+						<Button variant="primary" onClick={() => navigate("/workspace/result")}>결과 보기</Button>
 					</Col>
 					<Col md="1">
-						<Button variant="primary">응답자 보기</Button>
+						<Button variant="primary" onClick={() => navigate("/workspace/respondant")}>응답자 보기</Button>
 					</Col>
 				</Row>
 

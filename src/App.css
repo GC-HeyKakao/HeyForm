@@ -319,3 +319,200 @@ fieldset.likertScale .likertResponse > input:checked + .likertIndicator {
   width:fit-content;
   margin:auto;
 }
+
+
+/* 토글 스위치 */
+.toggleInner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+}
+
+.toggleInner:before,
+.toggleInner:after {
+  float: left;
+  width: 50%;
+  height: 36px;
+  padding: 0;
+  box-sizing: border-box;
+  content: "";
+}
+
+.toggleInner:before {
+  background-color: pink;
+}
+
+.toggleInner:after {
+  background-color: #bbb;
+}
+
+.switch {
+  display: block;
+  width: 24px;
+  margin: 5px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 40px;
+  border: 0 solid #bbb;
+  border-radius: 50%;
+ }
+
+ .checkbox:checked + .label .toggleInner {
+  margin-left: 0;
+}
+
+.checkbox:checked + .label .switch {
+  right: 0px;
+}
+
+/* toggleinner와 switch에 적용 */
+/* switch의 transition property는 all을 적용한다 */
+
+
+/* Slider */
+.customSlider {
+  max-width: 500px;
+  margin : auto
+
+}
+
+.percentage {
+  margin-left: 350px;
+  margin-top: 20px;
+  display:flex;
+  font-weight:normal; ;
+}
+
+/* Slider type: exercise */
+.customSlider-track-exercise {
+  top: 15px;
+  height: 40px;
+  background: #eee;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-exercise.customSlider-track-exercise-0 {
+  border-radius: 20px;
+  background: #0D6EFD;
+  margin-left: 20px;
+}
+
+.customSlider-thumb-exercise {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='0' y='55' fill='red' font-size='60'>🏀</text></svg>");
+  background-color: transparent;
+  /* shape of the thumb: circle */
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  margin-left: 0px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+/* Slider type: satisfy */
+.customSlider-track-satisfy {
+  top: 15px;
+  height: 40px;
+  background: #eee;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-satisfy.customSlider-track-satisfy-0 {
+  border-radius: 20px;
+  background: #FF0044;
+  margin-left: 20px;
+}
+
+.customSlider-thumb-satisfy {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='-3' y='55' fill='red' font-size='60'>😍</text></svg>");
+  background-color: transparent;
+  /* shape of the thumb: circle */
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  margin-left:  5px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+/* Slider type: echo */
+.customSlider-track-echo {
+  top: 15px;
+  height: 40px;
+  background: #eee;
+  border-radius: 20px;
+  margin-left: 20px;
+}
+
+.customSlider-track-echo.customSlider-track-echo-0 {
+  border-radius: 20px;
+  background: #3CB371;
+  
+}
+
+.customSlider-thumb-echo {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='-3' y='55' fill='red' font-size='60'>🍀</text></svg>");
+  background-color: transparent;
+  /* shape of the thumb: circle */
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  margin-left: 15px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+/* CreateQR */
+.qrcode {
+  display: flex;
+  justify-content: center;
+}
+
+.qrcodeBtn {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+/* 이메일 공유 */
+.shareComment {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  margin-top:40px
+}
+
+.shareLink {
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-position: under;
+  text-decoration-color: #0D6EFD;
+}
+
+.areaShare {
+  display: flex;
+  justify-content: center;
+}
+
+.areaComment {
+  display: flex;
+  justify-content: center;
+}
+
+.areaPush {
+  display: flex;
+  justify-content: center;
+}
