@@ -11,7 +11,7 @@ const Calendar = ({  /* see data tab */ }) => {
 
     return (
 
-        <div style={{ width: "100%", height: "800px", padding: "10%" }}>
+        <div style={{ width: "100%", height: "800px", padding: "3%" }}>
             <ResponsiveCalendar
                 data={[
                     {
@@ -63,6 +63,7 @@ const Calendar = ({  /* see data tab */ }) => {
                         "day": "2017-06-05"
                     },
                     {
+                        "value": 222,
                         "day": "2016-06-20"
                     },
                     {

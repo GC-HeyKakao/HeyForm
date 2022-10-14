@@ -1,9 +1,11 @@
-import {Card, Dropdown, DropdownButton, ListGroup, Button, Row, Col, Container, Form, Accordion} from 'react-bootstrap'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Card, Dropdown, DropdownButton, ListGroup, Button, Row, Col, Container, Form, Accordion } from 'react-bootstrap'
+import { Result } from '../components/Survey/Result/Result';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { Respondant } from '../components/Survey/Result/Respondant';
+import { TestServey } from '../components/Survey/TestServey';
+
 
 function Workspace() {
-
-	let navigate = useNavigate();
 
 	//공유 시간 및 날짜
 	//렌더링되는 시점의 날짜 및 시간 가져오기
@@ -15,21 +17,24 @@ function Workspace() {
 
 	var dateString = year + '-' + month + '-' + day;
 	var preDateString = year + '-' + preMonth + '-' + day;
+	let view = useRef("설문지");
+
+	const [, updateState] = useState();
+	const forceUpdate = useCallback(() => updateState({}, []));
+
+	useEffect(() => {console.log(view.current) });
 
 	return (
 		<>
 			<Row>
-				<Row style={{marginBottom: "2%", marginTop: "2%"}}>
+				<Row style={{ marginBottom: "2%", marginTop: "2%" }}>
 					<DropdownButton id="dropdown-basic-button" title="제작한 설문지">
-						<Dropdown.Item href="#/action-1">진행 설문1</Dropdown.Item>
-						<Dropdown.Item href="#/action-2">진행 설문2</Dropdown.Item>
-						<Dropdown.Item href="#/action-3">종료 설문1</Dropdown.Item>
-						<Dropdown.Item href="#/action-4">종료 설문2</Dropdown.Item>
+						<Dropdown.Item href="#/action-1">응답한 설문지</Dropdown.Item>
 					</DropdownButton>
 				</Row>
 
 				<Row>
-					<Col md="7">
+					<Col md="4">
 						<Row>
 							<Col>
 								<Form.Control type="date" defaultValue={preDateString}></Form.Control>
@@ -40,16 +45,19 @@ function Workspace() {
 						</Row>
 					</Col>
 					<Col md="1">
-						<Button variant="primary" onClick={() => navigate("/workspace/result")}>결과 보기</Button>
+						<Button variant="primary" onClick={() => { view.current = "설문지"; forceUpdate(); }}>설문지 보기</Button>
 					</Col>
 					<Col md="1">
-						<Button variant="primary" onClick={() => navigate("/workspace/respondant")}>응답자 보기</Button>
+						<Button variant="primary" onClick={() => { view.current = "결과"; forceUpdate(); }}>결과 보기</Button>
+					</Col>
+					<Col md="1">
+						<Button variant="primary" onClick={() => { view.current = "응답자"; forceUpdate(); }}>응답자 보기</Button>
 					</Col>
 				</Row>
 
-				<Row style={{paddingTop: 10}}>
-					<Col>
-						<ListGroup>
+				<Row style={{ paddingTop: 10 }}>
+					<Col md="4">
+						<ListGroup >
 							<ListGroup>
 								<Accordion>
 									<Accordion.Item>
@@ -69,21 +77,36 @@ function Workspace() {
 											<ListGroup.Item>종료 설문2</ListGroup.Item>
 										</Accordion.Body>
 									</Accordion.Item>
-								</Accordion>								
+								</Accordion>
 							</ListGroup>
 						</ListGroup>
 					</Col>
-					<Col>
-						<div className='basicCard'>
-							<Card style={{width: "auto", height: 700, textAlign: "center", paddingTop: 20}}>
-								설문 내용
+					{view.current === "설문지" &&
+						<Col>
+							<div className='basicCard'>
+								<Card style={{ width: "auto", height: 700, textAlign: "center", paddingTop: 20 }}>
+									<TestServey></TestServey>
+								</Card>
+							</div>
+						</Col>}
+
+					{view.current === "결과" &&
+						<Col>
+							<Card style={{ width: "auto", height: 700, textAlign: "center", paddingTop: 20 }}>
+								<Result />
 							</Card>
-						</div>
-					</Col>
+						</Col>}
+
+					{view.current === "응답자" &&
+						<Col>
+							<Card style={{ width: "auto", height: 700, textAlign: "center", paddingTop: 20 }}>
+								<Respondant />
+							</Card>
+						</Col>}
 				</Row>
 			</Row>
 		</>
 	)
 }
 
-export {Workspace}
+export { Workspace }

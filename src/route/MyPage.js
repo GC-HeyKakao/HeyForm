@@ -89,7 +89,7 @@ function MyPage() {
                         </Row>
                         <Button className="center" style={{ margin: "30px" }} onClick={handleLogoutButton}>로그아웃</Button>
                     </div>
-                </div>>
+                </div>
                 <Footer />
             </div>
         </>

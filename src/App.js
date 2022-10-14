@@ -32,8 +32,6 @@ function App() {
       <Route path="/main" element={<MainPage />}/>
         <Route path="/create" element={<CreateSurvey />}/>
         <Route path="/workspace" element={<Workspace />}/>
-        <Route path="/workspace/result" element={<Result />}/>
-        <Route path="/workspace/respondant" element={<Respondant />}/>
         <Route path="/guide" element={<GuidePage />}/>
         <Route path="/login" element={<LoginPage />}/>
         <Route path="/mypage" element={<MyPage />}/>

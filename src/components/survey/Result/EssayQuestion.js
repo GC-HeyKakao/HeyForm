@@ -6,7 +6,7 @@ const EssayQuestion = (props) => {
         const { tutorials, totalPages } = {
             tutorials: [
                 {
-                    응답: "18 Oct 2021",
+                    invoice_date: "18 Oct 2021",
                     company: "ABC Enterprise",
                     invoice_no: "INV/ABC/21-22/109",
                 },
@@ -45,17 +45,17 @@ const EssayQuestion = (props) => {
     const columns = useMemo(
         () => [
             {
-                Header: "응답",
+                Header: "invoice_date",
                 accessor: "invoice_date",
             },
-            // {
-            //     Header: "응답",
-            //     accessor: "company",
-            // },
-            // {
-            //     Header: "Invoice No.",
-            //     accessor: "invoice_no",
-            // },
+            {
+                Header: "invoice Company",
+                accessor: "company",
+            },
+            {
+                Header: "Invoice No.",
+                accessor: "invoice_no",
+            },
         ],
         []
     );
