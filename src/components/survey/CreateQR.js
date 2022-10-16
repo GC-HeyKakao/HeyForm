@@ -29,7 +29,7 @@ function CreateQR() {
             <div className='shareComment'> <br></br><br></br>📌 설문지를 공유할 수 있는 QR코드입니다.</div>
         <br></br>
             <div id="qrcode" className='qrcode'>
-                <QRCodeSVG value="http://localhost:3000/servey" //코드 링크 설정
+                <QRCodeSVG value="http://localhost:3000/survey" //코드 링크 설정
                 />
             </div>
             <br></br>

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { UserInfoContextStore } from '..//UserInfoContext';
 import styled, { css } from "styled-components";
+import Table from '../components/Survey/Result/Table.js';
 
 const ToggleBtn = styled.button`
   width: 120px;
@@ -68,6 +69,7 @@ function MyPage() {
 
     return (
         <>
+        <Table/>
             <div className="wraper">
                 <div className="content" style={{ padding: "100px", marginTop: "50px" }}>
                     <div className="center" style={{ width: "550px" }}>

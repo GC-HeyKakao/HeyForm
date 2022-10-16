@@ -134,7 +134,7 @@ function CreateSurvey() {
 										savedQsList.map((savedQs, idx) => {
 											return (
 												{
-													'주관식':
+													'단답식':
 														<Card className='basicCard' key={idx} >
 															<CloseButton onClick={() => {
 																let copy = [...savedQsList];
@@ -180,7 +180,7 @@ function CreateSurvey() {
 															}} />
 															<Card.Title className='basicCard' > Q{idx + 1}: {savedQs['qs']} </Card.Title>
 														</Card>,
-													'리커트':
+													'리커트 척도':
 														<Card className='basicCard' key={idx} >
 															<CloseButton onClick={() => {
 																let copy = [...savedQsList];
@@ -296,7 +296,7 @@ function CreateSurvey() {
 															   window.localStorage.setItem("surveyTitle", JSON.stringify(surveyTitle));
 															   window.localStorage.setItem("category", selectedCategory);
 															window.localStorage.setItem("shareWay", shareWay);
-														navigate("/servey");}}>설문 제작 완료</Button>
+														navigate("/survey");}}>설문 제작 완료</Button>
 														
 									</div>
 								</Col>

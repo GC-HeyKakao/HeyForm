@@ -516,3 +516,40 @@ fieldset.likertScale .likertResponse > input:checked + .likertIndicator {
   display: flex;
   justify-content: center;
 }
+
+/* Table */
+
+.table-box-wrap {
+		position: relative;
+    /* margin-top: 20px;
+    padding-top: 40px; */
+}
+
+.table-box-wrap .table-box {
+    max-height: 500px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.table-box-wrap .table-box table {
+    width: 90%;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+
+.table-box-wrap .table-box table thead{
+  position: sticky; 
+  top: 0;
+  width: 120px;
+  height: 40px;
+  background: #0D6EFD;
+  color:#fff;
+}
+
+.table-box-wrap .table-box table td{
+  width: 120px;
+  height: 40px;
+  font-size: 15px;
+}

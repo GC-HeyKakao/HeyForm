@@ -1,2 +1,2 @@
 # HeyForm
-Implementation of Servey Form Service
+Implementation of Survey Form Service

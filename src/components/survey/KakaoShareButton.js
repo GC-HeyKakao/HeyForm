@@ -27,7 +27,7 @@ const KakaoShareButton = () => {
                 container: '#kakao-link-btn',
                 objectType: 'feed',
                 content: {
-                    title: '설문 마감 기한: 2022-10-31 ', //get servey-id.name
+                    title: '설문 마감 기한: 2022-10-31 ', //get survey-id.name
                     description: '-와 관련된 설문입니다.',
                     imageUrl: 'logo.png',
                     link: {

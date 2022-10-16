@@ -40,7 +40,7 @@ function EmailHead({todos,onDel}) {
         to_email: email,
         to_user_name: "박수빈",
         from_user_name: "헤이카카오",
-        servey_link: "http://localhost:3000/servey",
+        survey_link: "http://localhost:3000/survey",
       }
 
       emailjs.send(

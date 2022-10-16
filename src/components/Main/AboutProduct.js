@@ -38,9 +38,7 @@ function AboutProduct({ className }) {
 		<div>
 			<div className={className}>
 				<Fade big>
-					<IntroBlock>
-						<br />
-						<br />
+					<IntroBlock style={{marginTop:"5%"}}>
 						<h2>사용자에게 편의를 주는 솔루션을</h2>
 						<h1><strong>헤이폼</strong>이 제안합니다.</h1>
 						<img src="main_promotion.png" align="center"

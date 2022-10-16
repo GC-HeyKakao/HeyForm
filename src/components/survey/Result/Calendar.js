@@ -11,7 +11,7 @@ const Calendar = ({  /* see data tab */ }) => {
 
     return (
 
-        <div style={{ width: "100%", height: "800px", padding: "3%" }}>
+        <div style={{ width: "100%", height: "550px" }}>
             <ResponsiveCalendar
                 data={[
                     {
@@ -81,7 +81,8 @@ const Calendar = ({  /* see data tab */ }) => {
                 //colors={['#7c50b9', '#e267aa', '#ff6f9b', '#ffc36d']}
                 //colors={['#4472C4', '#8EB7FF', '#ffc36d', '#ff6f9b']}
                 colors={['#D8E9FF', '#96D2FF', '#0D6EFD', '#0228B3']} //오른쪽으로 갈수록 진하다
-                margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+                align="top"
+                margin={{ top:60, right: 60,left: 60 }}
                 yearSpacing={40}
                 monthBorderColor="#ffffff"
                 dayBorderWidth={2}

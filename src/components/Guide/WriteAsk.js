@@ -20,7 +20,7 @@ function WriteAsk() {
       to_email: "lcu1027@naver.com",
       to_user_name: "임채윤",
       from_user_name: "헤이카카오",
-      servey_link: "http://localhost:3000/servey",
+      survey_link: "http://localhost:3000/survey",
     }
     emailjs.send(
       'service_qdtvd3j', 

@@ -14,8 +14,8 @@ import { MyPage } from './route/MyPage';
 import { KakaoLogin}  from './route/KakaoLogin';
 import { KakaoLogout } from './route/KakaoLogout';
 import { Result } from './components/Survey/Result/Result';
-import { Respondant } from './components/Survey/Result/Respondant';
-import { TestServey } from './components/Survey/TestServey';
+import { Respondent } from './components/Survey/Result/Respondent';
+import { TestSurvey } from './components/Survey/TestSurvey';
 
 function App() {
   let navigate = useNavigate();
@@ -37,7 +37,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />}/>
         <Route path="/kakaologin" element={<KakaoLogin/>}/>
         <Route path="/kakaologout" element={<KakaoLogout/>}/>
-        <Route path="/servey" element={<TestServey />}/>
+        <Route path="/survey" element={<TestSurvey />}/>
       </Routes>
 
 

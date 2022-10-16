@@ -1,9 +1,8 @@
 import { Card, Dropdown, DropdownButton, ListGroup, Button, Row, Col, Container, Form, Accordion } from 'react-bootstrap'
 import { Result } from '../components/Survey/Result/Result';
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Respondant } from '../components/Survey/Result/Respondant';
-import { TestServey } from '../components/Survey/TestServey';
-
+import { Respondent } from '../components/Survey/Result/Respondent';
+import { TestSurvey } from '../components/Survey/TestSurvey';
 
 function Workspace() {
 
@@ -84,23 +83,23 @@ function Workspace() {
 					{view.current === "설문지" &&
 						<Col>
 							<div className='basicCard'>
-								<Card style={{ width: "auto", height: 700, textAlign: "center", paddingTop: 20 }}>
-									<TestServey></TestServey>
+								<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
+									<TestSurvey></TestSurvey>
 								</Card>
 							</div>
 						</Col>}
 
 					{view.current === "결과" &&
 						<Col>
-							<Card style={{ width: "auto", height: 700, textAlign: "center", paddingTop: 20 }}>
+							<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
 								<Result />
 							</Card>
 						</Col>}
 
 					{view.current === "응답자" &&
 						<Col>
-							<Card style={{ width: "auto", height: 700, textAlign: "center", paddingTop: 20 }}>
-								<Respondant />
+							<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
+								<Respondent />
 							</Card>
 						</Col>}
 				</Row>

@@ -80,7 +80,7 @@ function WriteSurvey(props) {
 							}} />
 							<Star/>
 						</>,
-					"리커트":
+					"리커트 척도":
 						<>
 							<Form.Control size="sm" type="text" placeholder="질문을 입력하세요" onChange={(e) => {
 								setQs(e.target.value);

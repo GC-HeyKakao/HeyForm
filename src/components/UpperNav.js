@@ -37,9 +37,14 @@ function UpperNav() {
 				</Col>
 				<Col md={"7"}>
 					<Nav className="me-auto" style={{ marginLeft: "400px", fontSize: "20px", fontWeight:"500" }}>
-						<Nav.Link style={{ marginLeft: "10px" }} onClick={() => navigate("/create")}>설문 만들기</Nav.Link>
+						{/* 로그인 해야 다른 화면으로 넘어가게 */}
+						<Nav.Link style={{ marginLeft: "10px" }} onClick={UserInfo.id == -1 ? handleLogin :() => navigate("/create")}>설문 만들기</Nav.Link>
+						<Nav.Link style={{ marginLeft: "10px" }} onClick={UserInfo.id == -1 ? handleLogin :() => navigate("/workspace")}>워크 스페이스</Nav.Link>
+						<Nav.Link style={{ marginLeft: "10px" }} onClick={UserInfo.id == -1 ? handleLogin :() => navigate("/guide")}>이용 가이드</Nav.Link>
+						{/* <Nav.Link style={{ marginLeft: "10px" }} onClick={() => navigate("/create")}>설문 만들기</Nav.Link>
 						<Nav.Link style={{ marginLeft: "10px" }} onClick={() => navigate("/workspace")}>워크 스페이스</Nav.Link>
-						<Nav.Link style={{ marginLeft: "10px" }} onClick={() => navigate("/guide")}>이용 가이드</Nav.Link>
+						<Nav.Link style={{ marginLeft: "10px" }} onClick={() => navigate("/guide")}>이용 가이드</Nav.Link> */}
+
 					</Nav>
 				</Col>
 				<Col md={"3"}>

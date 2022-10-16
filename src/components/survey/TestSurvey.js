@@ -3,7 +3,7 @@ import { CreateQR } from "./CreateQR";
 import { SetPush } from "./SetPush";
 
 //완성된 설문지를 확인해보기 위한 js
-function TestServey()
+function TestSurvey()
 {
     const savedQsList = JSON.parse(window.localStorage.getItem("savedQsList"));
     const curQs = JSON.parse(window.localStorage.getItem("curQs"));
@@ -56,4 +56,4 @@ function TestServey()
       );
 }
 
-export {TestServey}
+export {TestSurvey}
