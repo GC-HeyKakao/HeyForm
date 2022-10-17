@@ -23,18 +23,19 @@ function Workspace() {
 	let view = useRef("설문지");
 	let count = window.localStorage.getItem("count");
 	let navigate = useNavigate();
-	var id = new Array();
+	var ingId = new Array();
+	var endId = new Array();
+	var AnswerIngId = new Array();
+	var AnswerEndId = new Array();
 
-	if(window.localStorage.getItem('count')!=0)
-	{
+	if (window.localStorage.getItem('count') != 0) {
 
-		for(var i=1; i<count+1; i++) {
+		for (var i = 1; i < count + 1; i++) {
 
-			if(window.localStorage.getItem('token')==window.localStorage.getItem('creater['+i +"]"))
-			{
-				id.push(i);
+			if (window.localStorage.getItem('token') == window.localStorage.getItem('creater[' + i + "]")) {
+				ingId.push(i);
 			}
-			else{
+			else {
 				continue;
 			}
 		}
@@ -43,103 +44,169 @@ function Workspace() {
 	const [, updateState] = useState();
 	const forceUpdate = useCallback(() => updateState({}, []));
 	const [selectNum, setSelectNum] = useState(0);
+	const [viewSwitch, setViewSwitch] = useState('제작');
 
-	let UserInfo = useContext(UserInfoContextStore);
-
-	useEffect(() => {console.log(view.current) });
+	useEffect(() => { console.log(view.current) });
 
 	return (
 		<>
-			<Row>
-				<Row style={{ marginBottom: "2%", marginTop: "2%" }}>
-					<DropdownButton id="dropdown-basic-button" title="제작한 설문지">
-						<Dropdown.Item href="#/action-1">응답한 설문지</Dropdown.Item>
-					</DropdownButton>
-				</Row>
 
+			{viewSwitch === "제작" && <div>
 				<Row>
-					<Col md="4">
-						<Row>
-							<Col>
-								<Form.Control type="date" defaultValue={preDateString}></Form.Control>
-							</Col>
-							<Col>
-								<Form.Control type="date" defaultValue={dateString}></Form.Control>
-							</Col>
-						</Row>
-					</Col>
-					<Col md="1">
-						<Button variant="primary" onClick={() => { view.current = "설문지"; forceUpdate(); }}>설문지 보기</Button>
-					</Col>
-					<Col md="1">
-						<Button variant="primary" onClick={() => { view.current = "결과"; forceUpdate(); }}>결과 보기</Button>
-					</Col>
-					<Col md="1">
-						<Button variant="primary" onClick={() => { view.current = "응답자"; forceUpdate(); }}>응답자 보기</Button>
-					</Col>
-				</Row>
+					<Row style={{ marginBottom: "2%", marginTop: "2%" }}>
+						<DropdownButton id="dropdown-basic-button" title="제작한 설문지">
+							<Dropdown.Item onClick={()=>{setViewSwitch("응답"); forceUpdate();}}>응답한 설문지</Dropdown.Item>
+						</DropdownButton>
+					</Row>
 
-				<Row style={{ paddingTop: 10 }}>
-					<Col md="4">
-						<ListGroup >
-							<ListGroup>
-								<Accordion>
-									<Accordion.Item>
-										<Accordion.Header>진행중인 설문</Accordion.Header>
-										<Accordion.Body>
-									{
-										id.map((idx)=><ListGroup.Item onClick={()=>{setSelectNum(idx); alert(idx)}}>진행설문{idx}</ListGroup.Item>)
-									}
-										</Accordion.Body>
-									</Accordion.Item>
-								</Accordion>
+					<Row>
+						<Col md="4">
+							<Row>
+								<Col>
+									<Form.Control type="date" defaultValue={preDateString}></Form.Control>
+								</Col>
+								<Col>
+									<Form.Control type="date" defaultValue={dateString}></Form.Control>
+								</Col>
+							</Row>
+						</Col>
+						<Col md="1">
+							<Button variant="primary" onClick={() => { view.current = "설문지"; forceUpdate(); }}>설문지 보기</Button>
+						</Col>
+						<Col md="1">
+							<Button variant="primary" onClick={() => { view.current = "결과"; forceUpdate(); }}>결과 보기</Button>
+						</Col>
+						<Col md="1">
+							<Button variant="primary" onClick={() => { view.current = "응답자"; forceUpdate(); }}>응답자 보기</Button>
+						</Col>
+					</Row>
 
-								<Accordion>
-									<Accordion.Item>
-										<Accordion.Header>기간이 종료된 설문</Accordion.Header>
-										<Accordion.Body>
-											<ListGroup.Item>종료 설문1</ListGroup.Item>
-											<ListGroup.Item>종료 설문2</ListGroup.Item>
-										</Accordion.Body>
-									</Accordion.Item>
-								</Accordion>
+					<Row style={{ paddingTop: 10 }}>
+						<Col md="4">
+							<ListGroup >
+								<ListGroup>
+									<Accordion>
+										<Accordion.Item>
+											<Accordion.Header>진행중인 설문</Accordion.Header>
+											<Accordion.Body>
+												{
+													ingId.map((idx) => <ListGroup.Item onClick={() => { setSelectNum(idx); }}><Button style={{ backgroundColor: "transparent", color: "black", border: "none" }}>진행 설문{idx}</Button></ListGroup.Item>)
+												}
+											</Accordion.Body>
+										</Accordion.Item>
+									</Accordion>
+
+									<Accordion>
+										<Accordion.Item>
+											<Accordion.Header>기간이 종료된 설문</Accordion.Header>
+											<Accordion.Body>
+												{
+													endId.map((idx) => <ListGroup.Item onClick={() => { setSelectNum(idx); }}><Button style={{ backgroundColor: "transparent", color: "black", border: "none" }}>종료 설문{idx}</Button></ListGroup.Item>)
+												}
+											</Accordion.Body>
+										</Accordion.Item>
+									</Accordion>
+								</ListGroup>
 							</ListGroup>
-						</ListGroup>
-					</Col>
-					{view.current === "설문지" && selectNum === 0 &&
-						<Col>
-							<div className='basicCard'>
-								<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-									<></>
-								</Card>
-							</div>
-						</Col>}
-					{view.current === "설문지" && selectNum !== 0 &&
-						<Col>
-							<div className='basicCard'>
-								<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-									<SurveyView surveyId={selectNum}/>
-								</Card>
-							</div>
-						</Col>}
+						</Col>
+						{view.current === "설문지" && selectNum === 0 &&
+							<Col>
+								<div className='basicCard'>
+									<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
+										<></>
+									</Card>
+								</div>
+							</Col>}
+						{view.current === "설문지" && selectNum !== 0 &&
+							<Col>
+								<div className='basicCard'>
+									<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
+										<SurveyView surveyId={selectNum} />
+									</Card>
+								</div>
+							</Col>}
 
-					{view.current === "결과" && selectNum !== 0 &&
-						<Col>
-							<div className='basicCard'>
-								<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-									<Result/>
-								</Card>
-							</div>
-						</Col>}
+						{view.current === "결과" && selectNum !== 0 &&
+							<Col>
+								<div className='basicCard'>
+									<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
+										<Result />
+									</Card>
+								</div>
+							</Col>}
 
-					{view.current === "응답자" &&
-						<Col>
-							<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-								<Respondent />
-							</Card>
-						</Col>}
+						{view.current === "응답자" &&
+							<Col>
+								<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
+									<Respondent />
+								</Card>
+							</Col>}
+					</Row>
 				</Row>
-			</Row>
+			</div>}
+
+			{viewSwitch === "응답" && <div>
+				<Row>
+					<Row style={{ marginBottom: "2%", marginTop: "2%" }}>
+						<DropdownButton id="dropdown-basic-button" title="응답한 설문지">
+							<Dropdown.Item onClick={()=>{setViewSwitch("제작"); forceUpdate();}}>제작한 설문지</Dropdown.Item>
+						</DropdownButton>
+					</Row>
+
+					<Row>
+						<Col md="4">
+							<Row>
+								<Col>
+									<Form.Control type="date" defaultValue={preDateString}></Form.Control>
+								</Col>
+								<Col>
+									<Form.Control type="date" defaultValue={dateString}></Form.Control>
+								</Col>
+							</Row>
+						</Col>
+						<Col md="1">
+							<Button variant="primary" onClick={() => { view.current = "설문지"; forceUpdate(); }}>설문지 보기</Button>
+						</Col>
+					</Row>
+
+					<Row style={{ paddingTop: 10 }}>
+						<Col md="4">
+							<ListGroup >
+								<ListGroup>
+									<Accordion>
+										<Accordion.Item>
+											<Accordion.Header>진행중인 설문</Accordion.Header>
+											<Accordion.Body>
+												{
+													AnswerIngId.map((idx) => <ListGroup.Item onClick={() => { setSelectNum(idx); }}><Button style={{ backgroundColor: "transparent", color: "black", border: "none" }}>진행 설문{idx}</Button></ListGroup.Item>)
+												}
+											</Accordion.Body>
+										</Accordion.Item>
+									</Accordion>
+
+									<Accordion>
+										<Accordion.Item>
+											<Accordion.Header>기간이 종료된 설문</Accordion.Header>
+											<Accordion.Body>
+												{
+													AnswerEndId.map((idx) => <ListGroup.Item onClick={() => { setSelectNum(idx); }}><Button style={{ backgroundColor: "transparent", color: "black", border: "none" }}>종료 설문{idx}</Button></ListGroup.Item>)
+												}
+											</Accordion.Body>
+										</Accordion.Item>
+									</Accordion>
+								</ListGroup>
+							</ListGroup>
+						</Col>
+							<Col>
+								<div className='basicCard'>
+									<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
+										<></>
+									</Card>
+								</div>
+							</Col>
+					</Row>
+				</Row>
+			</div>}
 		</>
 	)
 }
