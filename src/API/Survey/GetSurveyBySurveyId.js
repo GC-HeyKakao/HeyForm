@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const GetSurveyBySurveyId = async () => {
+const GetSurveyBySurveyId = async (props) => {
 
     let SurveyInfo = null;
-    let surveyId = 3; //props로 전달
+    let surveyId = props.surveyId; //props로 전달
 
     const headers = {
         Authorization: localStorage.getItem('token')

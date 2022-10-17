@@ -15,7 +15,7 @@ const LikertChartResult = (props) => {
     return (
         // chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정
         <>
-            <h5>리커트 척도 문항: 질문이 들어갈 자리입니다</h5>
+            <h5>리커트 척도 문항: Q1. 주기적으로 새로운 친구를 만든다.</h5>
             <div style={{ width: '800px', height: '450px', padding: "0px", marginLeft: "100px" }} >
                 <ResponsiveBar className="center"
                     /**

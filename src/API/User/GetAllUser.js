@@ -23,6 +23,8 @@ const GetAllUser = async () => {
   let Users = JSON.stringify(response.data);
   console.log(Users);
 
+  return Users;
+
 }
 
 export { GetAllUser };

@@ -31,15 +31,7 @@ function Respondent(props) {
 					</Col>
 				</Row>
 			</div>
-			<div calssName="center-wrapper-150" style={{ textAlign: "center" }}>
-				<h3>📮 응답자 목록 📮</h3>
-				<Row calssName="center" style={{ marginTop: "5%" }}>
-					<Col>
-						{/* 응답자 목록 테이블  */}
-						<RespondentTable/>
-					</Col>
-				</Row>
-			</div>
+			
 		</>
 	)
 }

@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext, useReducer } from 'react';
+import { CreateSurveyByURL } from './Survey/CreateSurveyByURL';
 import { DeleteSurvey } from './Survey/DeleteSurvey';
+import { GetAllSurvey } from './Survey/GetAllSurvey';
 import { GetSurveyByUserAccount } from './Survey/GetSurveyByUserAccount';
 import { PostSurvey } from './Survey/PostSurvey';
 import { UpdateSurvey } from './Survey/UpdateSurvey';
+import { GetAllUser } from './User/GetAllUser';
 
 
 function Users() {
@@ -10,7 +13,8 @@ function Users() {
   const [users, setUsers] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  
+  
     //try {
     
       // const response = await axios.get('http://210.109.61.98:8080/survey/post/test');
@@ -47,14 +51,14 @@ function Users() {
   useEffect(() => {
     //GetSurveyBySurveyId();
     //DeleteSurvey();
-    // GetAllUser();
+    //GetAllUser();
     // GetAllSurvey();
     // GetAllQuestion();
     // GetAllAnswer();
     //GetSurveyByUserAccount();
     //DeleteSurvey();
-    PostSurvey();
-    UpdateSurvey();
+    //PostSurvey();
+    CreateSurveyByURL();
 
   }, []);
 

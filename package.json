@@ -2,7 +2,7 @@
   "name": "heyform",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://210.109.61.98",
+  "proxy": "http://210.109.60.134:8080",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^35.2.1",
     "@ckeditor/ckeditor5-react": "^5.0.2",
@@ -75,5 +75,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }

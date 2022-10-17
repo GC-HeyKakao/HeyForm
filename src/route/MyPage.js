@@ -66,7 +66,7 @@ function MyPage() {
         <>
             <div className="wraper">
                 <div className="content" style={{ padding: "100px", marginTop: "50px" }}>
-                    <div className="center" style={{ width: "550px" }}>
+                    <div className="center" style={{ width: "600px" }}>
                         <Row style={{ margin: "20px" }}>
                             <Col><h3>이름</h3></Col>
                             {/* <Col><h3>{UserInfo.name}님</h3></Col> */}
@@ -85,7 +85,7 @@ function MyPage() {
                                 </ToggleBtn>
                             </Col>
                         </Row>
-                        <Button className="center" style={{ margin: "30px" }} onClick={handleLogoutButton}>로그아웃</Button>
+                        <Button className="center" style={{ margin: "30px", marginLeft: "240px", width:"100px" }} onClick={handleLogoutButton}>로그아웃</Button>
                     </div>
                 </div>
                 <Footer />

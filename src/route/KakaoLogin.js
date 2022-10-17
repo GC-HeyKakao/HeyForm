@@ -10,9 +10,6 @@ function KakaoLogin() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
-    // // 유저 정보 관리 context api
-    // let UserInfo = useContext(UserInfoContextStore);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -42,9 +39,9 @@ function KakaoLogin() {
             });
 
     };
+    
     const getUserInfo = () => {
 
-        // console.log('get 시작', UserInfo);
 
         fetch('https://kapi.kakao.com/v2/user/me', {
             method: 'POST',

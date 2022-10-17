@@ -76,7 +76,8 @@ function MainPage() {
 
 	
 	useEffect(() => {
-		
+		PostUser();
+
 		if (localStorage.getItem('first') === 'true' && localStorage.getItem('name')) {
 			// {username}님 환영합니다
 			console.log(localStorage.getItem('first'));
@@ -85,7 +86,7 @@ function MainPage() {
 			PostUser();
 
 		} else if (localStorage.getItem('first') === null) {
-			// 헤이폼이 처음이신가요
+			// 최초 접속시 
 			setNonUser(true);
 			setUser(false)
 			localStorage.setItem('first', true);

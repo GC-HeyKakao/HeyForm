@@ -11,8 +11,9 @@ const KakaoShareButton = () => {
         createKakaoButton()
     }, [])
 
-    const createKakaoButton = () => {
-        // kakao sdk script이 정상적으로 불러와졌으면 window.Kakao로 접근이 가능합니다
+    
+    const createKakaoButton = (props) => {
+        // kakao sdk script이 정상적으로 불러와졌으면 window.Kakao로 접근이 가능
         if (window.Kakao) {
             const kakao = window.Kakao
 
@@ -28,8 +29,8 @@ const KakaoShareButton = () => {
                 container: '#kakao-link-btn',
                 objectType: 'feed',
                 content: {
-                    title: '설문 마감 기한: 2022-10-31 ', //get survey-id.name
-                    description: '-와 관련된 설문입니다.',
+                    title: "설문 마감 기한" + props.date, //get survey-id.name
+                    description: props.description,
                     imageUrl: 'logo.png',
                     link: {
                         mobileWebUrl: window.location.href,

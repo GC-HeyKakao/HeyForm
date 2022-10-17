@@ -2,11 +2,9 @@ import { Card, Dropdown, DropdownButton, ListGroup, Button, Row, Col, Container,
 import { Result } from '../components/Survey/Result/Result';
 import { useState, useRef, useEffect, useCallback, useContext } from 'react';
 import { Respondent } from '../components/Survey/Result/Respondent';
-import { ShareSurvey } from '../components/Survey/ShareSurvey';
-import { SurveySheet } from '../components/Survey/SurveySheet'
-import { UserInfoContextStore } from '..//UserInfoContext';
 import { useNavigate } from 'react-router-dom';
 import { SurveyView } from '../components/Workspace/SurveyView'
+import { GetSurveyBySurveyId } from '../API/Survey/GetSurveyBySurveyId';
 
 function Workspace() {
 
@@ -46,7 +44,9 @@ function Workspace() {
 	const [selectNum, setSelectNum] = useState(0);
 	const [viewSwitch, setViewSwitch] = useState('제작');
 
-	useEffect(() => { console.log(view.current) });
+	useEffect(() => { 
+		GetSurveyBySurveyId();
+	 });
 
 	return (
 		<>
