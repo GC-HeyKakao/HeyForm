@@ -76,15 +76,8 @@ function MainPage() {
 
 	
 	useEffect(() => {
-		// if (localStorage.getItem('first') === 'false') {
-		// 	UserInfo.first = 'false';
-		// }
-
-		// console.log(typeof (localStorage.getItem('first')));
-		// console.log(typeof (localStorage.getItem('id')));
-		// console.log('usrinfoid type', typeof (UserInfo.id));
-
-		if (localStorage.getItem('first') === 'true') {
+		
+		if (localStorage.getItem('first') === 'true' && localStorage.getItem('name')) {
 			// {username}님 환영합니다
 			console.log(localStorage.getItem('first'));
 			setUser(true);

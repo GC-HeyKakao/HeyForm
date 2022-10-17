@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { Button, Dropdown } from 'react-bootstrap'
 import { JAVASCRIPT_KEY } from '../../OAuth'
 import { Helmet } from 'react-helmet'
+import sendKakaoBtn from '../../sendKakaoBtn.png';
 
 const KakaoShareButton = () => {
 
@@ -66,7 +67,7 @@ const KakaoShareButton = () => {
             <div className="kakao-share-button">
                 {/* Kakao share button */}
                 <button id="kakao-link-btn" style={{ backgroundColor:"transparent", color:"black", border:"none"}}>
-                <img src = "sendKakaoBtn.png"></img>
+                <img src = {sendKakaoBtn}></img>
                 </button>
             </div >
         

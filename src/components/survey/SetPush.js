@@ -17,7 +17,7 @@ function SetPush() {
                     <br></br>
                 </div>
                 <div style={{marginTop:"3%"}}>
-                    <EmailShareButton />
+                    <EmailShareButton link={window.location.href}/>
                 </div>
                 
             </div>

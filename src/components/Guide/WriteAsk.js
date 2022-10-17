@@ -11,28 +11,8 @@ function WriteAsk() {
 
   //email 보내기
   const onSubmit = useCallback((e) => {
-    e.preventDefault();
 
-    emailjs.init("QWLdVWHIWIdwz4wqd");
-
-    //email-js 템플릿 파라미터
-    var params = { 
-      to_email: "lcu1027@naver.com",
-      to_user_name: "임채윤",
-      from_user_name: "헤이카카오",
-      survey_link: "http://localhost:3000/survey",
-    }
-    emailjs.send(
-      'service_qdtvd3j', 
-        'template_1ruh25n', 
-        params
-        
-    ).then((result) => {
-        console.log('result.text', result.text);
-
-    }, (error) => {
-        console.log(error.text);
-    });
+    alert("소중한 의견 감사합니다.😍")
     
 }, []);
 

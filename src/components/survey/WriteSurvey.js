@@ -28,7 +28,8 @@ function WriteSurvey(props) {
 			{
 				{
 					"단답식":
-						<Form.Control size="sm" type="text" placeholder="질문을 입력하세요" onChange={(e) => {
+						<Form.Control size="sm" type="text" placeholder="질문을 입력하세요" 
+							onChange={(e) => {
 							setQs(e.target.value);
 							props.setCurQs(e.target.value);
 						}} />,
@@ -80,7 +81,7 @@ function WriteSurvey(props) {
 							}} />
 							<Star/>
 						</>,
-					"리커트 척도":
+					"리커트":
 						<>
 							<Form.Control size="sm" type="text" placeholder="질문을 입력하세요" onChange={(e) => {
 								setQs(e.target.value);

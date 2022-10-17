@@ -5,6 +5,8 @@ import { Respondent } from '../components/Survey/Result/Respondent';
 import { ShareSurvey } from '../components/Survey/ShareSurvey';
 import { SurveySheet } from '../components/Survey/SurveySheet'
 import { UserInfoContextStore } from '..//UserInfoContext';
+import { useNavigate } from 'react-router-dom';
+import { SurveyView } from '../components/Workspace/SurveyView'
 
 function Workspace() {
 
@@ -19,9 +21,28 @@ function Workspace() {
 	var dateString = year + '-' + month + '-' + day;
 	var preDateString = year + '-' + preMonth + '-' + day;
 	let view = useRef("설문지");
+	let count = window.localStorage.getItem("count");
+	let navigate = useNavigate();
+	var id = new Array();
+
+	if(window.localStorage.getItem('count')!=0)
+	{
+
+		for(var i=1; i<count+1; i++) {
+
+			if(window.localStorage.getItem('token')==window.localStorage.getItem('creater['+i +"]"))
+			{
+				id.push(i);
+			}
+			else{
+				continue;
+			}
+		}
+	}
 
 	const [, updateState] = useState();
 	const forceUpdate = useCallback(() => updateState({}, []));
+	const [selectNum, setSelectNum] = useState(0);
 
 	let UserInfo = useContext(UserInfoContextStore);
 
@@ -66,8 +87,9 @@ function Workspace() {
 									<Accordion.Item>
 										<Accordion.Header>진행중인 설문</Accordion.Header>
 										<Accordion.Body>
-											<ListGroup.Item>진행 설문1</ListGroup.Item>
-											<ListGroup.Item>진행 설문2</ListGroup.Item>
+									{
+										id.map((idx)=><ListGroup.Item onClick={()=>{setSelectNum(idx); alert(idx)}}>진행설문{idx}</ListGroup.Item>)
+									}
 										</Accordion.Body>
 									</Accordion.Item>
 								</Accordion>
@@ -84,20 +106,30 @@ function Workspace() {
 							</ListGroup>
 						</ListGroup>
 					</Col>
-					{view.current === "설문지" &&
+					{view.current === "설문지" && selectNum === 0 &&
 						<Col>
 							<div className='basicCard'>
 								<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-									{/* <SurveySheet></SurveySheet> */}
+									<></>
+								</Card>
+							</div>
+						</Col>}
+					{view.current === "설문지" && selectNum !== 0 &&
+						<Col>
+							<div className='basicCard'>
+								<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
+									<SurveyView surveyId={selectNum}/>
 								</Card>
 							</div>
 						</Col>}
 
-					{view.current === "결과" &&
+					{view.current === "결과" && selectNum !== 0 &&
 						<Col>
-							<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-								<Result />
-							</Card>
+							<div className='basicCard'>
+								<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
+									<Result/>
+								</Card>
+							</div>
 						</Col>}
 
 					{view.current === "응답자" &&

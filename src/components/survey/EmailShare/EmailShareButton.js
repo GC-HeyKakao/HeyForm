@@ -3,8 +3,9 @@ import { Modal } from 'react-bootstrap'
 import {EmailInput} from './EmailInput';
 import {EmailList} from './EmailList';
 import { EmailHead } from './EmailHead';
+import sendEmailBtn from '../../../sendEmailBtn.png'
 
-function EmailShareButton() {
+function EmailShareButton(props) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -35,7 +36,7 @@ function EmailShareButton() {
             
                 <Modal stylec={{  width: "512px", height: "768px"}} className="Modal" show={show} onHide={handleClose}>
                     
-                    <EmailHead todos={todos} onDel/>
+                    <EmailHead link={props.link} todos={todos} onDel/>
                     <EmailList todos={todos} onDel={onDel}/>
                     <EmailInput onAdd={onAdd}/>
                     
@@ -47,7 +48,7 @@ function EmailShareButton() {
         <div className="kakao-share-button">
             {/* Email share button */}
             <button id="Email-link-btn" style={{backgroundColor:"transparent", color:"black", border:"none"}} onClick={()=>{handleShow()}}>
-                <img src = "sendEmailBtn.png"></img>
+            <img src={sendEmailBtn}></img>
             </button>
         </div >
 

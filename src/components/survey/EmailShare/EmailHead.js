@@ -25,7 +25,7 @@ const TasksLeft = styled.div`
   font-weight: bold;
 `;
 
-function EmailHead({todos,onDel}) {
+function EmailHead({link, todos,onDel}) {
 
   let count = 0;
 
@@ -40,7 +40,7 @@ function EmailHead({todos,onDel}) {
         to_email: email,
         to_user_name: "박수빈",
         from_user_name: "헤이카카오",
-        survey_link: "http://localhost:3000/survey",
+        survey_link: link,
       }
 
       emailjs.send(

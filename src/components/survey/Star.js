@@ -2,7 +2,7 @@ import ReactStars from 'react-stars'
 import React from 'react'
 import { useState } from 'react'
 
-const Star = () => {
+const Star = (props) => {
     const [currentValue, setCurrentValue] = useState(0);
 
 
@@ -16,7 +16,15 @@ const Star = () => {
                 color2={'#ffd700'}
                 edit={true}
             />
+
+            {
+                console.log('type : 별점' + 'idx : ' + props.idx + ', value : ' + currentValue)
+            }
+            
         </>
+
+
+
     );
 }
 export default Star;

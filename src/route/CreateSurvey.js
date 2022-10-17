@@ -19,9 +19,9 @@ function CreateSurvey() {
 	let [surveyTitle, setSurveyTitle] = useState('');
 	let [surveyId, setSurveyId] = useState(0);
 	let [survey, setSurvey] = useState([]);
-
 	let [viewSwitch, setViewSwitch] = useState('create');
 	let [shareWay, setShareWay] = useState('shareWay');
+	let count = window.localStorage.getItem("count");
 
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
@@ -94,13 +94,15 @@ function CreateSurvey() {
 	// 설문 저장하기 버튼을 누를 때
 	const handleButton = async(e) => {
 		setShow(true);
-		window.localStorage.setItem("surveyId", 0);
-		window.localStorage.setItem("savedQsList", JSON.stringify(savedQsList)); 
-		window.localStorage.setItem("curQs", JSON.stringify(curQs));
-		window.localStorage.setItem("curQsItemList", JSON.stringify(curQsItemList));
-		window.localStorage.setItem("curSelectedType", JSON.stringify(curSelectedType));
-		window.localStorage.setItem("surveyTitle", JSON.stringify(surveyTitle));
-		window.localStorage.setItem("category", selectedCategory);
+		window.localStorage.setItem("count", parseInt(window.localStorage.getItem("count"))+1);
+		count=parseInt(window.localStorage.getItem("count"));
+		window.localStorage.setItem("savedQsList["+count+"]", JSON.stringify(savedQsList)); 
+		window.localStorage.setItem("curQs["+count+"]", JSON.stringify(curQs));
+		window.localStorage.setItem("curQsItemList["+count+"]", JSON.stringify(curQsItemList));
+		window.localStorage.setItem("curSelectedType["+count+"]", JSON.stringify(curSelectedType));
+		window.localStorage.setItem("surveyTitle["+count+"]", JSON.stringify(surveyTitle));
+		window.localStorage.setItem("category["+count+"]", selectedCategory);
+		window.localStorage.setItem("creater["+count+"]", window.localStorage.getItem("token"));
 		PostSurvey();
 
 	}
@@ -157,7 +159,7 @@ function CreateSurvey() {
 										savedQsList.map((savedQs, idx) => {
 											return (
 												{
-													'주관식':
+													'단답식':
 														<Card className='basicCard' key={idx} >
 															<CloseButton onClick={() => {
 																let copy = [...savedQsList];
@@ -312,8 +314,8 @@ function CreateSurvey() {
 										<Button variant="primary" className="center" 
 												style={{ marginTop: 30 }} 
 												onClick={()=> {
-													window.localStorage.setItem("shareWay", shareWay);
-													navigate("/survey/"+surveyId);}
+													window.localStorage.setItem("shareWay["+count+"]", shareWay);
+													navigate("/survey/"+count);}
 													}
 														>설문 제작 완료</Button>
 											<div>

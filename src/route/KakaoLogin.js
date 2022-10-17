@@ -61,6 +61,9 @@ function KakaoLogin() {
                     if (localStorage.getItem('first') === null) {
                         localStorage.setItem('first', true);
                     }
+                    if (localStorage.getItem('count') === null) {
+                        localStorage.setItem('count', 0);
+                    }
                     localStorage.setItem('age', data.kakao_account.age_range);
                     localStorage.setItem('gender', data.kakao_account.gender); //male, female
                     localStorage.setItem('push', false);

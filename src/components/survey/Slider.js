@@ -29,7 +29,9 @@ function Slider (props) {
           max={100}
           defaultValue={0}
           value={currentValue}
-          onChange={(value) => setCurrentValue(value)}
+          onChange={(value) => setCurrentValue(value)
+          }
+          
           />
 
           :
@@ -62,10 +64,14 @@ function Slider (props) {
 
             </>
 
-
+            
     }
+
     
-    {/* <div style={{marginLeft:"30%"}} className="percentage">{currentValue}%</div> */}
+    
+    {
+      console.log('type : 감정바' + 'idx : ' + props.idx + ', value : ' + currentValue)
+      }
     <div style={{marginLeft:"30%", marginBottom:"5%"}} className="percentage"></div>
     </>
   );

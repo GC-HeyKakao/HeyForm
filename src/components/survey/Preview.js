@@ -75,7 +75,7 @@ function Preview(props) {
 											<Star />
 										</Card.Body>
 									</Card>,
-								'리커트 척도':
+								'리커트':
 									<Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
 										<Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
 										<Card.Body>
@@ -116,7 +116,7 @@ function Preview(props) {
 									<Card.Title>Q{props.savedQsList.length + 1}: {props.curQs} </Card.Title>
 									<Star />
 								</>,
-							'리커트 척도':
+							'리커트':
 								<>
 									<Card.Title>Q{props.savedQsList.length + 1}: {props.curQs} </Card.Title>
 									<Likertchart />

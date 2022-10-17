@@ -4,10 +4,11 @@ import { SetPush } from "./SetPush";
 import {CreateLink } from "./CreateLink"
 import { useParams } from 'react-router-dom'
 
+
 //완성된 설문지를 확인해보기 위한 js
-function ShareSurvey()
+function ShareSurvey(props)
 {
-    const shareWay = window.localStorage.getItem("shareWay")
+    const shareWay = props.shareWay;
     
     //surveyId를 '1'이라고 가정
     //const { surveyId } = useParams();
@@ -19,7 +20,7 @@ function ShareSurvey()
             
             <div className="areaShare">
               <div style={{marginRight:"5%"}}>
-                <CreateQR />
+                <CreateQR link={window.location.href}/>
               </div>
               <div style={{marginLeft:"5%"}}>
                 <SetPush />
@@ -33,7 +34,7 @@ function ShareSurvey()
             shareWay === "Link"?
             <div className="areaShare">
               <div style={{marginRight:"5%"}}>
-                <CreateLink/>
+                <CreateLink link={window.location.href}/>
               </div>
               <div style={{marginLeft:"5%"}}>
                 <SetPush/>
