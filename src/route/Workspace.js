@@ -1,8 +1,10 @@
 import { Card, Dropdown, DropdownButton, ListGroup, Button, Row, Col, Container, Form, Accordion } from 'react-bootstrap'
 import { Result } from '../components/Survey/Result/Result';
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useContext } from 'react';
 import { Respondent } from '../components/Survey/Result/Respondent';
-import { TestSurvey } from '../components/Survey/TestSurvey';
+import { ShareSurvey } from '../components/Survey/ShareSurvey';
+import { SurveySheet } from '../components/Survey/SurveySheet'
+import { UserInfoContextStore } from '..//UserInfoContext';
 
 function Workspace() {
 
@@ -20,6 +22,8 @@ function Workspace() {
 
 	const [, updateState] = useState();
 	const forceUpdate = useCallback(() => updateState({}, []));
+
+	let UserInfo = useContext(UserInfoContextStore);
 
 	useEffect(() => {console.log(view.current) });
 
@@ -84,7 +88,7 @@ function Workspace() {
 						<Col>
 							<div className='basicCard'>
 								<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-									<TestSurvey></TestSurvey>
+									{/* <SurveySheet></SurveySheet> */}
 								</Card>
 							</div>
 						</Col>}

@@ -10,13 +10,13 @@ export const UserInfoContextStore = createContext();
  * **/
 const UserInfoContext = (props) => {
 
-    const [ id, setId ] = useState(-1); // 유저 아이디
+    const [ id, setId ] = useState(null); // 유저 아이디
     const [ token, setToken ] = useState(''); // 유저 토큰값
     const [ name, setName ] = useState('홍길동'); // 유저 이름
     const [ email, setEmail ] = useState('heyform@example.com'); // 유저 이메일
-    const [ first, setFirst ] = useState(true); // 유저 최초 접속, 로그인 후 할당
-    const [ push, setPush ] = useState(false); // 유저 알림 여부
-    const [ age, setAge ] = useState(0); // 유저 나이대
+    const [ first, setFirst ] = useState('true'); // 유저 최초 접속, 로그인 후 할당
+    const [ push, setPush ] = useState('false'); // 유저 알림 여부
+    const [ age_range, setAge_range ] = useState(0); // 유저 나이대
     const [ gender, setGender ] = useState(''); // 유저 성별
     
     //유저 정보를 하나의 객체로 만들어준다.
@@ -33,8 +33,8 @@ const UserInfoContext = (props) => {
         setFirst,
         push,
         setPush,
-        age,
-        setAge,
+        age_range,
+        setAge_range,
         gender,
         setGender,
     }

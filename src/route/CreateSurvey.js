@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useContext} from 'react';
 import { Modal, Card, Nav, InputGroup, Form, FloatingLabel, Button, Row, Col, CloseButton } from 'react-bootstrap';
 import { DropdownCmpt } from '../components/DropdownCmpt.js'
 import { WriteSurvey } from '../components/Survey/WriteSurvey.js';
 import { Preview } from '../components/Survey/Preview.js'
 import { Helmet } from 'react-helmet'
-import { KakaoShareButton } from '../components/Survey/KakaoShareButton'
 import { useNavigate } from 'react-router-dom';
+import { PostSurvey } from '../API/Survey/PostSurvey';
 
 function CreateSurvey() {
 
@@ -17,14 +17,29 @@ function CreateSurvey() {
 	let [curSelectedType, setCurSelectedType] = useState('Type');
 	let [makeQsSwitch, setMakeQsSwitch] = useState(false);
 	let [surveyTitle, setSurveyTitle] = useState('');
+	let [surveyId, setSurveyId] = useState(0);
+	let [survey, setSurvey] = useState([]);
 
 	let [viewSwitch, setViewSwitch] = useState('create');
 	let [shareWay, setShareWay] = useState('shareWay');
 
-
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	let navigate = useNavigate();
+
+	// const onAdd = () => {
+	// 	alert("onAdd");
+    //     setSurvey([
+    //         ...survey,
+    //         {
+    //             id:no.current++,
+    //             category:selectedCategory,
+	// 			shareWay:shareWay,
+	// 			title:surveyTitle,
+	// 			QsList:savedQsList,
+    //         }
+    //     ])
+    // }
 
 
 	useEffect(() => {
@@ -76,10 +91,18 @@ function CreateSurvey() {
 	var timeString = hours + ':' + minutes;
 	var nextDateString = year + '-' + nextMonth + '-' + day;
 
-
 	// 설문 저장하기 버튼을 누를 때
-	const handleButton = (e) => {
+	const handleButton = async(e) => {
 		setShow(true);
+		window.localStorage.setItem("surveyId", 0);
+		window.localStorage.setItem("savedQsList", JSON.stringify(savedQsList)); 
+		window.localStorage.setItem("curQs", JSON.stringify(curQs));
+		window.localStorage.setItem("curQsItemList", JSON.stringify(curQsItemList));
+		window.localStorage.setItem("curSelectedType", JSON.stringify(curSelectedType));
+		window.localStorage.setItem("surveyTitle", JSON.stringify(surveyTitle));
+		window.localStorage.setItem("category", selectedCategory);
+		PostSurvey();
+
 	}
 
 	return (
@@ -134,7 +157,7 @@ function CreateSurvey() {
 										savedQsList.map((savedQs, idx) => {
 											return (
 												{
-													'단답식':
+													'주관식':
 														<Card className='basicCard' key={idx} >
 															<CloseButton onClick={() => {
 																let copy = [...savedQsList];
@@ -180,7 +203,7 @@ function CreateSurvey() {
 															}} />
 															<Card.Title className='basicCard' > Q{idx + 1}: {savedQs['qs']} </Card.Title>
 														</Card>,
-													'리커트 척도':
+													'리커트':
 														<Card className='basicCard' key={idx} >
 															<CloseButton onClick={() => {
 																let copy = [...savedQsList];
@@ -234,12 +257,13 @@ function CreateSurvey() {
 
 						{/* 설문 저장하기 버튼 클릭시 나오는 화면 */}
 						<Modal show={show} onHide={handleClose}>
-							<Modal.Header closeButton>
-								<Modal.Title>설문 저장 완료</Modal.Title>
-							</Modal.Header>
 							<Modal.Body style={{ textAlign: "center" }}>
+								<br/>
 								<h2>설문이 저장되었습니다!<br /></h2>
 								<h4>지금 바로 설문을 공유할 수 있습니다🥰</h4>
+								<br/>
+								{/* 설문 josn post하기 */}
+								<Button onClick={() => {setShow(false)}}>확인</Button>
 							</Modal.Body>
 						</Modal>
 
@@ -288,16 +312,15 @@ function CreateSurvey() {
 										<Button variant="primary" className="center" 
 												style={{ marginTop: 30 }} 
 												onClick={()=> {
-													// [제작] -> 설문 저장하기 버튼으로 옮기기.
-													window.localStorage.setItem("savedQsList", JSON.stringify(savedQsList)); 
-															   window.localStorage.setItem("curQs", JSON.stringify(curQs));
-															   window.localStorage.setItem("curQsItemList", JSON.stringify(curQsItemList));
-															   window.localStorage.setItem("curSelectedType", JSON.stringify(curSelectedType));
-															   window.localStorage.setItem("surveyTitle", JSON.stringify(surveyTitle));
-															   window.localStorage.setItem("category", selectedCategory);
-															window.localStorage.setItem("shareWay", shareWay);
-														navigate("/survey");}}>설문 제작 완료</Button>
-														
+													window.localStorage.setItem("shareWay", shareWay);
+													navigate("/survey/"+surveyId);}
+													}
+														>설문 제작 완료</Button>
+											<div>
+												{
+													console.log(survey)
+												}
+											</div>		
 									</div>
 								</Col>
 							</Row>

@@ -10,10 +10,10 @@ function KakaoLogout() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    // 유저 정보 관리 context api
-    let UserInfo = useContext(UserInfoContextStore);
+    // // 유저 정보 관리 context api
+    // let UserInfo = useContext(UserInfoContextStore);
 
-    let ACCESS_TOKEN = UserInfo.token;
+    let ACCESS_TOKEN = localStorage.getItem('token');
     const location = useLocation();
     const navigate = useNavigate();
     const KAKAO_CODE = location.search.split('=')[1];
@@ -57,11 +57,12 @@ function KakaoLogout() {
                 console.log('data:', data);
                 if (data.url.includes(ACCESS_TOKEN)) {
                     console.log(data.state);
-                    UserInfo.setName('홍길동');
-                    UserInfo.setEmail('heyform@example.com');
-                    UserInfo.setToken('');
-                    UserInfo.setId(-1);
+                    // UserInfo.setName('홍길동');
+                    // UserInfo.setEmail('heyform@example.com');
+                    // UserInfo.setToken('');
+                    // UserInfo.setId('-1');
                     localStorage.clear();
+                    localStorage.setItem('first', 'false')
                     navigate('/main');
                 } else {
                     navigate('/mypage');
@@ -79,7 +80,7 @@ function KakaoLogout() {
     useEffect(() => {
         setTimeout(function () {
             refreshKakaoToken()
-        }, 1000);
+        }, 500);
     }, []);
 
 

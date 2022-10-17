@@ -3,23 +3,22 @@ import React, { useEffect, useState, useContext, useReducer } from "react";
 import { KAKAO_AUTH_URL, REDIRECT_URI, REST_API_KEY } from '..//OAuth';
 import { Modal } from 'react-bootstrap'
 import { UserInfoContextStore } from '..//UserInfoContext';
+import axios from 'axios';
 
 function KakaoLogin() {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-
-    // 유저 정보 관리 context api
-    let UserInfo = useContext(UserInfoContextStore);
+    
+    // // 유저 정보 관리 context api
+    // let UserInfo = useContext(UserInfoContextStore);
 
     const location = useLocation();
     const navigate = useNavigate();
     const KAKAO_CODE = location.search.split('=')[1];
     const grant_type = "authorization_code";
-    let ACCESS_TOKEN = UserInfo.token;
-
+    let ACCESS_TOKEN = localStorage.getItem('token');
 
     const getKakaoToken = () => {
         fetch('https://kauth.kakao.com/oauth/token', {
@@ -31,10 +30,9 @@ function KakaoLogin() {
             .then(data => {
                 if (data.access_token) {
                     console.log(data);
-                    localStorage.setItem('token', data.access_token);
-                    UserInfo.setToken(data.access_token);
                     ACCESS_TOKEN = data.access_token;
-                    console.log(UserInfo);
+                    localStorage.setItem('token', ACCESS_TOKEN);
+                    // console.log(UserInfo);
                     getUserInfo();
                 } else {
                     navigate('/mypage');
@@ -44,10 +42,9 @@ function KakaoLogin() {
             });
 
     };
-
     const getUserInfo = () => {
 
-        console.log('get 시작', UserInfo);
+        // console.log('get 시작', UserInfo);
 
         fetch('https://kapi.kakao.com/v2/user/me', {
             method: 'POST',
@@ -58,14 +55,16 @@ function KakaoLogin() {
             .then(data => {
                 if (data.id) {
                     console.log(data);
-                    UserInfo.setId(data.id);
-                    UserInfo.setName(data.kakao_account.profile.nickname);
-                    UserInfo.setEmail(data.kakao_account.email);
-                    UserInfo.setFirst(true);
-                    UserInfo.setAge(data.kakao_account.age_range);
-                    UserInfo.setGender(data.kakao_account.gender); //male, female
+                    localStorage.setItem('id', data.id);
+                    localStorage.setItem('name', data.kakao_account.profile.nickname);
+                    localStorage.setItem('email', data.kakao_account.email);
+                    if (localStorage.getItem('first') === null) {
+                        localStorage.setItem('first', true);
+                    }
+                    localStorage.setItem('age', data.kakao_account.age_range);
+                    localStorage.setItem('gender', data.kakao_account.gender); //male, female
+                    localStorage.setItem('push', false);
                     navigate('/main');
-
                 } else {
                     //navigate('/mypage');
                     console.log("유저 정보 가져오기 실패");
@@ -75,11 +74,12 @@ function KakaoLogin() {
 
     };
 
+
     useEffect(() => {
         handleShow();
         setTimeout(function () {
             getKakaoToken();
-        }, 1000);
+        }, 500);
     }, []);
 
     return (

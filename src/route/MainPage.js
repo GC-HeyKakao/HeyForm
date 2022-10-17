@@ -3,15 +3,15 @@ import { Button, Modal } from 'react-bootstrap';
 import { AboutProduct } from '../components/Main/AboutProduct.js'
 import { Footer } from '../components/Footer.js'
 import React, { useState, useEffect, useContext } from "react";
-import { UserInfoContextStore } from '..//UserInfoContext';
 import { KAKAO_AUTH_URL } from '..//OAuth';
+import { PostUser } from '../API/User/PostUser';
 
 function MainPage() {
 
 	let navigate = useNavigate();
-	const UserInfo = useContext(UserInfoContextStore);
-	console.log(UserInfo);
-	const token = UserInfo.token;
+	// const UserInfo = useContext(UserInfoContextStore);
+	// console.log(UserInfo);
+	// const token = UserInfo.token;
 
 	// 로그인되면 뜨는 창에 사용
 	const [user, setUser] = useState(false);
@@ -64,7 +64,6 @@ function MainPage() {
 		setStartBtnStatus(true); // start 버튼 보임
 	}
 
-
 	useEffect(() => {
 		const watch = () => {
 			window.addEventListener('scroll', handleFollow)
@@ -75,40 +74,55 @@ function MainPage() {
 		}
 	}, [ScrollY])
 
-
+	
 	useEffect(() => {
-		if (UserInfo.id != -1 && UserInfo.first) {
-			setUser(true);
-			UserInfo.setFirst(false);
-			console.log("-1아니므로 user");
+		// if (localStorage.getItem('first') === 'false') {
+		// 	UserInfo.first = 'false';
+		// }
 
-		} else if (UserInfo.first) {
-			setUser(false);
+		// console.log(typeof (localStorage.getItem('first')));
+		// console.log(typeof (localStorage.getItem('id')));
+		// console.log('usrinfoid type', typeof (UserInfo.id));
+
+		if (localStorage.getItem('first') === 'true') {
+			// {username}님 환영합니다
+			console.log(localStorage.getItem('first'));
+			setUser(true);
+			localStorage.setItem('first', false);
+			PostUser();
+
+		} else if (localStorage.getItem('first') === null) {
+			// 헤이폼이 처음이신가요
 			setNonUser(true);
-			UserInfo.setFirst(false);
-			console.log("-1이므로 nonuser");
+			setUser(false)
+			localStorage.setItem('first', true);
 		}
+
 	}, [])
 
 	return (
 		<>
-			<Modal show={user} onHide={() => {setUser(false)}}>
+			<Modal show={user} onHide={() => { setUser(false) }}>
 				<Modal.Header closeButton onClick={() => navigate("/main")}>
 					<Modal.Title>로그인 성공</Modal.Title>
 				</Modal.Header>
 				<Modal.Body style={{ textAlign: "center" }}>
-					<h2>🙌 {UserInfo.name}님 환영합니다 🙌<br /></h2>
+					<h2>🙌 {localStorage.getItem('name')}님 환영합니다 🙌<br /></h2>
 					<h4>지금 바로 헤이폼을 사용해보세요💙 </h4>
+					<br />
+					<Button onClick={() => setUser(false)}>확인</Button>
 				</Modal.Body>
 			</Modal>
 
-			<Modal show={nonUser} onHide={() => {setNonUser(false)}}>
+			<Modal show={nonUser} onHide={() => { setNonUser(false) }}>
 				<Modal.Header closeButton onClick={() => navigate("/main")}>
 					<Modal.Title>🙌 환영합니다 🙌</Modal.Title>
 				</Modal.Header>
 				<Modal.Body style={{ textAlign: "center" }}>
 					<h2>헤이폼이 처음이신가요?<br /></h2>
 					<h4>📝 로그인 후 설문을 작성해보세요 📝 </h4>
+					<br />
+					<Button onClick={handleLogin}>로그인하기</Button>
 				</Modal.Body>
 			</Modal>
 
@@ -116,7 +130,7 @@ function MainPage() {
 				<div className="content">
 					<AboutProduct />
 					<Button className={startBtnStatus ? "startBtn active" : "startBtn"}
-						variant="primary" size="lg" onClick={UserInfo.id == -1 ? handleLogin : () => navigate("/create")}>
+						variant="primary" size="lg" onClick={localStorage.getItem('id') === null ? handleLogin : () => navigate("/create")}>
 						시작하기
 					</Button> {/*로그인 되어있지 않으면 로그인창으로*/}
 

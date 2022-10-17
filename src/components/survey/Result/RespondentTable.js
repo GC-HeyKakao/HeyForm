@@ -13,7 +13,6 @@ const RespondentTable = (props) => {
                 //     response_date: "2022-10-15"
                 // },
 
-
             ],
             totalPages: 1,
         };

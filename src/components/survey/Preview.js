@@ -38,7 +38,7 @@ function Preview(props) {
 		backgroundColor = '#E2F0D9'
 	}
 	return (
-
+		<>
 			 <Card className='basicCard' style={{ padding: "3%", backgroundColor:backgroundColor }}>
 				<h2 style={{ marginBottom: "3%", textAlign:"center" }}>{props.surveyTitle}</h2>
 				{
@@ -134,7 +134,8 @@ function Preview(props) {
 				}
 
 			</Card>
-		
+			<div></div>
+		</>
 	)
 }
 
