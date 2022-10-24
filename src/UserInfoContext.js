@@ -13,7 +13,7 @@ const UserInfoContext = (props) => {
     const [ id, setId ] = useState(null); // 유저 아이디
     const [ token, setToken ] = useState(''); // 유저 토큰값
     const [ name, setName ] = useState('홍길동'); // 유저 이름
-    const [ email, setEmail ] = useState('heyform@example.com'); // 유저 이메일
+    const [ email, setEmail ] = useState('Heyform@example.com'); // 유저 이메일
     const [ first, setFirst ] = useState('true'); // 유저 최초 접속, 로그인 후 할당
     const [ push, setPush ] = useState('false'); // 유저 알림 여부
     const [ age_range, setAge_range ] = useState(0); // 유저 나이대

@@ -58,7 +58,7 @@ function KakaoLogout() {
                 if (data.url.includes(ACCESS_TOKEN)) {
                     console.log(data.state);
                     // UserInfo.setName('홍길동');
-                    // UserInfo.setEmail('heyform@example.com');
+                    // UserInfo.setEmail('Heyform@example.com');
                     // UserInfo.setToken('');
                     // UserInfo.setId('-1');
                     localStorage.clear();

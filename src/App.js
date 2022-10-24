@@ -27,7 +27,7 @@ function App() {
       <Route path="/" element={<MainPage />}/>
       <Route path="/main" element={<MainPage />}/>
         <Route path="/create" element={<CreateSurvey />}/>
-        <Route path="/workspace/:state" element={<Workspace />}/>
+        <Route path="/workspace" element={<Workspace />}/>
         <Route path="/guide" element={<GuidePage />}/>
         <Route path="/mypage" element={<MyPage />}/>
         <Route path="/kakaologin" element={<KakaoLogin/>}/>

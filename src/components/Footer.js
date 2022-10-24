@@ -11,7 +11,7 @@ function Footer() {
                 <div style={{ float: "right",
                               padding: "0px 20px 0px 0px" }}>
                     <RiGithubFill size="40" style={{ 
-                              margin: "0px 0px 0px 10px" }} onClick={() => window.open('https://github.com/DW-K/HeyForm', '_blank')}></RiGithubFill> 
+                              margin: "0px 0px 0px 10px" }} onClick={() => window.open('https://github.com/DW-K/Heyform', '_blank')}></RiGithubFill> 
                     <RiYoutubeFill size="40" style={{ 
                               margin: "0px 0px 0px 10px" }} />
                     <RiKakaoTalkFill size="40" style={{ 
