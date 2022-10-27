@@ -10,7 +10,7 @@ const GetSurveyBySurveyId = async (props) => {
     };
 
     // 모든 설문 정보 가져오기
-    const response = await axios.get(`http://210.109.61.98:8080/survey/list/${surveyId}`, headers)
+    const response = await axios.get(`http://210.109.60.38:8080/survey/list/${surveyId}`, headers)
         .then((response) => {
             console.log('get survey by surveyid ok');
             console.log(response.data)
@@ -19,7 +19,7 @@ const GetSurveyBySurveyId = async (props) => {
         .catch((error) => {
             console.log(error)
         })
-    
+
     console.log('GetSurveyBySurveyId');
     console.log(surveyId, SurveyInfo);
 }

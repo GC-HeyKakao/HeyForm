@@ -1,12 +1,15 @@
-import { Card, Dropdown, DropdownButton, ListGroup, Button, Row, Col, Container, Form, Accordion } from 'react-bootstrap'
+import { Card, Dropdown, DropdownButton, ListGroup, Button, Row, Col, Modal, Form, Accordion } from 'react-bootstrap'
 import { Result } from '../components/Survey/Result/Result';
 import { useState, useRef, useEffect, useCallback, useContext } from 'react';
 import { Respondent } from '../components/Survey/Result/Respondent';
 import { useNavigate } from 'react-router-dom';
 import { SurveyView } from '../components/Workspace/SurveyView'
 import { GetSurveyBySurveyId } from '../API/Survey/GetSurveyBySurveyId';
+import { DeleteSurvey } from '../API/Survey/DeleteSurvey';
 
 function Workspace() {
+
+	const childRef = useRef();
 
 	//공유 시간 및 날짜
 	//렌더링되는 시점의 날짜 및 시간 가져오기
@@ -26,6 +29,12 @@ function Workspace() {
 	var AnswerIngId = new Array();
 	var AnswerEndId = new Array();
 
+	let surveyId = 0;
+
+	//제작 및 응답한 설문지 기간 조회에 사용됨
+	const [startDate, setStartDate] = useState(dateString);
+	const [endDate, setEndDate] = useState(preDateString);
+
 	if (window.localStorage.getItem('count') != 0) {
 
 		for (var i = 1; i < count + 1; i++) {
@@ -39,14 +48,21 @@ function Workspace() {
 		}
 	}
 
+	const show = useRef(false);
 	const [, updateState] = useState();
 	const forceUpdate = useCallback(() => updateState({}, []));
 	const [selectNum, setSelectNum] = useState(0);
 	const [viewSwitch, setViewSwitch] = useState('제작');
 
-	useEffect(() => { 
-		GetSurveyBySurveyId();
-	 });
+	const handleDelete = () => {
+		childRef.current.deleteSurvey(); 
+		show.current=false;
+		forceUpdate();
+	}
+
+	useEffect(() => {
+		//GetSurveyBySurveyId();
+	}, [show.current]);
 
 	return (
 		<>
@@ -55,7 +71,7 @@ function Workspace() {
 				<Row>
 					<Row style={{ marginBottom: "2%", marginTop: "2%" }}>
 						<DropdownButton id="dropdown-basic-button" title="제작한 설문지">
-							<Dropdown.Item onClick={()=>{setViewSwitch("응답"); forceUpdate();}}>응답한 설문지</Dropdown.Item>
+							<Dropdown.Item onClick={() => { setViewSwitch("응답"); forceUpdate(); }}>응답한 설문지</Dropdown.Item>
 						</DropdownButton>
 					</Row>
 
@@ -63,10 +79,12 @@ function Workspace() {
 						<Col md="4">
 							<Row>
 								<Col>
-									<Form.Control type="date" defaultValue={preDateString}></Form.Control>
+									<Form.Control type="date" defaultValue={preDateString}
+										onChange={(e) => setStartDate(e.target.value)}></Form.Control>
 								</Col>
 								<Col>
-									<Form.Control type="date" defaultValue={dateString}></Form.Control>
+									<Form.Control type="date" defaultValue={dateString}
+										onChange={(e) => setEndDate(e.target.value)}></Form.Control>
 								</Col>
 							</Row>
 						</Col>
@@ -78,6 +96,10 @@ function Workspace() {
 						</Col>
 						<Col md="1">
 							<Button variant="primary" onClick={() => { view.current = "응답자"; forceUpdate(); }}>응답자 보기</Button>
+						</Col>
+						<Col md="1">
+							<Button variant="primary" onClick={() => { view.current = "삭제"; show.current=true; forceUpdate();}}>삭제</Button>
+							{/* <DeleteSurvey ref={childRef} surveyId={surveyId} /> */}
 						</Col>
 					</Row>
 
@@ -109,38 +131,51 @@ function Workspace() {
 								</ListGroup>
 							</ListGroup>
 						</Col>
-						{view.current === "설문지" && selectNum === 0 &&
-							<Col>
-								<div className='basicCard'>
-									<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-										<></>
-									</Card>
-								</div>
-							</Col>}
 						{view.current === "설문지" && selectNum !== 0 &&
 							<Col>
 								<div className='basicCard'>
 									<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-										<SurveyView surveyId={selectNum} />
+										{/* <SurveyView surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} endDate={props.endDate} surveyId={selectNum} /> */}
+										<SurveyView surveyTitle={'제목'} surveyDescription={'설명'} endDate={'2022-10-27'} surveyId={selectNum} />
 									</Card>
 								</div>
 							</Col>}
-
 						{view.current === "결과" && selectNum !== 0 &&
 							<Col>
 								<div className='basicCard'>
 									<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-										<Result />
+										<Result surveyId={selectNum} />
 									</Card>
 								</div>
 							</Col>}
 
-						{view.current === "응답자" &&
+						{view.current === "응답자" && selectNum !== 0 &&
 							<Col>
 								<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-									<Respondent />
+									<Respondent surveyId={selectNum} />
 								</Card>
 							</Col>}
+
+						{view.current === "삭제" && selectNum !== 0 &&
+						<>
+							<Col>
+								<div className='basicCard'>
+									<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
+										<SurveyView surveyTitle={'제목'} surveyDescription={'설명'} endDate={'2022-10-27'} surveyId={selectNum} />
+									</Card>
+								</div>
+							</Col>
+							<Modal show={show.current} onHide={() => { show.current=false; }}>
+								<Modal.Body style={{ textAlign: "center" }}>
+									<br />
+									<h2>설문을 삭제하시겠습니까?<br /></h2>
+									<br />
+									<Button style={{ marginRight: "20px" }} onClick={handleDelete}>확인</Button>
+									<Button onClick={() => { show.current=false; forceUpdate(); }}>취소</Button>
+								</Modal.Body>
+							</Modal>
+							</>
+						}
 					</Row>
 				</Row>
 			</div>}
@@ -149,7 +184,7 @@ function Workspace() {
 				<Row>
 					<Row style={{ marginBottom: "2%", marginTop: "2%" }}>
 						<DropdownButton id="dropdown-basic-button" title="응답한 설문지">
-							<Dropdown.Item onClick={()=>{setViewSwitch("제작"); forceUpdate();}}>제작한 설문지</Dropdown.Item>
+							<Dropdown.Item onClick={() => { setViewSwitch("제작"); forceUpdate(); }}>제작한 설문지</Dropdown.Item>
 						</DropdownButton>
 					</Row>
 
@@ -197,13 +232,13 @@ function Workspace() {
 								</ListGroup>
 							</ListGroup>
 						</Col>
-							<Col>
-								<div className='basicCard'>
-									<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-										<></>
-									</Card>
-								</div>
-							</Col>
+						<Col>
+							<div className='basicCard'>
+								<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
+									<></>
+								</Card>
+							</div>
+						</Col>
 					</Row>
 				</Row>
 			</div>}

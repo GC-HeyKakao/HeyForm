@@ -3,7 +3,7 @@ import { CreateQR } from "./CreateQR";
 import { SetPush } from "./SetPush";
 
 //완성된 설문지를 확인해보기 위한 js
-function TestSurvey()
+function TestSurvey(props)
 {
     const savedQsList = JSON.parse(window.localStorage.getItem("savedQsList"));
     const curQs = JSON.parse(window.localStorage.getItem("curQs"));
@@ -28,7 +28,7 @@ function TestSurvey()
                 <CreateQR/>
               </div>
               <div style={{marginLeft:"5%"}}>
-                <SetPush/>
+                <SetPush title={props.title} description={props.description} date={props.date}/>
               </div>
               
             </div>

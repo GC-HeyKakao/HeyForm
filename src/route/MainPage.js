@@ -5,6 +5,9 @@ import { Footer } from '../components/Footer.js'
 import React, { useState, useEffect, useContext } from "react";
 import { KAKAO_AUTH_URL } from '..//OAuth';
 import { PostUser } from '../API/User/PostUser';
+import { userState, tokenState } from '../atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { GetTokenByEmail } from '../API/User/GetTokenByEmail'
 
 function MainPage() {
 
@@ -16,11 +19,33 @@ function MainPage() {
 	// 로그인되면 뜨는 창에 사용
 	const [user, setUser] = useState(false);
 	const [nonUser, setNonUser] = useState(false);
+	const users = useRecoilValue(userState);
+	const userHandler = useSetRecoilState(userState);
+	const token = useRecoilValue(tokenState);
+	const tokenHandler = useSetRecoilState(tokenState);
 
 	// 스크롤 읽어와서 이벤트 구현
 	const [ScrollY, setScrollY] = useState(0); //현재 스크롤의 값
 	const [scrollBtnStatus, setScrollBtnStatus] = useState(false); // 스크롤 버튼 상태
 	const [startBtnStatus, setStartBtnStatus] = useState(true); // 시작하기 버튼 상태
+
+	function reset() {
+
+		userHandler([
+			...users,
+			{
+				token:users[0].token,
+				id:users[0].id,
+				name:users[0].name,
+				email:users[0].email,
+				age:users[0].age,
+				gender:users[0].gender,
+				isFirst: false,
+				push:false,
+
+			}
+		])
+	}
 
 	const handleLogin = () => {
 		window.location.href = KAKAO_AUTH_URL;
@@ -76,39 +101,48 @@ function MainPage() {
 
 	
 	useEffect(() => {
-		PostUser();
+		
+		if (users.length!==0) {
+			
+			if(users[users.length-1].isFirst)
+			{
+				reset();
+				PostUser(users[0]);
+				GetTokenByEmail(users[0]);
+				tokenHandler(window.localStorage.getItem('ttoken'));
+				window.localStorage.removeItem('ttoken');
+				setUser(true);
+				console.log("토토큰", token);
+			}
 
-		if (localStorage.getItem('first') === 'true' && localStorage.getItem('name')) {
-			// {username}님 환영합니다
-			console.log(localStorage.getItem('first'));
-			setUser(true);
-			localStorage.setItem('first', false);
-			PostUser();
-
-		} else if (localStorage.getItem('first') === null) {
-			// 최초 접속시 
+		} else if (users.length===0) {
+			
+			// 헤이폼이 처음이신가요
 			setNonUser(true);
 			setUser(false)
-			localStorage.setItem('first', true);
 		}
 
 	}, [])
 
 	return (
 		<>
+		{
+			users.length!==0 ?
 			<Modal show={user} onHide={() => { setUser(false) }}>
-				<Modal.Header closeButton onClick={() => navigate("/main")}>
-					<Modal.Title>로그인 성공</Modal.Title>
-				</Modal.Header>
-				<Modal.Body style={{ textAlign: "center" }}>
-					<h2>🙌 {localStorage.getItem('name')}님 환영합니다 🙌<br /></h2>
-					<h4>지금 바로 헤이폼을 사용해보세요💙 </h4>
-					<br />
-					<Button onClick={() => setUser(false)}>확인</Button>
-				</Modal.Body>
-			</Modal>
+			<Modal.Header closeButton onClick={() => navigate("/main")}>
+				<Modal.Title>로그인 성공</Modal.Title>
+			</Modal.Header>
+			<Modal.Body style={{ textAlign: "center" }}>
+				<h2>🙌 {users[0].name}님 환영합니다 🙌<br /></h2>
+				<h4>지금 바로 헤이폼을 사용해보세요💙 </h4>
+				<br />
+				<Button onClick={() => setUser(false)}>확인</Button>
+			</Modal.Body>
+		</Modal>
 
-			<Modal show={nonUser} onHide={() => { setNonUser(false) }}>
+		:
+
+		<Modal show={nonUser} onHide={() => { setNonUser(false) }}>
 				<Modal.Header closeButton onClick={() => navigate("/main")}>
 					<Modal.Title>🙌 환영합니다 🙌</Modal.Title>
 				</Modal.Header>
@@ -119,12 +153,13 @@ function MainPage() {
 					<Button onClick={handleLogin}>로그인하기</Button>
 				</Modal.Body>
 			</Modal>
-
+		}
+			
 			<div className="wraper">
 				<div className="content">
 					<AboutProduct />
 					<Button className={startBtnStatus ? "startBtn active" : "startBtn"}
-						variant="primary" size="lg" onClick={localStorage.getItem('id') === null ? handleLogin : () => navigate("/create")}>
+						variant="primary" size="lg" onClick={users===null ? handleLogin : () => navigate("/create")}>
 						시작하기
 					</Button> {/*로그인 되어있지 않으면 로그인창으로*/}
 

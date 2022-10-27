@@ -1,0 +1,34 @@
+.WriteAsk {
+  text-align: center;
+}
+
+
+.form-wrapper{
+  width: 60%;
+  margin: 0 auto;
+}
+
+.title-input {
+  width: 500px;
+  height: 40px;
+  margin: 10px;
+}
+
+.submit-button {
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border: none;
+  background: #0D6EFD;
+  border-radius: 5px;
+  margin-top: 40px;
+  vertical-align: middle;
+  line-height: 10px;
+}
+
+.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+  min-height: 500px;
+}

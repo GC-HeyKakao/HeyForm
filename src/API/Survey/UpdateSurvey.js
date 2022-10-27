@@ -1,40 +1,32 @@
 import axios from 'axios';
+import { forwardRef, useImperativeHandle } from "react";
 
-const UpdateSurvey = async () => {
-    const body = {
-        questionDtos: [
-            {
-                choiceDtos: [
-                    {
-                        choice_contents: "string",
-                        choice_order: parseInt(0)
-                    }
-                ],
-                question_contents: "string",
-                question_order: parseInt(0),
-                question_type: parseInt(0)
-            }
-        ],
-        surveyDto: {
-            survey_id: parseInt(2),
-            survey_state: parseInt(0),
-            survey_title: "string",
-            survey_url: "string"
-        }
-    }
+const UpdateSurvey = forwardRef((props, ref) => {
 
-    const headers = {
-        Authorization: localStorage.getItem('token')
-    };
+    useImperativeHandle(ref, () => ({
 
-    axios.post(`http://210.109.61.98:8080/survey/update`, body, headers)
-        .then((response) => {
-            console.log(response)
-            console.log('update survey ok');
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-}
+        postSurvey() {
+            console.log("update survey 시작");
+            const headers = {
+                //Authorization: localStorage.getItem('token')
+                Authorization: props.userToken
+            };
+
+            let user_token = props.userToken;
+            user_token= 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJoZXlmb3JtIiwiZW1haWwiOiJUZXN0MSIsImlhdCI6MTY2Njg1NTM2MCwiZXhwIjoxNjY2ODU4OTYwfQ.yhFtdbRraXikpNEC6FHmNWJs4NyKRgfOFQTIav0XW7Y';
+
+                axios.post(`http://210.109.60.38:8080/survey/update`, props.surveyQuestionDto)
+                  .then((response) => {
+                    console.log(response)
+                    console.log('update survey ok');
+                })
+                .catch((error) => {
+                    console.log(error);
+                    console.error(error.response.data);
+                })
+        },
+    }));
+
+});
 
 export { UpdateSurvey };

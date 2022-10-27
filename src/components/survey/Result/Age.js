@@ -15,37 +15,30 @@ const Age = (props) => {
             <ResponsivePie
                 data={[
                     {
-                        "id": "0~9",
+                        "id": "10대 이하",
                         "value": 4,
                     },
                     {
-                        "id": "10~19",
+                        "id": "20대",
                         "value": 335,
                     },
                     {
-                        "id": "20~29",
+                        "id": "30대",
                         "value": 100,
                     },
                     {
-                        "id": "30~39",
+                        "id": "40대",
                         "value": 455,
                     },
                     {
-                        "id": "40~49",
+                        "id": "50대",
                         "value": 7,
                     },
                     {
-                        "id": "50~59",
+                        "id": "60대 이상",
                         "value": 4,
                     },
-                    {
-                        "id": "60~69",
-                        "value": 0,
-                    },
-                    {
-                        "id": "70~",
-                        "value": 0,
-                    },
+                    
                 ]}
                 margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
                 innerRadius={0.5}

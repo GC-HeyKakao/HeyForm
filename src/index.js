@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import store from './store.js'
 import { UserInfoContext } from './UserInfoContext';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 

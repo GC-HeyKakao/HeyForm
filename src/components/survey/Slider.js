@@ -1,16 +1,34 @@
-import { current } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
 import ReactSlider from "react-slider";
+import { replyState } from "../../atom.js"
+import { useRecoilValue } from 'recoil';
 //import './App.css';
 
 function Slider (props) {
   const [currentValue, setCurrentValue] = useState(0);
-  const [type, setType] = useState("만족도");
+   
+  const replys = useRecoilValue(replyState);
+
+  let copy = [...replys];
 
   useEffect(()=> {
-    // setType(props.category)
-    // console.log("type:" ,type);
-  });
+    
+    console.log(replys);
+  }, [replys]);
+
+  function setValue(value) {
+
+    console.log(replys);
+    copy[props.idx] = {
+      surveyId: props.surveyId,
+      type: "만족도",
+      idx: props.idx,
+      value: value,
+    }
+
+    props.replyHandler(copy);
+    
+}
 
   return (
 
@@ -29,7 +47,7 @@ function Slider (props) {
           max={100}
           defaultValue={0}
           value={currentValue}
-          onChange={(value) => setCurrentValue(value)
+          onChange={(value) => {setCurrentValue(value); setValue(value)}
           }
           
           />
@@ -45,7 +63,7 @@ function Slider (props) {
               max={100}
               defaultValue={0}
               value={currentValue}
-              onChange={(value) => setCurrentValue(value)}
+              onChange={(value) => {setCurrentValue(value); setValue(value)}}
             /> 
 
             :
@@ -59,7 +77,7 @@ function Slider (props) {
                 max={100}
                 defaultValue={0}
                 value={currentValue}
-                onChange={(value) => setCurrentValue(value)}
+                onChange={(value) => {setCurrentValue(value); setValue(value)}}
               />
 
             </>
@@ -69,9 +87,9 @@ function Slider (props) {
 
     
     
-    {
+    {/* {
       console.log('type : 감정바' + 'idx : ' + props.idx + ', value : ' + currentValue)
-      }
+      } */}
     <div style={{marginLeft:"30%", marginBottom:"5%"}} className="percentage"></div>
     </>
   );

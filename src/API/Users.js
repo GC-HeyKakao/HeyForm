@@ -6,6 +6,8 @@ import { GetSurveyByUserAccount } from './Survey/GetSurveyByUserAccount';
 import { PostSurvey } from './Survey/PostSurvey';
 import { UpdateSurvey } from './Survey/UpdateSurvey';
 import { GetAllUser } from './User/GetAllUser';
+import { GetTokenByEmail } from './User/GetTokenByEmail';
+import { PostUser } from './User/PostUser';
 
 
 function Users() {
@@ -14,10 +16,9 @@ function Users() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   
-  
     //try {
     
-      // const response = await axios.get('http://210.109.61.98:8080/survey/post/test');
+      // const response = await axios.get('http://210.109.60.38:8080/survey/post/test');
       // console.log(response.data);
       // let questionDtos = response.data.questionDtos;
       // console.log(typeof(response.data.questionDtos));
@@ -40,7 +41,7 @@ function Users() {
 
     // /user
     // try {
-    //   const response = await axios.get('http://210.109.61.98:8080/user');
+    //   const response = await axios.get('http://210.109.60.38:8080/user');
     //   console.log(response.data);
       
     // } catch(err) {
@@ -49,6 +50,7 @@ function Users() {
 
 
   useEffect(() => {
+    //PostUser();
     //GetSurveyBySurveyId();
     //DeleteSurvey();
     //GetAllUser();
@@ -58,7 +60,8 @@ function Users() {
     //GetSurveyByUserAccount();
     //DeleteSurvey();
     //PostSurvey();
-    CreateSurveyByURL();
+    //CreateSurveyByURL();
+    GetTokenByEmail();
 
   }, []);
 

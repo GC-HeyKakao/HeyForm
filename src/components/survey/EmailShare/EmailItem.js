@@ -1,6 +1,8 @@
 import React from 'react';
 import { MdDelete } from 'react-icons/md';
+import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
+import { emailState } from '../../../atom';
 
 const Remove = styled.div`
   display: flex;
@@ -39,9 +41,9 @@ const Text = styled.div`
     `}
 `;
 
-const EmailItem = ({todos,onDel}) => {
+const EmailItem = ({emails, onDel}) => {
 
-    const {id,text} = todos
+    const {id, text} = emails;
 
     return (
         <div style={{overflow:"auto"}}>
@@ -53,6 +55,7 @@ const EmailItem = ({todos,onDel}) => {
       </TodoItemBlock>
       </div>
     );
-};
+
+        };
 
 export {EmailItem};

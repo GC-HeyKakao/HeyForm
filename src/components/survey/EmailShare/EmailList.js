@@ -1,6 +1,8 @@
 import React from 'react';
 import {EmailItem} from './EmailItem';
 import styled from 'styled-components';
+import { emailState } from '../../../atom';
+import { useRecoilValue } from 'recoil';
 
 
 const EmailListBlock = styled.div`
@@ -10,12 +12,16 @@ const EmailListBlock = styled.div`
   overflow-y: auto;
 `;
 
-const EmailList = ({todos,onDel}) => {
+const EmailList = ({onDel}) => {
+
+    
+    const emails = useRecoilValue(emailState);
+
     return (
         <EmailListBlock>
             {
-                todos.map(todos=><EmailItem key={todos.id}
-                    todos={todos} onDel={onDel}/>)
+                emails && emails.map(emails=><EmailItem key={emails.id}
+                    emails={emails} onDel={onDel}/>)
             }
         </EmailListBlock>
     );

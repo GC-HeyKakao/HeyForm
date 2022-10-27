@@ -1,0 +1,10 @@
+.qrcode {
+  display: flex;
+  justify-content: center;
+}
+
+.qrcodeBtn {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}

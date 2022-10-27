@@ -20,14 +20,12 @@ function is_checked() {
 	alert(Checkbox0.value + is_checked0 + Checkbox1.value + is_checked1 + Checkbox2.value + is_checked2);
 	//document.hetElementById('')
 
-
 }
 
 function Preview(props) {
 	// console.log("qs: " + props.curQs + " list: " + props.curQsItemList)
 
 	const category = props.category;
-	console.log(category);
 	let backgroundColor = 'white';
 	if (category == '운동') {
 		backgroundColor = '#DEEBF7'
@@ -41,6 +39,7 @@ function Preview(props) {
 		<>
 			 <Card className='basicCard' style={{ padding: "3%", backgroundColor:backgroundColor }}>
 				<h2 style={{ marginBottom: "3%", textAlign:"center" }}>{props.surveyTitle}</h2>
+				<h6 style={{ marginBottom: "5%", textAlign: "center" }}>{props.surveyDescription}</h6>
 				{
 					props.savedQsList.map((savedQs, idx) => {
 						return (

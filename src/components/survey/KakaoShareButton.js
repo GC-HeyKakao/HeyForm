@@ -5,14 +5,15 @@ import { JAVASCRIPT_KEY } from '../../OAuth'
 import { Helmet } from 'react-helmet'
 import sendKakaoBtn from '../../sendKakaoBtn.png';
 
-const KakaoShareButton = () => {
+const KakaoShareButton = (props) => {
 
     useEffect(() => {
+        console.log(props);
         createKakaoButton()
+
     }, [])
 
-    
-    const createKakaoButton = (props) => {
+    const createKakaoButton = () => {
         // kakao sdk script이 정상적으로 불러와졌으면 window.Kakao로 접근이 가능
         if (window.Kakao) {
             const kakao = window.Kakao
@@ -29,8 +30,8 @@ const KakaoShareButton = () => {
                 container: '#kakao-link-btn',
                 objectType: 'feed',
                 content: {
-                    title: "설문 마감 기한" + props.date, //get survey-id.name
-                    description: props.description,
+                    title: "설문 마감 기한" + props.endDate, //get survey-id.name
+                    description: ""+props.surveyDescription,
                     imageUrl: 'logo.png',
                     link: {
                         mobileWebUrl: window.location.href,
@@ -38,7 +39,7 @@ const KakaoShareButton = () => {
                     },
                 },
                 itemContent: {
-                    profileText: '설문 제목',
+                    profileText: ""+ props.surveyTitle,
                 },                
                 // social: {
                 //   likeCount: 77,

@@ -8,11 +8,11 @@ const CreateSurveyByURL = async (props) => {
     };
     const url = null;
 
-    axios.get(`http://210.109.61.98:8080/survey/paper/${surveyURL}`, headers)
+    axios.get(`http://210.109.60.38:8080/survey/paper/${surveyURL}`, headers)
         .then((response) => {
             console.log(response.request.responseURL)
             console.log('create survey paper ok');
-            url = response.request.responseUR;
+            url = response.request.responseURL;
         })
         .catch((error) => {
             console.log(error)         

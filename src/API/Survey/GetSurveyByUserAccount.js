@@ -11,7 +11,7 @@ const GetSurveyByUserAccount = async () => {
     };
 
     // 모든 설문 정보 가져오기
-    const response = await axios.get(`http://210.109.61.98:8080/survey/total/${userAccount}`, headers)
+    const response = await axios.get(`http://210.109.60.38:8080/survey/total/${userAccount}`, headers)
         .then((response) => {
             console.log('get survey by userAccount ok');
             console.log(response.data)

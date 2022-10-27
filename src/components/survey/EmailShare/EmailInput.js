@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
+import { emailState } from '../../../atom';
+import { useSetRecoilState } from 'recoil';
 
 const CircleButton = styled.button`
   background: #0D6EFD;

@@ -3,6 +3,8 @@ import { RiCreativeCommonsSaLine } from 'react-icons/ri';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
 import emailjs from 'emailjs-com';
+import { emailState } from '../../../atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 const EmailHeadBlock = styled.div`
   h1 {
@@ -25,62 +27,62 @@ const TasksLeft = styled.div`
   font-weight: bold;
 `;
 
-function EmailHead({link, todos,onDel}) {
+function EmailHead({ link }) {
 
   let count = 0;
 
   function SendEmail(email) {
-  
-    //alert(email);
+
+    alert(email);
 
     emailjs.init("QWLdVWHIWIdwz4wqd");
-  
-      //email-js 템플릿 파라미터
-      var params = { 
-        to_email: email,
-        to_user_name: "박수빈",
-        from_user_name: "헤이카카오",
-        survey_link: link,
+
+    //email-js 템플릿 파라미터
+    var params = {
+      to_email: email,
+      from_user_name: "헤이카카오",
+      survey_link: link,
+    }
+
+    emailjs.send(
+      'service_qdtvd3j',
+      'template_1ruh25n',
+      params
+
+    ).then((result) => {
+
+      if (count == 0) {
+        alert("메일을 전송했습니다! 응답을 기다려보세요🥰")
       }
 
-      emailjs.send(
-        'service_qdtvd3j', 
-          'template_1ruh25n', 
-          params
-          
-      ).then((result) => {
+      count++;
 
-        if(count==0)
-        {
-          alert("메일을 전송했습니다! 응답을 기다려보세요🥰")
-        }
-        
-        count++;
-  
-      }, (error) => {
-      });
-}
+    }, (error) => {
+    });
+  }
+
+  //const [emails, setEmail] = useRecoilState(emailState);
+  const emails = useRecoilValue(emailState);
 
   return (
     <>
-    {console.log(todos)}
-    <EmailHeadBlock>
       
-    <br></br>
-      <h1>이메일로 설문 요청</h1>
-      <p></p>
-      <div className="day">설문을 요청할 상대방의 이메일을 입력해주세요!</div>
-      
-      <Button style= {{margin:"3%"}} type="submit" 
-            onClick={()=>{todos.map(todos=>{SendEmail(todos.text)})}}>
-            발송
-        </Button>
-      <TasksLeft>총 {todos.length}명</TasksLeft>
-    </EmailHeadBlock>
+      <EmailHeadBlock>
 
+        <br></br>
+        <h1>이메일로 설문 요청</h1>
+        <p></p>
+        <div className="day">설문을 요청할 상대방의 이메일을 입력해주세요!</div>
+
+        <Button style={{ margin: "3%" }} type="submit"
+          onClick={() => { {emails.map(emails => { SendEmail(emails.text) });}}}>
+          발송
+        </Button>
+        <TasksLeft>총 {emails.length}명</TasksLeft>
+      </EmailHeadBlock>
     </>
   );
 
 }
 
-export {EmailHead};
+export { EmailHead };

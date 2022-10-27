@@ -1,8 +1,34 @@
-import { useState } from "react";
 import Likert from "react-likert-scale";
+import { useState, useEffect } from 'react'
+import { replyState } from "../../atom.js"
+import { useRecoilValue } from 'recoil';
 
 const Likertchart = (props) => {
     const [currentValue, setCurrentValue] = useState(0);
+
+    const replys = useRecoilValue(replyState);
+
+    let copy = [...replys];
+
+    useEffect(() => {
+
+        console.log(replys);
+    }, [replys]);
+
+    function setValue(value) {
+
+        console.log(replys);
+        copy[props.idx] = {
+            surveyId: props.surveyId,
+            type: "리커트",
+            idx: props.idx,
+            value: value,
+        }
+
+        props.replyHandler(copy);
+
+    }
+
     let likertOptions = {
         responses: [
             { value: 1, text: "전혀 그렇지 않다" },
@@ -14,8 +40,7 @@ const Likertchart = (props) => {
         onChange: val => {
             
             setCurrentValue(val)
-            console.log('type : 리커트' +'idx : ' + props.idx + ', value : ' + val.value)
-            
+            setValue(val.value)
         }
 
     }

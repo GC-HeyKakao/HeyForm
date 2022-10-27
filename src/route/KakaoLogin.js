@@ -2,8 +2,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useEffect, useState, useContext, useReducer } from "react";
 import { KAKAO_AUTH_URL, REDIRECT_URI, REST_API_KEY } from '..//OAuth';
 import { Modal } from 'react-bootstrap'
-import { UserInfoContextStore } from '..//UserInfoContext';
-import axios from 'axios';
+import { PostUser } from '../API/User/PostUser';
+import { userState } from '../atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 function KakaoLogin() {
 
@@ -11,11 +12,42 @@ function KakaoLogin() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const users = useRecoilValue(userState);
+    const userHandler = useSetRecoilState(userState);
+
+    useEffect(() => {
+
+    }, [users]);
+
     const location = useLocation();
     const navigate = useNavigate();
     const KAKAO_CODE = location.search.split('=')[1];
     const grant_type = "authorization_code";
     let ACCESS_TOKEN = localStorage.getItem('token');
+    let age;
+
+    function setAgeRange(age) {
+
+        if (age == "0~9" || age == "10~19") {
+            age = "10대 이하"
+        }
+        else if (age == "20~29") {
+            age = "20대"
+        }
+        else if (age == "30~39") {
+            age = "30대"
+        }
+        else if (age == "40~49") {
+            age = "40대"
+        }
+        else if (age == "50~59") {
+            age = "50대"
+        }
+        else {
+            age = "60대 이상"
+        }
+
+    }
 
     const getKakaoToken = () => {
         fetch('https://kauth.kakao.com/oauth/token', {
@@ -28,8 +60,7 @@ function KakaoLogin() {
                 if (data.access_token) {
                     console.log(data);
                     ACCESS_TOKEN = data.access_token;
-                    localStorage.setItem('token', ACCESS_TOKEN);
-                    // console.log(UserInfo);
+
                     getUserInfo();
                 } else {
                     navigate('/mypage');
@@ -39,9 +70,10 @@ function KakaoLogin() {
             });
 
     };
-    
+
     const getUserInfo = () => {
 
+        // console.log('get 시작', UserInfo);
 
         fetch('https://kapi.kakao.com/v2/user/me', {
             method: 'POST',
@@ -51,22 +83,52 @@ function KakaoLogin() {
             .then(res => res.json())
             .then(data => {
                 if (data.id) {
-                    console.log(data);
-                    localStorage.setItem('id', data.id);
-                    localStorage.setItem('name', data.kakao_account.profile.nickname);
-                    localStorage.setItem('email', data.kakao_account.email);
-                    if (localStorage.getItem('first') === null) {
-                        localStorage.setItem('first', true);
+                    let isFirst = null;
+
+                    if (isFirst === null) {
+                        isFirst = true;
+
                     }
                     if (localStorage.getItem('count') === null) {
                         localStorage.setItem('count', 0);
                     }
-                    localStorage.setItem('age', data.kakao_account.age_range);
-                    localStorage.setItem('gender', data.kakao_account.gender); //male, female
-                    localStorage.setItem('push', false);
+
+                    if (data.kakao_account.age_range == "0~9" || data.kakao_account.age_range == "10~19") {
+                        age = "10대 이하"
+                    }
+                    else if (data.kakao_account.age_range == "20~29") {
+                        age = "20대"
+                    }
+                    else if (data.kakao_account.age_range == "30~39") {
+                        age = "30대"
+                    }
+                    else if (data.kakao_account.age_range == "40~49") {
+                        age = "40대"
+                    }
+                    else if (data.kakao_account.age_range == "50~59") {
+                        age = "50대"
+                    }
+                    else {
+                        age = "60대 이상"
+                    }
+
+                    userHandler([
+                        ...users,
+                        {
+                            token: ACCESS_TOKEN,
+                            id: data.id,
+                            name: data.kakao_account.profile.nickname,
+                            email: data.kakao_account.email,
+                            age: age,
+                            gender: data.kakao_account.gender,
+                            isFirst: true,
+                            push: false,
+
+                        }
+                    ])
                     navigate('/main');
                 } else {
-                    //navigate('/mypage');
+
                     console.log("유저 정보 가져오기 실패");
                 }
 

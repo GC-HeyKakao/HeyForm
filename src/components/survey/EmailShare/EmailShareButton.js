@@ -4,6 +4,8 @@ import {EmailInput} from './EmailInput';
 import {EmailList} from './EmailList';
 import { EmailHead } from './EmailHead';
 import sendEmailBtn from '../../../sendEmailBtn.png'
+import { emailState } from '../../../atom';
+import { useRecoilState, useSetRecoilState, } from 'recoil';
 
 function EmailShareButton(props) {
 
@@ -13,11 +15,13 @@ function EmailShareButton(props) {
 
     const no = useRef(1)
 
-    const [todos,setTodos] = useState([])
+    const [emails, setEmail] = useRecoilState(emailState);
+
+    const emailHandler = useSetRecoilState(emailState);
 
     const onAdd = (text) => {
-        setTodos([
-            ...todos,
+        emailHandler([
+            ...emails,
             {
                 id:no.current++,
                 text:text,
@@ -26,7 +30,7 @@ function EmailShareButton(props) {
     }
 
     const onDel = (id) => {
-        setTodos(todos.filter(todo=>todo.id !== id))
+        emailHandler(emails.filter(email=>email.id !== id))
     }
 
     return (
@@ -36,8 +40,8 @@ function EmailShareButton(props) {
             
                 <Modal stylec={{  width: "512px", height: "768px"}} className="Modal" show={show} onHide={handleClose}>
                     
-                    <EmailHead link={props.link} todos={todos} onDel/>
-                    <EmailList todos={todos} onDel={onDel}/>
+                    <EmailHead link={props.link}/>
+                    <EmailList onDel={onDel}/>
                     <EmailInput onAdd={onAdd}/>
                     
                 </Modal>

@@ -6,6 +6,8 @@ import { UserInfoContextStore } from '..//UserInfoContext';
 import styled, { css } from "styled-components";
 import Table from '../components/Survey/Result/Table.js';
 import axios from 'axios';
+import { userState } from '../atom';
+import { useRecoilValue } from 'recoil';
 
 const ToggleBtn = styled.button`
   width: 120px;
@@ -39,6 +41,7 @@ const Circle = styled.div`
 function MyPage() {
 
     const [show, setShow] = useState(false);
+    const users = useRecoilValue(userState);
 
     let navigate = useNavigate();
     // const UserInfo = useContext(UserInfoContextStore);
@@ -66,16 +69,17 @@ function MyPage() {
         <>
             <div className="wraper">
                 <div className="content" style={{ padding: "100px", marginTop: "50px" }}>
-                    <div className="center" style={{ width: "600px" }}>
+                    <div className="center" style={{ width: "550px" }}>
                         <Row style={{ margin: "20px" }}>
                             <Col><h3>이름</h3></Col>
                             {/* <Col><h3>{UserInfo.name}님</h3></Col> */}
-                            <Col><h3>{localStorage.getItem('name')}님</h3></Col>
+                            {/* <Col><h3>{localStorage.getItem('name')}님</h3></Col> */}
+                            <Col><h3>{users[0].name}님</h3></Col>
                         </Row>
                         <Row style={{ margin: "20px" }}>
                             <Col><h3>이메일</h3></Col>
                             {/* <Col><h3>{UserInfo.email}</h3></Col> */}
-                            <Col><h3>{localStorage.getItem('email')}</h3></Col>
+                            <Col><h3>{users[0].email}</h3></Col>
                         </Row>
                         <Row style={{ margin: "20px" }}>
                             <Col><h3>알림 수신 여부</h3></Col>
@@ -85,11 +89,12 @@ function MyPage() {
                                 </ToggleBtn>
                             </Col>
                         </Row>
-                        <Button className="center" style={{ margin: "30px", marginLeft: "240px", width:"100px" }} onClick={handleLogoutButton}>로그아웃</Button>
+                        <Button className="center" style={{ margin: "30px" }} onClick={handleLogoutButton}>로그아웃</Button>
                     </div>
                 </div>
                 <Footer />
             </div>
+
 
 
             <Modal show={show} onHide={()=>{setShow(false)}}>

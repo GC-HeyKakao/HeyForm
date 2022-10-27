@@ -15,6 +15,8 @@ import { ShareSurvey } from './components/Survey/ShareSurvey';
 import { SurveySheet } from './components/Survey/SurveySheet';
 import { RepliedSurveySheet } from './components/Survey/Reply/RepliedSurveySheet';
 import { Users } from './API/Users'
+import { RecoilRoot } from "recoil"
+
 
 function App() {
   let navigate = useNavigate();
@@ -22,6 +24,7 @@ function App() {
 
   return (
     <>
+    <RecoilRoot>
       <UpperNav />
       <Routes>
       <Route path="/" element={<MainPage />}/>
@@ -37,6 +40,7 @@ function App() {
         <Route path="/reply/:userId:surveyId" element={<RepliedSurveySheet/>}/>
         <Route path="/Users" element={<Users />}/>
       </Routes>
+      </RecoilRoot>
 
 
     </>

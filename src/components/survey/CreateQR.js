@@ -1,7 +1,7 @@
 import {QRCodeSVG} from 'qrcode.react';
 import { Button } from 'react-bootstrap'
 import html2canvas from 'html2canvas';
-import { KakaoShareButton } from './KakaoShareButton'
+import "./cq.css";
 
 function CreateQR(props) {
 
@@ -26,7 +26,7 @@ function CreateQR(props) {
 
     return (
         <>
-            <div className='shareComment'> <br></br><br></br>📌 설문지를 공유할 수 있는 QR코드입니다.</div>
+            <div className='shareComment'> <br></br><br></br><h6>📌 설문지를 아래의 QR코드로 공유하세요</h6></div>
         <br></br>
             <div id="qrcode" className='qrcode'>
                 <QRCodeSVG value={props.link} //코드 링크 설정
@@ -34,7 +34,7 @@ function CreateQR(props) {
             </div>
             <br></br>
             <div className='qrcodeBtn'>
-                <Button className = 'qrcodeBtn' onClick={()=>{PrintDiv()}}> QR코드 이미지로 저장 </Button>        
+                <Button className = 'qrcodeBtn' onClick={()=>{PrintDiv()}}>QR코드 이미지로 저장하기</Button>        
             </div>
         </>
     )

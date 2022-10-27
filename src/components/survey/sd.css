@@ -1,0 +1,25 @@
+.customSlider {
+    max-width: 500px;
+    margin : auto
+  
+  }
+  
+  .percentage {
+    margin-left: 350px;
+    /* margin-top: 20px; 진동현상 없애기*/
+    display:flex;
+    font-weight:normal; ;
+  }
+  .customSlider-track-exercise {
+    top: 15px;
+    height: 40px;
+    background: #eee;
+    border-radius: 20px;
+    margin-left: 10px;
+  }
+  
+  .customSlider-track-exercise.customSlider-track-exercise-0 {
+    border-radius: 20px;
+    background: #0D6EFD;
+    margin-left: 20px;
+  }

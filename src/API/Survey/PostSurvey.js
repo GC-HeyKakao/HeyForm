@@ -1,45 +1,41 @@
 import axios from 'axios';
+import { forwardRef, useImperativeHandle } from "react";
+import { tokenState } from '../../atom';
+import { useRecoilValue } from 'recoil';
 
-const PostSurvey = async () => {
+// props -> surveyJson,userToken
+// route.CreateSurvey에서 사용!
+const PostSurvey = forwardRef((props, ref) => {
 
-    const headers = {
-        Authorization: localStorage.getItem('token')
-    };
+    const user_token=useRecoilValue(tokenState);
+    console.log(user_token);
+    useImperativeHandle(ref, () => ({
 
-    const data = {
-        userAccount: localStorage.getItem('token')
-    }
+        postSurvey() {
+            console.log("post survey 시작");
+            const headers = {
+                //Authorization: localStorage.getItem('token')
+                Authorization: props.userToken
+            };
 
-    const body = {
-        questionDtos: [
-            {
-                choiceDtos: [
-                    {
-                        choice_contents: "string",
-                        choice_order: parseInt(0)
-                    }
-                ],
-                question_contents: "string",
-                question_order: parseInt(0),
-                question_type: parseInt(0)
+            const body = {
+                surveyDto: "props.surveyJson"
             }
-        ],
-        surveyDto: {
-            survey_id: parseInt(0),
-            survey_state: parseInt(0),
-            survey_title: "string",
-            survey_url: "string"
-        }
-    }
 
-    axios.post(`http://210.109.61.98:8080/survey/{userAccount}?userAccount=${data.userAccount}`, body, headers)
-        .then((response) => {
-            console.log(response)
-            console.log('post survey ok');
-        })
-        .catch((error) => {
-            console.error(error.response.data);
-        })
+            console.log('확인', JSON.stringify(props.surveyJson));
 
-}
+                axios.post(`http://210.109.60.38:8080/survey/${user_token}`, props.surveyJson)
+                  .then((response) => {
+                    console.log(response)
+                    console.log('post survey ok');
+                })
+                .catch((error) => {
+                    console.log(error);
+                    console.error(error.response.data);
+                })
+        },
+    }));
+
+});
+
 export { PostSurvey };

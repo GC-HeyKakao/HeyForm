@@ -23,7 +23,6 @@ function is_checked() {
 	alert(Checkbox0.value + is_checked0 + Checkbox1.value + is_checked1 + Checkbox2.value + is_checked2);
 	//document.hetElementById('')
 
-
 }
   
 //워크스페이스용 설문지 확인js
@@ -151,8 +150,7 @@ function SurveyView(props)
         {
           //설문 작성자면 설문지를 공유하는 <ShareSurvey /> 컴포넌트를, 작성자가 아니라면 응답을 제출할 수 있는 <SubmmitButton /> 컴포넌트를 보여줌.
           userId === createrId?
-            <ShareSurvey shareWay={shareWay}/>
-
+          <ShareSurvey surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} endDate={props.endDate} shareWay={shareWay} />
             :
 
           <>

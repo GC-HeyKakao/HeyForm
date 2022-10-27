@@ -23,7 +23,7 @@ function ShareSurvey(props)
                 <CreateQR link={window.location.href}/>
               </div>
               <div style={{marginLeft:"5%"}}>
-                <SetPush />
+                <SetPush surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} endDate={props.endDate}/>
               </div>
             </div>
               
@@ -37,7 +37,7 @@ function ShareSurvey(props)
                 <CreateLink link={window.location.href}/>
               </div>
               <div style={{marginLeft:"5%"}}>
-                <SetPush/>
+                <SetPush title={props.title} description={props.description} date={props.date}/>
               </div>
             </div>
                 
