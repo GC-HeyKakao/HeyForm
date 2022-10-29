@@ -1,7 +1,6 @@
-import { Card } from 'react-bootstrap';
 import styled from "styled-components";
 import Fade from "react-reveal/Fade"; // Import reasct-reveal(Fade)
-import Zoom from 'react-reveal/Zoom';
+import './AboutProduct';
 
 const IntroBlock = styled.div`
   margin: 0px 0px 300px 0px;
@@ -30,19 +29,54 @@ const IntroBlock = styled.div`
 	display: block;
 	margin: auto;
 	margin-bottom: 80px;
+	height: 80%;
+	width: 80%;
+
+  }
+
+  @media (max-width: 768px) {
+	margin: 0px 0px 100px 0px;
+  
+	h1 {
+	  margin: 10;
+	  text-align : center;
+	  font-weight: 330;
+	  font-size: 30px;
+	}  
+  
+	h2 {
+	  margin: 0;
+	  text-align : center;
+	  font-weight: 300;
+	  font-size: 25px;
+	}
+  
+	h3 {
+	  text-align : center;
+	  font-weight: 200;
+	  font-size: 20px;
+	}
+  
+	img {
+	  height: 100%;
+	  width: 100%;
+	  display: block;
+	  margin: auto;
+	  margin-bottom: 80px;
+	}
+
   }
 `
 
-function AboutProduct({ className }) {
+function AboutProduct() {
 	return (
 		<div>
-			<div className={className}>
+			<div>
 				<Fade big>
-					<IntroBlock style={{marginTop:"5%"}}>
+					<IntroBlock style={{marginTop:"8%"}}>
 						<h2>사용자에게 편의를 주는 솔루션을</h2>
 						<h1><strong>헤이폼</strong>이 제안합니다.</h1>
-						<img src="main_promotion.png" align="center"
-							style={{ height: 400 }} />
+						<img src="main_promotion.png" align="center" />
 					</IntroBlock>
 				</Fade>
 
@@ -56,7 +90,8 @@ function AboutProduct({ className }) {
 						<br />
 						<h3>
 							헤이폼에서 설문을 제작해보세요.<br />
-							설문 공유는 QR 코드와 URL 링크를 통해 편하게 공유할 수 있습니다. <br />
+							설문 공유는 QR 코드와 URL 링크를 통해 <br />
+							편하게 공유할 수 있습니다. <br />
 							설문 결과는 자동으로 분석됩니다.<br />
 						</h3>
 					</IntroBlock>
@@ -96,7 +131,7 @@ function AboutProduct({ className }) {
 							설문 결과를 취합하고 분석하는데 많은 시간을 소비하시나요? <br />
 							헤이폼은 제출된 설문 응답을 <strong>자동으로 취합하고 분석</strong>합니다. <br />
 							결과 보고서는 문항별 특화된 방식으로 분석합니다. <br />
-							한 눈에 파악하기 쉬운 <strong>결과 분석 보고서</strong>를 다운받아보세요.
+						    <strong>응답자의 성별 및 연령대</strong> 또한 확인이 가능합니다.
 						</h3>
 					</IntroBlock>
 				</Fade>

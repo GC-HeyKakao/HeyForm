@@ -23,7 +23,7 @@ function KakaoLogin() {
     const navigate = useNavigate();
     const KAKAO_CODE = location.search.split('=')[1];
     const grant_type = "authorization_code";
-    let ACCESS_TOKEN = localStorage.getItem('token');
+    let ACCESS_TOKEN = '';
     let age;
 
     function setAgeRange(age) {
@@ -60,7 +60,7 @@ function KakaoLogin() {
                 if (data.access_token) {
                     console.log(data);
                     ACCESS_TOKEN = data.access_token;
-
+                    localStorage.setItem('token', ACCESS_TOKEN);
                     getUserInfo();
                 } else {
                     navigate('/mypage');
@@ -68,7 +68,6 @@ function KakaoLogin() {
                 }
 
             });
-
     };
 
     const getUserInfo = () => {
@@ -89,9 +88,9 @@ function KakaoLogin() {
                         isFirst = true;
 
                     }
-                    if (localStorage.getItem('count') === null) {
-                        localStorage.setItem('count', 0);
-                    }
+                    // if (localStorage.getItem('count') === null) {
+                    //     localStorage.setItem('count', 0);
+                    // }
 
                     if (data.kakao_account.age_range == "0~9" || data.kakao_account.age_range == "10~19") {
                         age = "10대 이하"
@@ -135,7 +134,6 @@ function KakaoLogin() {
             });
 
     };
-
 
     useEffect(() => {
         handleShow();

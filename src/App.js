@@ -37,7 +37,7 @@ function App() {
         <Route path="/kakaologout" element={<KakaoLogout/>}/>
         <Route path="/survey" element={<ShareSurvey/>}/>
         <Route path="/survey/:surveyId" element={<SurveySheet/>}/>
-        <Route path="/reply/:userId:surveyId" element={<RepliedSurveySheet/>}/>
+        {/* <Route path="/reply/:userId:surveyId" element={<RepliedSurveySheet/>}/> */}
         <Route path="/Users" element={<Users />}/>
       </Routes>
       </RecoilRoot>

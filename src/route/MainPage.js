@@ -5,9 +5,11 @@ import { Footer } from '../components/Footer.js'
 import React, { useState, useEffect, useContext } from "react";
 import { KAKAO_AUTH_URL } from '..//OAuth';
 import { PostUser } from '../API/User/PostUser';
-import { userState, tokenState } from '../atom';
+import { userState, tokenState, userIdState} from '../atom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { GetTokenByEmail } from '../API/User/GetTokenByEmail'
+import { GetUserIdByEmail }from '../API/User/GetUserIdByEmail';
+import "./MainPage.css";
 
 function MainPage() {
 
@@ -21,8 +23,9 @@ function MainPage() {
 	const [nonUser, setNonUser] = useState(false);
 	const users = useRecoilValue(userState);
 	const userHandler = useSetRecoilState(userState);
-	const token = useRecoilValue(tokenState);
+	const tokens = useRecoilValue(tokenState);
 	const tokenHandler = useSetRecoilState(tokenState);
+	const idHandelr = useSetRecoilState(userIdState);
 
 	// 스크롤 읽어와서 이벤트 구현
 	const [ScrollY, setScrollY] = useState(0); //현재 스크롤의 값
@@ -101,18 +104,16 @@ function MainPage() {
 
 	
 	useEffect(() => {
-		
 		if (users.length!==0) {
 			
 			if(users[users.length-1].isFirst)
 			{
+				console.log("처음임");
 				reset();
 				PostUser(users[0]);
-				GetTokenByEmail(users[0]);
-				tokenHandler(window.localStorage.getItem('ttoken'));
-				window.localStorage.removeItem('ttoken');
 				setUser(true);
-				console.log("토토큰", token);
+				GetTokenByEmail(users[0]);
+				GetUserIdByEmail(users[0]);
 			}
 
 		} else if (users.length===0) {
@@ -124,7 +125,12 @@ function MainPage() {
 
 	}, [])
 
-	return (
+	tokenHandler(window.localStorage.getItem('ttoken'));
+	idHandelr(window.localStorage.getItem('userID'))
+	// console.log("로컬토큰", window.localStorage.getItem('ttoken'));
+	// console.log("토토큰", token);
+
+	return ( 
 		<>
 		{
 			users.length!==0 ?
@@ -159,7 +165,7 @@ function MainPage() {
 				<div className="content">
 					<AboutProduct />
 					<Button className={startBtnStatus ? "startBtn active" : "startBtn"}
-						variant="primary" size="lg" onClick={users===null ? handleLogin : () => navigate("/create")}>
+						variant="primary" size="lg" onClick={!localStorage.getItem('token') ? handleLogin : () => navigate("/create")}>
 						시작하기
 					</Button> {/*로그인 되어있지 않으면 로그인창으로*/}
 

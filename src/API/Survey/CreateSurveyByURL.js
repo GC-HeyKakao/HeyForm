@@ -1,22 +1,34 @@
 import axios from 'axios';
 
-const CreateSurveyByURL = async (props) => {
+const CreateSurveyByURL = async (link) => {
 
-    const surveyURL = '6512bd43d9caa6e02c990b0a82652dca';
+    console.log("createSurveyByurl");
+     const surveyURL = link;
+    // console.log("link");
+    //const surveyURL = 'c4ca4238a0b923820dcc509a6f75849b';
+    console.log("urllink", surveyURL);
+    let dto = {};
+
     const headers = {
         Authorization: localStorage.getItem('token')
     };
-    const url = null;
 
-    axios.get(`http://210.109.60.38:8080/survey/paper/${surveyURL}`, headers)
+    console.log('cre resp');
+
+    const response = await axios.get(`http://210.109.60.38:8080/survey/paper/${surveyURL}`, headers)
         .then((response) => {
-            console.log(response.request.responseURL)
-            console.log('create survey paper ok');
-            url = response.request.responseURL;
+            dto = response.data;
+            window.localStorage.setItem("questionDto", JSON.stringify(dto));
+            console.log('create survey paper by url ok(get dto)');
+
         })
         .catch((error) => {
-            console.log(error)         
+            console.log(error);
+            console.error(error.response.data);
         })
+
+    return dto;
+
 }
 
 export { CreateSurveyByURL };

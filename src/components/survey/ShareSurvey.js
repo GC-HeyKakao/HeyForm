@@ -4,7 +4,6 @@ import { SetPush } from "./SetPush";
 import {CreateLink } from "./CreateLink"
 import { useParams } from 'react-router-dom'
 
-
 //완성된 설문지를 확인해보기 위한 js
 function ShareSurvey(props)
 {
@@ -12,7 +11,7 @@ function ShareSurvey(props)
     
     //surveyId를 '1'이라고 가정
     //const { surveyId } = useParams();
-
+    
     return (
         <>
           {

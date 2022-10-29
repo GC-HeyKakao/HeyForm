@@ -4,6 +4,7 @@ const GetSurveyBySurveyId = async (props) => {
 
     let SurveyInfo = null;
     let surveyId = props.surveyId; //props로 전달
+    
 
     const headers = {
         Authorization: localStorage.getItem('token')

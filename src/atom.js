@@ -8,6 +8,11 @@ export const emailState = atom({
     default: [],
 })
 
+export const linkState = atom({
+    key: 'linkState',
+    default: '',
+})
+
 export const previewState = atom({
     key: 'previews',
     default: {
@@ -34,5 +39,11 @@ export const userState = atom({
 export const tokenState = atom({
     key: 'tokenState',
     default: '',
+    effects_UNSTABLE: [persistAtom],
+})
+
+export const userIdState = atom({
+    key: 'userIdState',
+    default: 0,
     effects_UNSTABLE: [persistAtom],
 })

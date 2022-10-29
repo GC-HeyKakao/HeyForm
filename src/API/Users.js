@@ -8,11 +8,15 @@ import { UpdateSurvey } from './Survey/UpdateSurvey';
 import { GetAllUser } from './User/GetAllUser';
 import { GetTokenByEmail } from './User/GetTokenByEmail';
 import { PostUser } from './User/PostUser';
-
+import { userState, tokenState } from '../atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { RecommendCate } from '../components/AI/RecommendCate';
 
 function Users() {
 
-  const [users, setUsers] = useState(null);
+  const users = useRecoilValue(userState);
+
+  //const [users, setUsers] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   
@@ -47,10 +51,13 @@ function Users() {
     // } catch(err) {
     //   console.log("Error >>", err);
     // }
+  
 
-
-  useEffect(() => {
-    //PostUser();
+    useEffect(() => {
+    RecommendCate();
+    // let dto = CreateSurveyByURL();
+    // console.log(dto);
+    //CreateSurveyByURL();
     //GetSurveyBySurveyId();
     //DeleteSurvey();
     //GetAllUser();
@@ -61,7 +68,7 @@ function Users() {
     //DeleteSurvey();
     //PostSurvey();
     //CreateSurveyByURL();
-    GetTokenByEmail();
+
 
   }, []);
 

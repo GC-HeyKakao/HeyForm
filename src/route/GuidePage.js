@@ -20,7 +20,7 @@ function GuidePage() {
             <div className="wraper">
                 <div className="content">
                     <Row>
-                        <Col md="3">
+                        <Col md="4">
                             <ListGroup variant="pills" defaultActiveKey="aboutCommon" className='basicCard' style={{ paddingTop: 5 }} onSelect={(e) => setViewSwitch(e)}>
                                 <Accordion>
                                     <Accordion.Item>

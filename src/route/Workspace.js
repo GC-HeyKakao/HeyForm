@@ -4,8 +4,11 @@ import { useState, useRef, useEffect, useCallback, useContext } from 'react';
 import { Respondent } from '../components/Survey/Result/Respondent';
 import { useNavigate } from 'react-router-dom';
 import { SurveyView } from '../components/Workspace/SurveyView'
+import { tokenState } from '../atom';
 import { GetSurveyBySurveyId } from '../API/Survey/GetSurveyBySurveyId';
 import { DeleteSurvey } from '../API/Survey/DeleteSurvey';
+import { GetSurveyByUserAccount } from '../API/Survey/GetSurveyByUserAccount'
+import { useRecoilValue } from 'recoil';
 
 function Workspace() {
 
@@ -22,7 +25,7 @@ function Workspace() {
 	var dateString = year + '-' + month + '-' + day;
 	var preDateString = year + '-' + preMonth + '-' + day;
 	let view = useRef("설문지");
-	let count = window.localStorage.getItem("count");
+	let [count, setCount] = useState(0);
 	let navigate = useNavigate();
 	var ingId = new Array();
 	var endId = new Array();
@@ -34,19 +37,7 @@ function Workspace() {
 	//제작 및 응답한 설문지 기간 조회에 사용됨
 	const [startDate, setStartDate] = useState(dateString);
 	const [endDate, setEndDate] = useState(preDateString);
-
-	if (window.localStorage.getItem('count') != 0) {
-
-		for (var i = 1; i < count + 1; i++) {
-
-			if (window.localStorage.getItem('token') == window.localStorage.getItem('creater[' + i + "]")) {
-				ingId.push(i);
-			}
-			else {
-				continue;
-			}
-		}
-	}
+	const token = useRecoilValue(tokenState);
 
 	const show = useRef(false);
 	const [, updateState] = useState();
@@ -55,14 +46,72 @@ function Workspace() {
 	const [viewSwitch, setViewSwitch] = useState('제작');
 
 	const handleDelete = () => {
-		childRef.current.deleteSurvey(); 
+		//childRef.current.deleteSurvey(); 
 		show.current=false;
 		forceUpdate();
 	}
 
+	let surveyAllString;
+	let surveyAllDto;
+
 	useEffect(() => {
-		//GetSurveyBySurveyId();
-	}, [show.current]);
+
+		//url을 넘겨줘서 설문 dto 가져옴. 이거 파싱해서 설문지 생성할거임
+		GetSurveyByUserAccount(token)
+		  .then((res) => {
+			surveyAllString = res;
+			surveyAllDto=surveyAllString.split('survey_id=');
+			
+			//setCount = Object.entries(surveyAllDto.SurveyQuestionDto).length;
+			setCount(surveyAllDto.length);
+			console.log(surveyAllDto);
+			console.log("count", surveyAllDto.length);
+
+			for ( var i = 1; i<count; i++)
+			{
+
+				console.log(i+1);
+				let title = surveyAllDto[i].split(',');
+				console.log("title", title[0]);
+				ingId.push(title[0]);
+				
+
+			}
+
+			console.log("타이틀", ingId);
+
+			// if (window.localStorage.getItem('count') != 0) {
+
+			// 	for (var i = 1; i < count + 1; i++) {
+		
+			// 		if (window.localStorage.getItem('token') == window.localStorage.getItem('creater[' + i + "]")) {
+			// 			ingId.push(i);
+			// 		}
+			// 		else {
+			// 			continue;
+			// 		}
+			// 	}
+			// }
+			// dtoJson = JSON.stringify(dto);
+			// //surveyTitle = dtoJson.surveyDto.survey_title;
+			// setTitle(dto.surveyDto.survey_title);
+			// setCategory(dto.surveyDto.category);
+			// setSavedQsList(dto.questionDtos);
+			// setDes(dto.surveyDto.description);
+			// setId(dto.surveyDto.survey_id);
+			// console.log(savedQsList);
+			// console.log('dto:', dto);
+			// console.log('dto title', dto.surveyDto.survey_title);
+			// console.log('dto que', dto.questionDtos);
+			// console.log('saved qs lig', savedQsList2);
+		  }, (err) => console.log(err))
+	
+	  }, []);
+
+	// useEffect(() => {
+	// 	//GetSurveyBySurveyId();
+	// 	setSelectNum(1);
+	// }, [show.current]);
 
 	return (
 		<>
@@ -76,7 +125,7 @@ function Workspace() {
 					</Row>
 
 					<Row>
-						<Col md="4">
+						<Col md="4" style={{margin:"1%"}}>
 							<Row>
 								<Col>
 									<Form.Control type="date" defaultValue={preDateString}
@@ -88,17 +137,11 @@ function Workspace() {
 								</Col>
 							</Row>
 						</Col>
-						<Col md="1">
-							<Button variant="primary" onClick={() => { view.current = "설문지"; forceUpdate(); }}>설문지 보기</Button>
-						</Col>
-						<Col md="1">
-							<Button variant="primary" onClick={() => { view.current = "결과"; forceUpdate(); }}>결과 보기</Button>
-						</Col>
-						<Col md="1">
-							<Button variant="primary" onClick={() => { view.current = "응답자"; forceUpdate(); }}>응답자 보기</Button>
-						</Col>
-						<Col md="1">
-							<Button variant="primary" onClick={() => { view.current = "삭제"; show.current=true; forceUpdate();}}>삭제</Button>
+						<Col md="4" style={{margin:"1%"}}>
+							<Button variant="primary" style={{marginLeft:"1%", marginRight:"1%"}} onClick={() => { view.current = "설문지"; forceUpdate(); }}>설문지 보기</Button>
+							<Button variant="primary" style={{marginLeft:"1%", marginRight:"1%"}} onClick={() => { view.current = "결과"; forceUpdate(); }}>결과 보기</Button>
+							<Button variant="primary" style={{marginLeft:"1%", marginRight:"1%"}} onClick={() => { view.current = "응답자"; forceUpdate(); }}>응답자 보기</Button>
+							<Button variant="primary" style={{marginLeft:"1%", marginRight:"1%"}} onClick={() => { view.current = "삭제"; show.current=true; forceUpdate();}}>삭제</Button>
 							{/* <DeleteSurvey ref={childRef} surveyId={surveyId} /> */}
 						</Col>
 					</Row>
@@ -112,7 +155,9 @@ function Workspace() {
 											<Accordion.Header>진행중인 설문</Accordion.Header>
 											<Accordion.Body>
 												{
-													ingId.map((idx) => <ListGroup.Item onClick={() => { setSelectNum(idx); }}><Button style={{ backgroundColor: "transparent", color: "black", border: "none" }}>진행 설문{idx}</Button></ListGroup.Item>)
+													ingId && ingId.map((idx) => <ListGroup.Item onClick={() => { setSelectNum(idx); }}><Button style={{ backgroundColor: "transparent", color: "black", border: "none" }}>진행 설문{idx}</Button></ListGroup.Item>)
+													// ingId.map((idx) => <ListGroup.Item><Button style={{ backgroundColor: "transparent", color: "black", border: "none" }}>{idx}</Button></ListGroup.Item>)
+
 												}
 											</Accordion.Body>
 										</Accordion.Item>
@@ -136,7 +181,7 @@ function Workspace() {
 								<div className='basicCard'>
 									<Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
 										{/* <SurveyView surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} endDate={props.endDate} surveyId={selectNum} /> */}
-										<SurveyView surveyTitle={'제목'} surveyDescription={'설명'} endDate={'2022-10-27'} surveyId={selectNum} />
+										<SurveyView surveyTitle='제목' surveyDescription='설명' endDate='2022-10-27' surveyId={selectNum} />
 									</Card>
 								</div>
 							</Col>}

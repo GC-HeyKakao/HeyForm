@@ -74,6 +74,7 @@ function FaqCreate({ className }) {
             {showList.map((item, index) => getQnACard(item, index))}     
           </div>
         </div>
+        <div style={{marginBottom:"50px"}}></div>
       </div>
     );
 }

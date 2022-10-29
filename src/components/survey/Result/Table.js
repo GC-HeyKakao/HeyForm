@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useTable } from "react-table";
-import "./tb.css";
+import "./Table.css";
 
 const Table = (props) => {
     const [response, setTutorials] = useState([]);

@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const GetSurveyByUserAccount = async () => {
+const GetSurveyByUserAccount = async (token) => {
 
     let SurveyInfo = null;
     // let userAccount = localStorage.get('token'); //props로 전달
-    let userAccount = 'string' //props로 전달
+    let userAccount = token; //props로 전달
 
     const headers = {
         Authorization: localStorage.getItem('token')
@@ -15,7 +15,7 @@ const GetSurveyByUserAccount = async () => {
         .then((response) => {
             console.log('get survey by userAccount ok');
             console.log(response.data)
-            SurveyInfo = JSON.stringify(response.data);
+            SurveyInfo = response.data;
         })
         .catch((error) => {
             console.log(error)
@@ -23,5 +23,7 @@ const GetSurveyByUserAccount = async () => {
     
     console.log('GetSurveyBySurveyId');
     console.log(SurveyInfo);
+
+    return SurveyInfo;
 }
 export { GetSurveyByUserAccount };

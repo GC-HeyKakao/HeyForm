@@ -1,0 +1,99 @@
+.customSlider {
+  max-width: 500px;
+  margin : auto
+
+}
+
+.percentage {
+  margin-left: 350px;
+  /* margin-top: 20px; 진동현상 없애기*/
+  display:flex;
+  font-weight:normal; ;
+}
+
+/* Slider type: exercise */
+.customSlider-track-exercise {
+  top: 15px;
+  height: 40px;
+  background: #eee;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-exercise.customSlider-track-exercise-0 {
+  border-radius: 20px;
+  background: #0D6EFD;
+  margin-left: 20px;
+}
+
+.customSlider-thumb-exercise {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='0' y='55' fill='red' font-size='60'>🏀</text></svg>");
+  background-color: transparent;
+  /* shape of the thumb: circle */
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  margin-left: 0px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+/* Slider type: satisfy */
+.customSlider-track-satisfy {
+  top: 15px;
+  height: 40px;
+  background: #eee;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-satisfy.customSlider-track-satisfy-0 {
+  border-radius: 20px;
+  background: #FF0044;
+  margin-left: 20px;
+}
+
+.customSlider-thumb-satisfy {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='-3' y='55' fill='red' font-size='60'>😍</text></svg>");
+  background-color: transparent;
+  /* shape of the thumb: circle */
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  margin-left:  5px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+/* Slider type: echo */
+.customSlider-track-echo {
+  top: 15px;
+  height: 40px;
+  background: #eee;
+  border-radius: 20px;
+  margin-left: 20px;
+}
+
+.customSlider-track-echo.customSlider-track-echo-0 {
+  border-radius: 20px;
+  background: #3CB371;
+  
+}
+
+.customSlider-thumb-echo {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='-3' y='55' fill='red' font-size='60'>🍀</text></svg>");
+  background-color: transparent;
+  /* shape of the thumb: circle */
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  margin-left: 15px;
+  /* remove default outline when selected */
+  outline: none;
+}

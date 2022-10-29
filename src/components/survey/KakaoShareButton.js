@@ -8,7 +8,7 @@ import sendKakaoBtn from '../../sendKakaoBtn.png';
 const KakaoShareButton = (props) => {
 
     useEffect(() => {
-        console.log(props);
+        //console.log(props);
         createKakaoButton()
 
     }, [])

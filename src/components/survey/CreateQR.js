@@ -1,7 +1,7 @@
 import {QRCodeSVG} from 'qrcode.react';
 import { Button } from 'react-bootstrap'
 import html2canvas from 'html2canvas';
-import "./cq.css";
+import "./CreateQR.css";
 
 function CreateQR(props) {
 

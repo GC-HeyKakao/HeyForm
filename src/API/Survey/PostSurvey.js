@@ -1,22 +1,25 @@
 import axios from 'axios';
 import { forwardRef, useImperativeHandle } from "react";
 import { tokenState } from '../../atom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { linkState } from '../../atom';
 
 // props -> surveyJson,userToken
 // route.CreateSurvey에서 사용!
 const PostSurvey = forwardRef((props, ref) => {
 
     const user_token=useRecoilValue(tokenState);
-    console.log(user_token);
+    const linkHandler = useSetRecoilState(linkState);
+
     useImperativeHandle(ref, () => ({
 
         postSurvey() {
             console.log("post survey 시작");
+            console.log(user_token);
             const headers = {
-                //Authorization: localStorage.getItem('token')
-                Authorization: props.userToken
+                Authorization: user_token
             };
+
 
             const body = {
                 surveyDto: "props.surveyJson"
@@ -26,7 +29,8 @@ const PostSurvey = forwardRef((props, ref) => {
 
                 axios.post(`http://210.109.60.38:8080/survey/${user_token}`, props.surveyJson)
                   .then((response) => {
-                    console.log(response)
+                    linkHandler(response.data);
+                    console.log(response.data)
                     console.log('post survey ok');
                 })
                 .catch((error) => {

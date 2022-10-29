@@ -6,6 +6,11 @@ import { Preview } from '../components/Survey/Preview.js'
 import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom';
 import { PostSurvey } from '../API/Survey/PostSurvey';
+import { UpdateSurvey } from '../API/Survey/UpdateSurvey.js';
+import { SurveySheet } from '../components/Survey/SurveySheet.js';
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { linkState, userState } from '../atom';
+import { RecommendCate } from '../components/AI/RecommendCate.js';
 
 function CreateSurvey() {
 
@@ -44,8 +49,8 @@ function CreateSurvey() {
 
 	// surveyDto
 	surveyDto.survey_state = null;
-	surveyDto.start_time = null;
-	surveyDto.end_time = null;
+	surveyDto.end_time = '12:12:12 12:12:00';
+	surveyDto.end_time = '12:12:12 12:12:00';
 	surveyDto.category = null;
 	surveyDto.description = null;
 	surveyDto.survey_title = null;
@@ -54,13 +59,10 @@ function CreateSurvey() {
 	// surveyDto.survey_url = null;
 
 	let questionDtos = new Array();
-	let questionDto = new Object();
-	let copy = { ...questionDtos };
 	let choiceDtos = new Array();
 	let choiceDtos2 = new Array();
-	let choiceDto = new Object();
 
-	let copy2 = { ...choiceDtos };
+	const link = useRecoilValue(linkState);
 
 	useEffect(() => {
 		setCurQs('');
@@ -122,24 +124,37 @@ function CreateSurvey() {
 	const [endDate, setEndDate] = useState(nextDateString);
 	const [endTime, setEndTime] = useState(timeString);
 
+	const [RecommendCategory, setRecommendCategory] = useState('');
+	const [RecommendMent, setRecommendMent] = useState('');
+
+	function category() {
+		// AI모듈
+		RecommendCate(surveyTitle, category_list)
+			.then((res) => {
+				console.log('RecommendCategory: ', RecommendCategory);
+				setRecommendCategory(res);
+				setRecommendMent('와 관련된 디자인을 추천할게요!');
+				setSelectedCategory(res);
+			}, (err) => console.log(err))
+	}
+
 	// 설문 저장하기 버튼을 누를 때
 	function handleSurveySaveButton() {
 
-		window.localStorage.setItem("count", parseInt(window.localStorage.getItem("count")) + 1);
-		window.localStorage.setItem("savedQsList[" + count + "]", JSON.stringify(savedQsList));
-		window.localStorage.setItem("curQs[" + count + "]", JSON.stringify(curQs));
-		window.localStorage.setItem("curQsItemList[" + count + "]", JSON.stringify(curQsItemList));
-		window.localStorage.setItem("curSelectedType[" + count + "]", JSON.stringify(curSelectedType));
-		window.localStorage.setItem("surveyTitle[" + count + "]", JSON.stringify(surveyTitle));
-		window.localStorage.setItem("category[" + count + "]", selectedCategory);
-		window.localStorage.setItem("creater[" + count + "]", window.localStorage.getItem("token"));
+		// window.localStorage.setItem("count", parseInt(window.localStorage.getItem("count")) + 1);
+		// window.localStorage.setItem("savedQsList[" + count + "]", JSON.stringify(savedQsList));
+		// window.localStorage.setItem("curQs[" + count + "]", JSON.stringify(curQs));
+		// window.localStorage.setItem("curQsItemList[" + count + "]", JSON.stringify(curQsItemList));
+		// window.localStorage.setItem("curSelectedType[" + count + "]", JSON.stringify(curSelectedType));
+		// window.localStorage.setItem("surveyTitle[" + count + "]", JSON.stringify(surveyTitle));
+		// window.localStorage.setItem("category[" + count + "]", selectedCategory);
+		// window.localStorage.setItem("creater[" + count + "]", window.localStorage.getItem("token"));
 
 		setShow(true);
 	}
 
 	// 설문 제작 완료 버튼을 누를때 (공유탭))
 	function handleSurveyCreateButton() {
-
 
 		surveyDto.survey_state = null;
 		surveyDto.start_time = null;
@@ -153,6 +168,10 @@ function CreateSurvey() {
 
 		start_time_temp = startDate + ' ' + startTime + ':00'
 		end_time_temp = endDate + ' ' + endTime + ':00';
+
+		surveyDto.start_time = start_time_temp;
+		console.log('surveydto의 시작시간', surveyDto.start_time);
+		surveyDto.end_time = end_time_temp;
 
 		// 아래의 세가지 변수는 설문 state 판별을 위한 조건문에 사용
 		// 0: 진행중 1: 배포전 2: 종료
@@ -178,6 +197,8 @@ function CreateSurvey() {
 				alert("?")
 			}
 		}
+
+		surveyDto.survey_state = surveyState.current;
 
 		console.log('설문 저장 시작', surveyDto.survey_state);
 
@@ -229,7 +250,6 @@ function CreateSurvey() {
 			surveyJson.surveyDto = surveyDto;
 			surveyJson.questionDtos = questionDtos;
 			surveyJson = JSON.stringify(surveyJson).replace(/ /gi, "");
-			console.log(surveyJson);
 
 			childRef.current.postSurvey();
 
@@ -257,12 +277,17 @@ function CreateSurvey() {
 						<Row style={{ paddingTop: 10 }}>
 							<Col style={{ width: '50%' }}>
 								<Card className='basicCard'>
-									<DropdownCmpt list={category_list} title={selectedCategory} style={{ marginBottom: "1%" }} setSelected={setSelectedCategory} defaultTitle="Category" />
+									<div>
+										<DropdownCmpt list={category_list} title={selectedCategory} style={{ marginBottom: "1%", float:"left" }} setSelected={setSelectedCategory} defaultTitle="Category" />
+										<div style={{marginTop:"2%", marginRight:"35%"}}>
+										<h5 style={{float:"right"}}>{RecommendCategory}{RecommendMent}</h5>
+										</div>
+										</div>
 									<FloatingLabel
 										controlId="floatingTextarea"
 										label="설문 제목을 입력해주세요"
 										className="mb-3"
-										style={{ paddingLeft: "1%", paddingRight: "1%" }}
+										style={{ fontSize: "15px", paddingLeft: "1%", paddingRight: "1%" }}
 									>
 										<Form.Control as="textarea" placeholder="설문지 제목을 입력해주세요" onChange={(e) => {
 											setSurveyTitle(e.target.value);
@@ -284,6 +309,7 @@ function CreateSurvey() {
 										style={{ position: "absolute", top: "90%", left: "46%", zIndex: 1, width: "auto" }}
 										onClick={() => {
 											setMakeQsSwitch(true);
+											category();
 										}}> +
 									</Button>
 
@@ -294,30 +320,32 @@ function CreateSurvey() {
 											curSelectedType={curSelectedType} setCurSelectedType={setCurSelectedType} setMakeQsSwitch={setMakeQsSwitch} />
 											: null
 									}
+									<div style={{ margin: "1%" }}>
+										{/* 문항 리스트 */}
+										{
+											savedQsList.map((savedQs, idx) => {
+												return (
+													<Card className='basicCard' key={idx} style={{ marginBottom: "1%", marginTop: "1%" }}>
+														<CloseButton onClick={() => {
+															let copy = [...savedQsList];
+															copy.splice(idx, 1);
+															setSavedQsList(copy);
 
-									{/* 문항 리스트 */}
-									{
-										savedQsList.map((savedQs, idx) => {
-											return (
-												<Card className='basicCard' key={idx} >
-													<CloseButton onClick={() => {
-														let copy = [...savedQsList];
-														copy.splice(idx, 1);
-														setSavedQsList(copy);
+															copy = [...curQsItemList];
+															copy.splice(idx, 1);
+															setCurQsItemList(copy);
+														}} />
+														<Card.Title className='basicCard' style={{ marginLeft: "3%", marginBottom: "2%" }} > Q{idx + 1}: {savedQs['qs']} </Card.Title>
+													</Card>
+												)
+											})
+										}
+									</div>
 
-														copy = [...curQsItemList];
-														copy.splice(idx, 1);
-														setCurQsItemList(copy);
-													}} />
-													<Card.Title className='basicCard' > Q{idx + 1}: {savedQs['qs']} </Card.Title>
-												</Card>
-											)
-										})
-									}
-
-									<InputGroup style={{ marginTop: "2%" }}>
-										<InputGroup.Checkbox aria-label="Checkbox for following text input" />
-										<InputGroup.Text>익명 체크</InputGroup.Text>
+									<InputGroup style={{ marginTop: "10%" }}>
+										{/* <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+										<InputGroup.Text>익명 체크</InputGroup.Text> */}
+										<div />
 									</InputGroup>
 								</Card>
 							</Col>
@@ -420,8 +448,9 @@ function CreateSurvey() {
 								<h4>완성된 설문을 확인하시겠습니까?🥰</h4>
 								<br />
 								{/* 설문 josn post하기 */}
-								<Button style={{ marginRight: "20px" }} onClick={() => { navigate("/survey/" + count); }}>확인</Button>
-								<Button onClick={() => { setShowCreate(false) }}>취소</Button>							</Modal.Body>
+								<Button style={{ marginRight: "20px" }} onClick={() => { navigate("/survey/" + link); }}>확인</Button>
+								<Button onClick={() => { setShowCreate(false) }}>취소</Button>
+							</Modal.Body>
 						</Modal>
 
 						<Helmet>

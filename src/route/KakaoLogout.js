@@ -2,7 +2,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useEffect, useState, useContext } from "react";
 import { KAKAO_AUTH_URL, REDIRECT_URI, LOGOUT_REDIRECT_URI, REST_API_KEY } from '..//OAuth';
 import { Modal } from 'react-bootstrap'
-import { UserInfoContextStore } from '..//UserInfoContext';
+import { userState } from '../atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 function KakaoLogout() {
 
@@ -10,15 +11,10 @@ function KakaoLogout() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    // // 유저 정보 관리 context api
-    // let UserInfo = useContext(UserInfoContextStore);
-
     let ACCESS_TOKEN = localStorage.getItem('token');
+    console.log("token", ACCESS_TOKEN);
     const location = useLocation();
     const navigate = useNavigate();
-    const KAKAO_CODE = location.search.split('=')[1];
-    const grant_type = "authorization_code";
-
 
     const refreshKakaoToken = () => {
 
@@ -39,33 +35,21 @@ function KakaoLogout() {
                 }
 
             });
-
     }
 
     const Logout = () => {
         // 카카오계정과 함께 로그아웃
         fetch(`https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}&state=${ACCESS_TOKEN}`, {
             method: 'GET',
-            //           headers: {
-            //     'Content-Type': 'application/x-www-form-urlencoded',
-            //     'Authorization': `Bearer ${ACCESS_TOKEN}`
-            // }
-            //body: `client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}&state=${ACCESS_TOKEN}`,
-        })
-            //     .then(res => res.json())
+             })
             .then(data => {
                 console.log('data:', data);
                 if (data.url.includes(ACCESS_TOKEN)) {
                     console.log(data.state);
-                    // UserInfo.setName('홍길동');
-                    // UserInfo.setEmail('Heyform@example.com');
-                    // UserInfo.setToken('');
-                    // UserInfo.setId('-1');
-                    localStorage.clear();
-                    localStorage.setItem('first', 'false')
+                    localStorage.removeItem('token');
                     navigate('/main');
                 } else {
-                    navigate('/mypage');
+                    //navigate('/mypage');
                     console.log("카카오 계정과 함께 로그아웃 실패");
                 }
 

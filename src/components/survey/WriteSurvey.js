@@ -28,25 +28,18 @@ function WriteSurvey(props) {
 			{
 				{
 					"단답식":
-						<Form.Control size="sm" type="text" placeholder="질문을 입력하세요" 
-							onChange={(e) => {
-							setQs(e.target.value);
-							props.setCurQs(e.target.value);
-						}} />,
+						<Form.Control size="lg" type="text" placeholder="질문을 입력하세요" style={{ height: "10%" }}
+							onChange={(e) => { setQs(e.target.value); props.setCurQs(e.target.value); }} />,
 					"객관식":
 						<>
-							<Form.Control
-									onChange={(e)=>{
-										setQs(e.target.value);
-										props.setCurQs(e.target.value);
-									}}/>
-
-							<Button style={{ marginTop: "2%", marginBottom: "2%"}} size="sm" onClick={()=>
-									{
-										let copy = [...qsItemList, ''];
-										setQsItemList(copy);
-										props.setCurQsItemList(copy);}
-									}> 문항추가 </Button>
+							<Form.Control size="lg" type="text" placeholder="질문을 입력하세요" style={{ height: "10%" }}
+								onChange={(e) => { setQs(e.target.value); props.setCurQs(e.target.value); }} />
+							<Button style={{ marginTop: "2%", marginBottom: "2%" }} size="sm" onClick={() => {
+								let copy = [...qsItemList, ''];
+								setQsItemList(copy);
+								props.setCurQsItemList(copy);
+							}
+							}> 문항추가 </Button>
 							{
 								qsItemList.map((choice, idx) => {
 									return (
@@ -73,35 +66,24 @@ function WriteSurvey(props) {
 								})
 							}
 						</>,
-					"별점":
-						<>
-							<Form.Control size="sm" type="text" placeholder="질문을 입력하세요" onChange={(e) => {
-								setQs(e.target.value);
-								props.setCurQs(e.target.value);
-							}} />
-							<Star/>
-						</>,
-					"리커트":
-						<>
-							<Form.Control size="sm" type="text" placeholder="질문을 입력하세요" onChange={(e) => {
-								setQs(e.target.value);
-								props.setCurQs(e.target.value);
-							}} />
-							<Likertchart />
-						</>,
+					"별점": <div>
+						<Form.Control size="lg" type="text" placeholder="질문을 입력하세요" style={{ height: "10%" }}
+							onChange={(e) => { setQs(e.target.value); props.setCurQs(e.target.value); }} />
+						<Star /></div>,
+					"리커트": <>
+						<Form.Control size="lg" type="text" placeholder="질문을 입력하세요" style={{ height: "10%" }}
+							onChange={(e) => { setQs(e.target.value); props.setCurQs(e.target.value); }} />
+						<Likertchart /></>,
 					"감정바":
 						<>
-							<Form.Control style={{marginBottom: "2%"}} size="sm" type="text" placeholder="질문을 입력하세요" onChange={(e) => {
-								setQs(e.target.value);
-								props.setCurQs(e.target.value);
-								setCategory(props.category)
-							}} />
-							<Slider category = {props.category} />
-						</>,
+							<Form.Control size="lg" type="text" placeholder="질문을 입력하세요" style={{ height: "10%" }}
+								onChange={(e) => { setQs(e.target.value); props.setCurQs(e.target.value); }} />
+							<Slider category={props.category} /></>,
+
 				}[selectedType]
 			}
 			<br />
-			<Button variant="primary" style={{ marginLeft: "43.7%", marginTop:"5%" }}
+			<Button variant="primary" style={{ marginLeft: "40%", marginTop: "5%" }}
 				onClick={() => {
 					if (qs != '') {
 						let copy = [...props.savedQsList];
@@ -110,7 +92,7 @@ function WriteSurvey(props) {
 						setSelectedType('Type');
 						props.setMakeQsSwitch(false);
 					}
-				}}>추가</Button>{' '}
+				}}>질문 등록</Button>{' '}
 		</div>
 	)
 }

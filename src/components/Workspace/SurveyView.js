@@ -25,7 +25,9 @@ function is_checked() {
 
 }
   
+
 //워크스페이스용 설문지 확인js
+//<SurveyView surveyTitle={'제목'} surveyDescription={'설명'} endDate={'2022-10-27'} surveyId={selectNum} />
 function SurveyView(props)
 
 {
@@ -37,7 +39,10 @@ function SurveyView(props)
   const curQs = JSON.parse(window.localStorage.getItem("curQs["+surveyId+"]"));
   const curQsItemList = JSON.parse(window.localStorage.getItem("curQsItemList["+surveyId+"]"));
   const curSelectedType = JSON.parse(window.localStorage.getItem("curSelectedType["+surveyId+"]"));
-  const surveyTitle = JSON.parse(window.localStorage.getItem("surveyTitle["+surveyId+"]"));
+  //const surveyTitle = JSON.parse(window.localStorage.getItem("surveyTitle["+surveyId+"]"));
+  const surveyTitle = props.surveyTitle;
+  const surveyDescription = props.surveyDescription;
+  console.log(surveyDescription);
   const category = window.localStorage.getItem("category["+surveyId+"]")
   const shareWay = window.localStorage.getItem("shareWay["+surveyId+"]")
 
@@ -55,6 +60,7 @@ function SurveyView(props)
 
        <Card className='basicCard' style={{ padding: "3%", backgroundColor:backgroundColor }}>
         <h2 style={{ marginBottom: "3%", textAlign:"center" }}>{surveyTitle}</h2>
+        <h6 style={{ marginBottom: "3%", textAlign:"center" }}>{surveyDescription}</h6>
         {
           savedQsList.map((savedQs, idx) => {
             return (

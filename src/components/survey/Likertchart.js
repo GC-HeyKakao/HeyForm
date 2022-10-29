@@ -22,7 +22,7 @@ const Likertchart = (props) => {
             surveyId: props.surveyId,
             type: "리커트",
             idx: props.idx,
-            value: value,
+            value: value.toSting(),
         }
 
         props.replyHandler(copy);
@@ -45,7 +45,9 @@ const Likertchart = (props) => {
 
     }
     return(
+        <div style={{marginTop:"5%"}}>
         <Likert {...likertOptions}/>
+        </div>
     );
 }
 export default Likertchart;

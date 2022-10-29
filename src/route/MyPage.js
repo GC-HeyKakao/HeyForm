@@ -1,13 +1,11 @@
 import { Button, Row, Col, Modal } from 'react-bootstrap';
 import { Footer } from '../components/Footer.js'
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
-import { UserInfoContextStore } from '..//UserInfoContext';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from "styled-components";
-import Table from '../components/Survey/Result/Table.js';
-import axios from 'axios';
 import { userState } from '../atom';
 import { useRecoilValue } from 'recoil';
+import './MyPage.css'
 
 const ToggleBtn = styled.button`
   width: 120px;
@@ -41,7 +39,7 @@ const Circle = styled.div`
 function MyPage() {
 
     const [show, setShow] = useState(false);
-    const users = useRecoilValue(userState);
+	const users = useRecoilValue(userState);
 
     let navigate = useNavigate();
     // const UserInfo = useContext(UserInfoContextStore);
@@ -68,20 +66,17 @@ function MyPage() {
     return (
         <>
             <div className="wraper">
-                <div className="content" style={{ padding: "100px", marginTop: "50px" }}>
-                    <div className="center" style={{ width: "550px" }}>
-                        <Row style={{ margin: "20px" }}>
+                <div className="content" style={{ paddingTop: "100px", marginTop: "50px" }}>
+                    <div className="center1">
+                        <Row style={{marginBottom:"20px"}}>
                             <Col><h3>이름</h3></Col>
-                            {/* <Col><h3>{UserInfo.name}님</h3></Col> */}
-                            {/* <Col><h3>{localStorage.getItem('name')}님</h3></Col> */}
                             <Col><h3>{users[0].name}님</h3></Col>
                         </Row>
-                        <Row style={{ margin: "20px" }}>
+                        <Row style={{marginBottom:"20px"}}>
                             <Col><h3>이메일</h3></Col>
-                            {/* <Col><h3>{UserInfo.email}</h3></Col> */}
                             <Col><h3>{users[0].email}</h3></Col>
                         </Row>
-                        <Row style={{ margin: "20px" }}>
+                        <Row style={{marginBottom:"20px"}}>
                             <Col><h3>알림 수신 여부</h3></Col>
                             <Col>
                                 <ToggleBtn onClick={clickedToggle} toggle={toggle}>
@@ -89,12 +84,13 @@ function MyPage() {
                                 </ToggleBtn>
                             </Col>
                         </Row>
-                        <Button className="center" style={{ margin: "30px" }} onClick={handleLogoutButton}>로그아웃</Button>
+                        <Col className='center2'>
+                        <Button className="logoutBtn" onClick={handleLogoutButton}>로그아웃</Button>
+                        </Col>
                     </div>
                 </div>
                 <Footer />
             </div>
-
 
 
             <Modal show={show} onHide={()=>{setShow(false)}}>

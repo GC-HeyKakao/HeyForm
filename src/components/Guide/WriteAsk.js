@@ -4,7 +4,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import emailjs from 'emailjs-com';
 import { Button } from 'react-bootstrap'
-import "./wa.css";
+import "./WriteAsk.css";
 
 function WriteAsk() {
 

@@ -23,7 +23,7 @@ const Star = (props) => {
             surveyId: props.surveyId,
             type: "별점",
             idx: props.idx,
-            value: value,
+            value: value.toString(),
         }
 
         props.replyHandler(copy);
@@ -32,14 +32,18 @@ const Star = (props) => {
 
     return (
         <>
-            <ReactStars
-                count={5}
-                value={currentValue}
-                onChange={(value) => { setCurrentValue(value); setValue(value) }}
-                size={50}
-                color2={'#ffd700'}
-                edit={true}
-            />
+            <div className='wrapper-center-120'>
+                <div className='center'>
+                    <ReactStars
+                        count={5}
+                        value={currentValue}
+                        onChange={(value) => { setCurrentValue(value); setValue(value) }}
+                        size={50}
+                        color2={'#ffd700'}
+                        edit={true}
+                    />
+                </div>
+            </div>
 
             {/* {
                 console.log('type : 별점' + 'idx : ' + props.idx + ', value : ' + currentValue)

@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import ReactSlider from "react-slider";
 import { replyState } from "../../atom.js"
 import { useRecoilValue } from 'recoil';
-//import './App.css';
+import "./Slider.css";
 
 function Slider (props) {
   const [currentValue, setCurrentValue] = useState(0);
-   
   const replys = useRecoilValue(replyState);
 
   let copy = [...replys];
@@ -23,7 +22,7 @@ function Slider (props) {
       surveyId: props.surveyId,
       type: "만족도",
       idx: props.idx,
-      value: value,
+      value: value.toString(),
     }
 
     props.replyHandler(copy);
@@ -90,7 +89,7 @@ function Slider (props) {
     {/* {
       console.log('type : 감정바' + 'idx : ' + props.idx + ', value : ' + currentValue)
       } */}
-    <div style={{marginLeft:"30%", marginBottom:"5%"}} className="percentage"></div>
+    <div style={{marginLeft:"30%", marginBottom:"12%"}} className="percentage"></div>
     </>
   );
 };

@@ -1,6 +1,4 @@
-import {QRCodeSVG} from 'qrcode.react';
-import { Button } from 'react-bootstrap'
-import "./cl.css";
+import "./CreateLink.css";
 
 function CreateLink(props) {
 
