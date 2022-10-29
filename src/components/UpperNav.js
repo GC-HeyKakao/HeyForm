@@ -4,6 +4,8 @@ import { KAKAO_AUTH_URL } from '..//OAuth';
 import { useEffect, useState } from 'react';
 import { userState } from '../atom';
 import { useRecoilValue } from 'recoil';
+import logo from '../logo.png';
+
 import "./UpperNav.css";
 
 function UpperNav() {
@@ -18,20 +20,21 @@ function UpperNav() {
 
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
-			setLogin('안녕하세요. ' + users[0].name + '님 ☺️');
+			setLogin('안녕하세요. ' + localStorage.getItem('name') + '님 ☺️');
 		}
 		else {
 			setLogin("로그인");
 		}
 
-	}, [localStorage.getItem('token')]);
+	}, [localStorage.getItem('token'), localStorage.getItem('name')]);
 
 
 	return (
 		<Navbar bg="primary" variant="dark">
 			<Row style={{ width: 1500 }}>
 				<Col md={"2"} style={{ paddingLeft: 10 }}>
-					<Navbar.Brand onClick={() => navigate("/main")} ><img src="logo.png" className="main-logo" width="60%" style={{ paddingLeft: "2%" }} />{' '}</Navbar.Brand>
+
+					<Navbar.Brand onClick={() => navigate("/main")} ><img src={logo} className="main-logo" width="60%" style={{ paddingLeft: "2%" }} />{' '}</Navbar.Brand>
 				</Col>
 				<Col md={"6"}>
 					<Nav className="me-auto">

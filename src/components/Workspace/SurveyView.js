@@ -5,46 +5,110 @@ import Likertchart from '../Survey/Likertchart';
 import Slider from '../Survey/Slider';
 import Star from '../Survey/Star';
 import { useParams } from "react-router-dom";
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import  { useState, useEffect } from 'react';
+import { replyState } from "../../atom";
+import { CreateSurveyByURL } from "../../API/Survey/CreateSurveyByURL";
 
-//체크박스 체크 여부 확인
-//체크여부에 따라서 체크된 항목 번호 리턴 (Alert로 표시)
-function is_checked() {
+var ckAnswer = new Array();
 
-	const Checkbox0 = document.getElementById(0);
-	const Checkbox1 = document.getElementById(1);
-	const Checkbox2 = document.getElementById(2);
-
-	const is_checked0 = Checkbox0.checked;
-	const is_checked1 = Checkbox1.checked;
-	const is_checked2 = Checkbox2.checked;
-
-  
-
-	alert(Checkbox0.value + is_checked0 + Checkbox1.value + is_checked1 + Checkbox2.value + is_checked2);
-	//document.hetElementById('')
-
-}
-  
 
 //워크스페이스용 설문지 확인js
 //<SurveyView surveyTitle={'제목'} surveyDescription={'설명'} endDate={'2022-10-27'} surveyId={selectNum} />
 function SurveyView(props)
 
 {
-  const surveyId = props.surveyId;
-  // console.log(surveyId)
-  const userId = window.localStorage.getItem('token');
-  const createrId = window.localStorage.getItem("creater["+surveyId+"]");
-  const savedQsList = JSON.parse(window.localStorage.getItem("savedQsList["+surveyId+"]"));
-  const curQs = JSON.parse(window.localStorage.getItem("curQs["+surveyId+"]"));
-  const curQsItemList = JSON.parse(window.localStorage.getItem("curQsItemList["+surveyId+"]"));
-  const curSelectedType = JSON.parse(window.localStorage.getItem("curSelectedType["+surveyId+"]"));
-  //const surveyTitle = JSON.parse(window.localStorage.getItem("surveyTitle["+surveyId+"]"));
-  const surveyTitle = props.surveyTitle;
-  const surveyDescription = props.surveyDescription;
-  console.log(surveyDescription);
-  const category = window.localStorage.getItem("category["+surveyId+"]")
-  const shareWay = window.localStorage.getItem("shareWay["+surveyId+"]")
+  const { surveyId } = "useParams()";
+  console.log('surveyid',props.surveyUrl)
+  console.log("SurveySheet 시작");
+  // console.log('surveysheet', dtos);
+
+  let dto = null;
+  let dtoJson = null;
+  let replys = useRecoilValue(replyState);
+  let replyHandler = useSetRecoilState(replyState);
+  let copy = [...replys];
+  const [surveyTitle, setTitle] = useState("title");
+  const [category, setCategory] = useState([]);
+  const [savedQsList, setSavedQsList] = useState([]);
+  const [surveyDes, setDes] = useState([]);
+  let savedQsList2 = JSON.parse(window.localStorage.getItem("savedQsList[" + 1 + "]"));
+  let shareWay = window.localStorage.getItem("shareWay[" + 1 + "]")
+  let [survey_id, setId] = useState();
+
+
+  useEffect(() => {
+
+    //url을 넘겨줘서 설문 dto 가져옴. 이거 파싱해서 설문지 생성할거임
+    CreateSurveyByURL(props.surveyUrl)
+      .then((res) => {
+        dto = res;
+        dtoJson = JSON.stringify(dto);
+        //surveyTitle = dtoJson.surveyDto.survey_title;
+        setTitle(dto.surveyDto.survey_title);
+        setCategory(dto.surveyDto.category);
+        setSavedQsList(dto.questionDtos);
+        setDes(dto.surveyDto.description);
+        setId(dto.surveyDto.survey_id);
+        console.log(savedQsList);
+        console.log('dto:', dto);
+        console.log('dto title', dto.surveyDto.survey_title);
+        console.log('dto que', dto.questionDtos);
+        console.log('saved qs lig', savedQsList2);
+      }, (err) => console.log(err))
+
+  }, [props.surveyUrl ]);
+
+
+  //체크박스 체크 여부 확인
+  //체크여부에 따라서 체크된 항목 번호 리턴 (Alert로 표시)
+  function is_checked(type, idx, ItemIdx) {
+
+    var Checkbox = new Array();
+    var is_checked = new Array();
+    Checkbox[ItemIdx] = document.getElementById(ItemIdx);
+    is_checked[ItemIdx] = Checkbox[ItemIdx].checked;
+
+
+    if (is_checked[ItemIdx] == true) {
+      ckAnswer.push(ItemIdx);
+
+    }
+    else {
+      var index = ckAnswer.indexOf(ItemIdx);
+      ckAnswer.splice(index, 1);
+    }
+
+    let str = ckAnswer.join();
+    alert(str);
+
+    copy[idx] = {
+      surveyId: surveyId,
+      type: type,
+      idx: idx,
+      value: str,
+    }
+    console.log("copy", copy);
+    replyHandler(copy);
+
+  }
+
+  function OnKey(type, idx, e) {
+
+    var value = e.target.value;
+
+    console.log(replys);
+    copy[idx] = {
+      surveyId: surveyId,
+      type: type,
+      idx: idx,
+      value: value,
+
+    }
+
+    replyHandler(copy);
+
+  }
 
   console.log(category);
   let backgroundColor = 'white';
@@ -56,116 +120,134 @@ function SurveyView(props)
   else if (category == '환경') {
     backgroundColor = '#E2F0D9'
   }
-  return (
 
-       <Card className='basicCard' style={{ padding: "3%", backgroundColor:backgroundColor }}>
-        <h2 style={{ marginBottom: "3%", textAlign:"center" }}>{surveyTitle}</h2>
-        <h6 style={{ marginBottom: "3%", textAlign:"center" }}>{surveyDescription}</h6>
+  return (
+    <>
+      <Card className='basicCard' style={{ padding: "3%", backgroundColor: backgroundColor }}>
+        <h2 style={{ marginBottom: "3%", textAlign: "center" }}>{surveyTitle}</h2>
+        <h6 style={{ marginBottom: "5%", textAlign: "center" }}>{surveyDes}</h6>
         {
-          savedQsList.map((savedQs, idx) => {
+          console.log("map", savedQsList)}
+          {
+          savedQsList && savedQsList.map((item) => {
             return (
+              
               {
                 '단답식':
                   // <Card.Title className='basicCard' key={idx} style={{marginBottom: "3%"}}> </Card.Title>,
-                  <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
-                    <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
+                  <Card className='basicCard' key={item['question_order']} style={{ marginBottom: "3%", padding: "3%" }}>
+                    <Card.Title> Q{item['question_order']+1}: {item['question_contents']} </Card.Title>
+
                     <Card.Body>
-                      <Form.Control size="sm" type="text" placeholder="답변을 입력해주세요."
-                      />
+                      <div>
+                        <Form.Control id="answer" onKeyUp={e => { OnKey("단답식", item['question_order'] + 1, e) }} type="text" placeholder="답변을 입력해주세요." />
+                      </div>
+                      {/* <Form.Control id="answer" size="sm" 
+                      type="text" placeholder="답변을 입력해주세요."/> */}
                     </Card.Body>
                   </Card>,
                 '객관식':
-                  <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
-                    <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
+                  <Card className='basicCard' key={item['question_order']} style={{ marginBottom: "3%", padding: "3%" }}>
+                    <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
                     <Card.Body>
                       {
                         // savedQs['qsItemList'].map(
                         // 	(qsItem, idx) => <Form.Check type="checkbox" id={idx} label={qsItem}/>
                         // )
-                        savedQs['qsItemList'].map(
-                          ((qsItem, idx) => <div key={idx}> <input className="form-check-input" id={idx} name={qsItem} type="checkbox" value={qsItem} onChange={(e) => is_checked()} />  {qsItem} </div>
+                        item['choiceDtos'].map(
+                          ((choice) => <div key={choice['choice_order']}> <input className="form-check-input" id={choice['choice_order']} name={choice['choice_contents']} type="checkbox" value={choice['choice_contents']} onChange={(e) => is_checked("객관식", item['question_order'] + 1, choice['choice_order'])} />  {choice['choice_contents']} </div>
                           ))
                       }
                     </Card.Body>
                   </Card>,
                 '별점':
-                  <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
-                    <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
+                  <Card className='basicCard' key={item['question_order']} style={{ marginBottom: "3%", padding: "3%" }}>
+                    <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
                     <Card.Body>
-                      <Star />
+                      <Star replyHandler={replyHandler} idx={item['question_order'] + 1} surveyId={surveyId} />
                     </Card.Body>
                   </Card>,
                 '리커트':
-                  <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
-                    <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
+                  <Card className='basicCard' key={item['question_order']} style={{ marginBottom: "3%", padding: "3%" }}>
+                    <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
                     <Card.Body>
-                      <Likertchart />
+                      <Likertchart replyHandler={replyHandler} idx={item['question_order'] + 1} surveyId={surveyId} />
                     </Card.Body>
                   </Card>,
                 '감정바':
-                  <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
-                    <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
+                  <Card className='basicCard' key={item['question_order']} style={{ marginBottom: "3%", padding: "3%" }}>
+                    <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
                     <Card.Body>
-                      <Slider category={category} />
+                      <Slider category={category} replyHandler={replyHandler} idx={item['question_order'] + 1} surveyId={surveyId} />
                     </Card.Body>
                   </Card>,
-              }[savedQs['type']]
+
+              }[item['question_type']]
+              // {
+              //   '단답식':
+              //     // <Card.Title className='basicCard' key={idx} style={{marginBottom: "3%"}}> </Card.Title>,
+              //     <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
+              //       <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
+
+              //       <Card.Body>
+              //         <div>
+              //           <Form.Control id="answer" onKeyUp={e => { OnKey("단답식", idx + 1, e) }} size="sm" type="text" placeholder="답변을 입력해주세요." />
+              //         </div>
+              //         {/* <Form.Control id="answer" size="sm" type="text" placeholder="답변을 입력해주세요."/> */}
+              //       </Card.Body>
+              //     </Card>,
+              //   '객관식':
+              //     <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
+              //       <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
+              //       <Card.Body>
+              //         {
+              //           // savedQs['qsItemList'].map(
+              //           // 	(qsItem, idx) => <Form.Check type="checkbox" id={idx} label={qsItem}/>
+              //           // )
+              //           savedQs['qsItemList'].map(
+              //             ((qsItem, ItemIdx) => <div key={ItemIdx}> <input className="form-check-input" id={ItemIdx} name={qsItem} type="checkbox" value={qsItem} onChange={(e) => is_checked("객관식", idx + 1, ItemIdx)} />  {qsItem} </div>
+              //             ))
+              //         }
+              //       </Card.Body>
+              //     </Card>,
+              //   '별점':
+              //     <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
+              //       <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
+              //       <Card.Body>
+              //         <Star replyHandler={replyHandler} idx={idx + 1} surveyId={surveyId} />
+              //       </Card.Body>
+              //     </Card>,
+              //   '리커트':
+              //     <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
+              //       <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
+              //       <Card.Body>
+              //         <Likertchart replyHandler={replyHandler} idx={idx + 1} surveyId={surveyId} />
+              //       </Card.Body>
+              //     </Card>,
+              //   '감정바':
+              //     <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
+              //       <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
+              //       <Card.Body>
+              //         <Slider category={category} replyHandler={replyHandler} idx={idx + 1} surveyId={surveyId} />
+              //       </Card.Body>
+              //     </Card>,
+              // }[savedQs['type']]
             )
           }
           )
         }
-        {
-          curSelectedType != 'Type' && curQs != '' ?
-            {
-              '단답식': <Card.Title className='basicCard' > Q{savedQsList.length + 1}: {curQs} </Card.Title>,
-              '객관식':
-
-                <Card className='basicCard'>
-
-                  <Card.Title>Q{savedQsList.length + 1}: {curQs} </Card.Title>
-                  <Card>
-                    {
-                      curQsItemList.map(
-                        ((curQsItem, idx) => <div key={idx}> <input className="form-check-input" id={idx} name={curQsItem} type="checkbox" value={curQsItem} />  {curQsItem} </div>
-                        ))
-                    }
-                  </Card>
-                </Card>,
-              '별점':
-                <>
-                  <Card.Title>Q{savedQsList.length + 1}: {curQs} </Card.Title>
-                  <Star />
-                </>,
-              '리커트 척도':
-                <>
-                  <Card.Title>Q{savedQsList.length + 1}: {curQs} </Card.Title>
-                  <Likertchart />
-                </>,
-              '감정바':
-                <>
-                  <Card.Title>Q{savedQsList.length + 1}: {curQs} </Card.Title>
-                  <Card.Body>
-                    <Slider category={category} />
-                  </Card.Body>
-                </>,
-
-            }[curSelectedType]
-            : null
-        }
 
         {
           //설문 작성자면 설문지를 공유하는 <ShareSurvey /> 컴포넌트를, 작성자가 아니라면 응답을 제출할 수 있는 <SubmmitButton /> 컴포넌트를 보여줌.
-          userId === createrId?
-          <ShareSurvey surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} endDate={props.endDate} shareWay={shareWay} />
-            :
+          
+            <ShareSurvey surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} endDate={props.endDate} shareWay={localStorage[surveyId]} />
 
-          <>
-          <SubmmitButton />
-          </>
         }
 
       </Card>
-    
+
+    </>
+
   )
 }
 

@@ -2,6 +2,7 @@ import Likert from "react-likert-scale";
 import { useState, useEffect } from 'react'
 import { replyState } from "../../atom.js"
 import { useRecoilValue } from 'recoil';
+import './Likertchart.css'
 
 const Likertchart = (props) => {
     const [currentValue, setCurrentValue] = useState(0);

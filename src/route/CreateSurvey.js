@@ -135,20 +135,22 @@ function CreateSurvey() {
 				setRecommendCategory(res);
 				setRecommendMent('와 관련된 디자인을 추천할게요!');
 				setSelectedCategory(res);
+				
+
 			}, (err) => console.log(err))
 	}
 
 	// 설문 저장하기 버튼을 누를 때
 	function handleSurveySaveButton() {
 
-		// window.localStorage.setItem("count", parseInt(window.localStorage.getItem("count")) + 1);
-		// window.localStorage.setItem("savedQsList[" + count + "]", JSON.stringify(savedQsList));
-		// window.localStorage.setItem("curQs[" + count + "]", JSON.stringify(curQs));
-		// window.localStorage.setItem("curQsItemList[" + count + "]", JSON.stringify(curQsItemList));
-		// window.localStorage.setItem("curSelectedType[" + count + "]", JSON.stringify(curSelectedType));
-		// window.localStorage.setItem("surveyTitle[" + count + "]", JSON.stringify(surveyTitle));
-		// window.localStorage.setItem("category[" + count + "]", selectedCategory);
-		// window.localStorage.setItem("creater[" + count + "]", window.localStorage.getItem("token"));
+		window.localStorage.setItem("count", parseInt(window.localStorage.getItem("count")) + 1);
+		window.localStorage.setItem("savedQsList[" + count + "]", JSON.stringify(savedQsList));
+		window.localStorage.setItem("curQs[" + count + "]", JSON.stringify(curQs));
+		window.localStorage.setItem("curQsItemList[" + count + "]", JSON.stringify(curQsItemList));
+		window.localStorage.setItem("curSelectedType[" + count + "]", JSON.stringify(curSelectedType));
+		window.localStorage.setItem("surveyTitle[" + count + "]", JSON.stringify(surveyTitle));
+		window.localStorage.setItem("category[" + count + "]", selectedCategory);
+		window.localStorage.setItem("creater[" + count + "]", window.localStorage.getItem("token"));
 
 		setShow(true);
 	}
@@ -278,16 +280,16 @@ function CreateSurvey() {
 							<Col style={{ width: '50%' }}>
 								<Card className='basicCard'>
 									<div>
-										<DropdownCmpt list={category_list} title={selectedCategory} style={{ marginBottom: "1%", float:"left" }} setSelected={setSelectedCategory} defaultTitle="Category" />
-										<div style={{marginTop:"2%", marginRight:"35%"}}>
-										<h5 style={{float:"right"}}>{RecommendCategory}{RecommendMent}</h5>
+										<DropdownCmpt list={category_list} title={selectedCategory} style={{ marginBottom: "1%", float: "left" }} setSelected={setSelectedCategory} defaultTitle="Category" />
+										<div style={{ marginTop: "2%", marginRight: "35%" }}>
+											{RecommendCategory !== '' && <h5 style={{ float: "right" }}>{RecommendCategory}{RecommendMent}</h5>}
 										</div>
-										</div>
+									</div>
 									<FloatingLabel
 										controlId="floatingTextarea"
 										label="설문 제목을 입력해주세요"
 										className="mb-3"
-										style={{ fontSize: "15px", paddingLeft: "1%", paddingRight: "1%" }}
+										style={{ paddingLeft: "1%", paddingRight: "1%" }}
 									>
 										<Form.Control as="textarea" placeholder="설문지 제목을 입력해주세요" onChange={(e) => {
 											setSurveyTitle(e.target.value);
@@ -428,7 +430,7 @@ function CreateSurvey() {
 										<Button letiant="primary" className="center"
 											style={{ marginTop: 30 }}
 											onClick={() => {
-												window.localStorage.setItem("shareWay[" + count + "]", shareWay);
+
 												handleSurveyCreateButton()
 											}}>설문 제작 완료</Button>
 										<div>
@@ -448,7 +450,7 @@ function CreateSurvey() {
 								<h4>완성된 설문을 확인하시겠습니까?🥰</h4>
 								<br />
 								{/* 설문 josn post하기 */}
-								<Button style={{ marginRight: "20px" }} onClick={() => { navigate("/survey/" + link); }}>확인</Button>
+								<Button style={{ marginRight: "20px" }} onClick={() => { localStorage[link] = shareWay; navigate("/survey/" + link); }}>확인</Button>
 								<Button onClick={() => { setShowCreate(false) }}>취소</Button>
 							</Modal.Body>
 						</Modal>

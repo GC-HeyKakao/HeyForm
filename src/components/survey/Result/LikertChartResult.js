@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
-import "./LikertChartResult.css";
 
 const LikertChartResult = (props) => {
     const handle = {

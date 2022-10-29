@@ -60,7 +60,6 @@ function MyPage() {
     useEffect(() => {
         console.log(localStorage.getItem('push'));
         // console.log(UserInfo);
-
     }, [toggle]);
 
     return (

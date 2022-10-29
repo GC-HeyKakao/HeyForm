@@ -29,8 +29,8 @@ const IntroBlock = styled.div`
 	display: block;
 	margin: auto;
 	margin-bottom: 80px;
-	height: 80%;
-	width: 80%;
+	height: 70%;
+	width: 70%;
 
   }
 
@@ -73,7 +73,7 @@ function AboutProduct() {
 		<div>
 			<div>
 				<Fade big>
-					<IntroBlock style={{marginTop:"8%"}}>
+					<IntroBlock style={{marginTop:"5%"}}>
 						<h2>사용자에게 편의를 주는 솔루션을</h2>
 						<h1><strong>헤이폼</strong>이 제안합니다.</h1>
 						<img src="main_promotion.png" align="center" />

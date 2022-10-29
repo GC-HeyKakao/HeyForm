@@ -17,7 +17,6 @@ import { RepliedSurveySheet } from './components/Survey/Reply/RepliedSurveySheet
 import { Users } from './API/Users'
 import { RecoilRoot } from "recoil"
 
-
 function App() {
   let navigate = useNavigate();
 

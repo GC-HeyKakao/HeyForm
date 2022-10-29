@@ -62,8 +62,9 @@ function KakaoLogin() {
                     ACCESS_TOKEN = data.access_token;
                     localStorage.setItem('token', ACCESS_TOKEN);
                     getUserInfo();
+                    navigate('/main');
                 } else {
-                    navigate('/mypage');
+                    navigate('/main');
                     console.log("로그인 실패");
                 }
 
@@ -125,6 +126,8 @@ function KakaoLogin() {
 
                         }
                     ])
+                    localStorage.setItem('name', data.kakao_account.profile.nickname);
+
                     navigate('/main');
                 } else {
 

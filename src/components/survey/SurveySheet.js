@@ -4,12 +4,14 @@ import { Card, Form, Col, Row, Input } from 'react-bootstrap'
 import Likertchart from './Likertchart';
 import Slider from './Slider';
 import Star from './Star';
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react"
 import { replyState } from "../../atom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { CreateSurveyByURL } from "../../API/Survey/CreateSurveyByURL";
 import { PostSurvey } from "../../API/Survey/PostSurvey";
+import { useNavigate } from 'react-router-dom';
+import { KAKAO_AUTH_URL } from '../../OAuth';
 
 var ckAnswer = new Array();
 let dto;
@@ -20,6 +22,8 @@ function SurveySheet(props) {
   const { surveyId } = useParams();
   console.log('surveyid',surveyId)
   console.log("SurveySheet 시작");
+  const navigate = useNavigate();
+
   // console.log('surveysheet', dtos);
 
   let dto = null;
@@ -38,8 +42,18 @@ function SurveySheet(props) {
   let [savedAsList, setSavedAsList] = useState([]);
   let [survey_id, setId] = useState();
 
+  
+  function getKeyByValue(obj, value) {
+    console.log(obj);
+    return Object.keys(obj).find(key => obj[key] === value);
+  }
+  
 
   useEffect(() => {
+
+    // if (!localStorage.getItem('token')) {
+    //   window.location.href = KAKAO_AUTH_URL;
+    // }
 
     //url을 넘겨줘서 설문 dto 가져옴. 이거 파싱해서 설문지 생성할거임
     CreateSurveyByURL(surveyId)
@@ -154,7 +168,7 @@ function SurveySheet(props) {
                     <Card.Body>
                       {
                         // savedQs['qsItemList'].map(
-                        // 	(qsItem, idx) => <Form.Check type="checkbox" id={idx} label={qsItem}/>
+                        //    (qsItem, idx) => <Form.Check type="checkbox" id={idx} label={qsItem}/>
                         // )
                         item['choiceDtos'].map(
                           ((choice) => <div key={choice['choice_order']}> <input className="form-check-input" id={choice['choice_order']} name={choice['choice_contents']} type="checkbox" value={choice['choice_contents']} onChange={(e) => is_checked("객관식", item['question_order'] + 1, choice['choice_order'])} />  {choice['choice_contents']} </div>
@@ -204,7 +218,7 @@ function SurveySheet(props) {
               //       <Card.Body>
               //         {
               //           // savedQs['qsItemList'].map(
-              //           // 	(qsItem, idx) => <Form.Check type="checkbox" id={idx} label={qsItem}/>
+              //           //    (qsItem, idx) => <Form.Check type="checkbox" id={idx} label={qsItem}/>
               //           // )
               //           savedQs['qsItemList'].map(
               //             ((qsItem, ItemIdx) => <div key={ItemIdx}> <input className="form-check-input" id={ItemIdx} name={qsItem} type="checkbox" value={qsItem} onChange={(e) => is_checked("객관식", idx + 1, ItemIdx)} />  {qsItem} </div>
@@ -241,13 +255,14 @@ function SurveySheet(props) {
 
         {
           //설문 작성자면 설문지를 공유하는 <ShareSurvey /> 컴포넌트를, 작성자가 아니라면 응답을 제출할 수 있는 <SubmmitButton /> 컴포넌트를 보여줌.
-          // userId === createrId ?
-          //   <ShareSurvey surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} endDate={props.endDate} shareWay={shareWay} />
+          // getKeyByValue(Object.keys(window.localStorage), surveyId) !== undefined ?
+          (Object.keys(window.localStorage)).indexOf(surveyId) !== -1?
+            <ShareSurvey shareWay={window.localStorage.getItem(surveyId)} />
 
-          //   :
+            :
 
             <>
-              <SubmmitButton replys = {replys} surveyId={survey_id} />
+              <SubmmitButton replys = {replys} surveyId={surveyId} />
             </>
         }
 
