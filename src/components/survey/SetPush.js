@@ -1,19 +1,16 @@
 import { useNavigate } from "react-router-dom"
 import { EmailShareButton } from "../Survey/EmailShare/EmailShareButton"
-import { KakaoShareButton } from "./KakaoShareButton"
+import { KakaoShare } from "./KakaoShare"
 
 function SetPush(props) {
 
-
-    let naviget =useNavigate();
-
     return (
         <>
-            <div className='shareComment'> <br></br><br></br><h6>🛎 알림 방식을 선택해주세요</h6></div>
+            <div className='shareComment'><br/><h5>🙌 지금 바로 설문 응답을 요청하세요 🙌</h5></div>
         <br></br>
             <div style={{marginTop:"3%"}}>
                 <div style={{marginBottom:"3%"}}>
-                    <KakaoShareButton surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} endDate={props.endDate} />
+                    <KakaoShare surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} start_time={props.start_time} end_time={props.end_time}/>
                     <br></br>
                 </div>
                 <div style={{marginTop:"3%"}}>

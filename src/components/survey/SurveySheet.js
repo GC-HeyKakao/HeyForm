@@ -10,19 +10,17 @@ import { ShareSurvey } from "./ShareSurvey";
 import Slider from './Slider';
 import Star from './Star';
 
-
 var ckAnswer = new Array();
 
 //완성된 설문지를 확인해보기 위한 js
-function SurveySheet(props) {
+function SurveySheet() {
 
   const { surveyId } = useParams();
-  console.log('surveyid',surveyId)
+  console.log('surveyid', surveyId)
   console.log("SurveySheet 시작");
   const navigate = useNavigate();
 
   let dto = null;
-  let dtoJson = null;
   let replys = useRecoilValue(replyState);
   let replyHandler = useSetRecoilState(replyState);
   let copy = [...replys];
@@ -30,45 +28,33 @@ function SurveySheet(props) {
   const [category, setCategory] = useState([]);
   const [savedQsList, setSavedQsList] = useState([]);
   const [surveyDes, setDes] = useState([]);
-  let userId = window.localStorage.getItem('token');
-  let createrId = window.localStorage.getItem("creater[" + 1 + "]");
-  let savedQsList2 = JSON.parse(window.localStorage.getItem("savedQsList[" + 1 + "]"));
-  let shareWay = window.localStorage.getItem("shareWay[" + 1 + "]")
-  let [savedAsList, setSavedAsList] = useState([]);
-  let [survey_id, setId] = useState();
+  const [surveyStartTime, setSurveyStartTime] = useState([]);
+  const [surveyEndTime, setSurveyEndTime] = useState([]);
+  const [survey_id, setId] = useState();
 
-  
   function getKeyByValue(obj, value) {
     console.log(obj);
     return Object.keys(obj).find(key => obj[key] === value);
   }
-  
+
 
   useEffect(() => {
-
-    // if (!localStorage.getItem('token')) {
-    //   window.location.href = KAKAO_AUTH_URL;
-    // }
 
     //url을 넘겨줘서 설문 dto 가져옴. 이거 파싱해서 설문지 생성할거임
     CreateSurveyByURL(surveyId)
       .then((res) => {
         dto = res;
-        dtoJson = JSON.stringify(dto);
-        //surveyTitle = dtoJson.surveyDto.survey_title;
         setTitle(dto.surveyDto.survey_title);
         setCategory(dto.surveyDto.category);
         setSavedQsList(dto.questionDtos);
         setDes(dto.surveyDto.description);
         setId(dto.surveyDto.survey_id);
-        console.log(savedQsList);
-        console.log('dto:', dto);
-        console.log('dto title', dto.surveyDto.survey_title);
-        console.log('dto que', dto.questionDtos);
-        console.log('saved qs lig', savedQsList2);
+        setSurveyStartTime(dto.surveyDto.start_time);
+        setSurveyEndTime(dto.surveyDto.end_time);
+
       }, (err) => console.log(err))
 
-  }, [ replys]);
+  }, [replys]);
 
 
   function OnKey(type, idx, e) {
@@ -139,15 +125,15 @@ function SurveySheet(props) {
         <h6 style={{ marginBottom: "5%", textAlign: "center" }}>{surveyDes}</h6>
         {
           console.log("map", savedQsList)}
-          {
+        {
           savedQsList && savedQsList.map((item) => {
             return (
-              
+
               {
                 '단답식':
                   // <Card.Title className='basicCard' key={idx} style={{marginBottom: "3%"}}> </Card.Title>,
                   <Card className='basicCard' key={item['question_order']} style={{ marginBottom: "3%", padding: "3%" }}>
-                    <Card.Title> Q{item['question_order']+1}: {item['question_contents']} </Card.Title>
+                    <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
 
                     <Card.Body>
                       <div>
@@ -198,17 +184,21 @@ function SurveySheet(props) {
           }
           )
         }
-
         {
           //설문 작성자면 설문지를 공유하는 <ShareSurvey /> 컴포넌트를, 작성자가 아니라면 응답을 제출할 수 있는 <SubmmitButton /> 컴포넌트를 보여줌.
           // getKeyByValue(Object.keys(window.localStorage), surveyId) !== undefined ?
-          (Object.keys(window.localStorage)).indexOf(surveyId) !== -1?
-            <ShareSurvey shareWay={window.localStorage.getItem(surveyId)} />
+          (Object.keys(window.localStorage)).indexOf(surveyId) !== -1 ?
+            <ShareSurvey
+              surveyTitle={surveyTitle}
+              surveyDescription={surveyDes}
+              start_time={surveyStartTime}
+              end_time={surveyEndTime}
+              shareWay={window.localStorage.getItem(surveyId)} />
 
             :
 
             <>
-              <SubmmitButton replys = {replys} surveyId={surveyId} />
+              <SubmmitButton replys={replys} surveyId={surveyId} />
             </>
         }
 

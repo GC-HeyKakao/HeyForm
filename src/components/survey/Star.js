@@ -32,7 +32,7 @@ const Star = (props) => {
 
     return (
         <>
-            <div className='wrapper-center-120'>
+            <div className='center-wrapper-120'>
                 <div className='center'>
                     <ReactStars
                         count={5}

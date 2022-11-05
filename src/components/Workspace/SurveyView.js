@@ -10,7 +10,6 @@ import Star from '../Survey/Star';
 var ckAnswer = new Array();
 
 //워크스페이스용 설문지 확인js
-//<SurveyView surveyTitle={'제목'} surveyDescription={'설명'} endDate={'2022-10-27'} surveyId={selectNum} />
 function SurveyView(props) {
   const { surveyId } = "useParams()";
 
@@ -19,14 +18,13 @@ function SurveyView(props) {
   let replyHandler = useSetRecoilState(replyState);
   let copy = [...replys];
   const [surveyTitle, setTitle] = useState('');
+  const [surveyDes, setDes] = useState('');
   const [category, setCategory] = useState([]);
   const [savedQsList, setSavedQsList] = useState([]);
-  const [surveyDes, setDes] = useState([]);
   let shareWay = window.localStorage.getItem("shareWay[" + 1 + "]")
   let [survey_id, setId] = useState();
 
   useEffect(() => {
-    //url을 넘겨줘서 설문 dto 가져옴. 이거 파싱해서 설문지 생성할거임
     setTitle(props.surveyQuestionDto.surveyDto.survey_title);
     setCategory(props.surveyQuestionDto.surveyDto.category);
     setSavedQsList(props.surveyQuestionDto.questionDtos);
@@ -160,8 +158,12 @@ function SurveyView(props) {
         {
           //설문 작성자면 설문지를 공유하는 <ShareSurvey /> 컴포넌트를, 작성자가 아니라면 응답을 제출할 수 있는 <SubmmitButton /> 컴포넌트를 보여줌.
 
-          <ShareSurvey surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} endDate={props.endDate} shareWay={localStorage[surveyId]} />
-
+          <ShareSurvey
+            surveyTitle={props.surveyQuestionDto.surveyDto.survey_title}
+            surveyDescription={props.surveyQuestionDto}
+            start_time={props.surveyQuestionDto.start_time}
+            end_time={props.surveyQuestionDto.end_time}
+            shareWay={localStorage[surveyId]} />
         }
 
       </Card>

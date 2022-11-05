@@ -255,7 +255,6 @@ function Workspace() {
                      <Col>
                         <div className='basicCard'>
                            <Card style={{ overflow: "scroll", width: "auto", height: 600, textAlign: "center", paddingTop: 20 }}>
-                              {/* <SurveyView surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} endDate={props.endDate} surveyId={selectNum} /> */}
                               <SurveyView surveyQuestionDto={surveyQuestionDtoState[selectNum]} />
                            </Card>
                         </div>

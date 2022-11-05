@@ -16,7 +16,7 @@ function GuidePage() {
             <div className="wraper">
                 <div className="content">
                     <Row>
-                        <Col md="4">
+                        <Col md="3">
                             <ListGroup variant="pills" defaultActiveKey="aboutCommon" className='basicCard' style={{ paddingTop: 5 }} onSelect={(e) => setViewSwitch(e)}>
                                 <Accordion>
                                     <Accordion.Item>
@@ -28,7 +28,7 @@ function GuidePage() {
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
-                                <ListGroup.Item eventKey="ask">의겸 남기기</ListGroup.Item>
+                                <ListGroup.Item eventKey="ask">의견 남기기</ListGroup.Item>
                             </ListGroup>
                         </Col>
 

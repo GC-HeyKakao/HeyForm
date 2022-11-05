@@ -37,8 +37,8 @@ function Preview(props) {
 	}
 	return (
 		<>
-			 <Card className='basicCard' style={{ padding: "3%", backgroundColor:backgroundColor }}>
-				<h2 style={{ marginBottom: "3%", textAlign:"center" }}>{props.surveyTitle}</h2>
+			<Card className='basicCard' style={{ padding: "3%", backgroundColor: backgroundColor }}>
+				<h2 style={{ marginBottom: "3%", textAlign: "center" }}>{props.surveyTitle}</h2>
 				<h6 style={{ marginBottom: "5%", textAlign: "center" }}>{props.surveyDescription}</h6>
 				{
 					props.savedQsList.map((savedQs, idx) => {
@@ -98,18 +98,14 @@ function Preview(props) {
 						{
 							'단답식': <Card.Title className='basicCard' > Q{props.savedQsList.length + 1}: {props.curQs} </Card.Title>,
 							'객관식':
-
-								<Card className='basicCard'>
-
+								<>
 									<Card.Title>Q{props.savedQsList.length + 1}: {props.curQs} </Card.Title>
-									<Card>
 										{
 											props.curQsItemList.map(
 												((curQsItem, idx) => <div key={idx}> <input className="form-check-input" id={idx} name={curQsItem} type="checkbox" value={curQsItem} />  {curQsItem} </div>
 												))
 										}
-									</Card>
-								</Card>,
+								</>,
 							'별점':
 								<>
 									<Card.Title>Q{props.savedQsList.length + 1}: {props.curQs} </Card.Title>

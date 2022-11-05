@@ -51,7 +51,7 @@ function WriteAsk() {
           />
         </div>
         <form>
-          <Button style={{ margin: "3%" }} type="submit" onClick={handleButton}>
+          <Button style={{ margin: "3%" }} onClick={handleButton}>
             발송
           </Button>
         </form>
@@ -62,7 +62,7 @@ function WriteAsk() {
           <h4>소중한 의견 감사합니다😍</h4>
           <br />
           {/* 설문 josn post하기 */}
-          <Button onClick={() => { setShow(false) }}>확인</Button>
+          <Button onClick={() => { setShow(false); }}>확인</Button>
         </Modal.Body>
       </Modal>
     </>

@@ -3,10 +3,10 @@ import { Helmet } from 'react-helmet'
 import { JAVASCRIPT_KEY } from '../../OAuth'
 import sendKakaoBtn from '../../sendKakaoBtn.png'
 
-const KakaoShareButton = (props) => {
+const KakaoShare = (props) => {
 
     useEffect(() => {
-        //console.log(props);
+        console.log(props);
         createKakaoButton()
 
     }, [])
@@ -28,8 +28,9 @@ const KakaoShareButton = (props) => {
                 container: '#kakao-link-btn',
                 objectType: 'feed',
                 content: {
-                    title: "설문 마감 기한" + props.endDate, //get survey-id.name
-                    description: ""+props.surveyDescription,
+                    title: props.name + "님으로부터 새로운 설문조사 요청이 도착했어요!\n",
+                    description: "제목: " +props.surveyTitle + "\n설명: " + props.surveyDescription + '\n' 
+                    + props.start_time + '부터\n' + props.end_time + "까지 응답해주세요 🥰",
                     imageUrl: 'logo.png',
                     link: {
                         mobileWebUrl: window.location.href,
@@ -37,7 +38,7 @@ const KakaoShareButton = (props) => {
                     },
                 },
                 itemContent: {
-                    profileText: ""+ props.surveyTitle,
+                    profileText: '설문조사 요청이 들어왔어요 🙌🏻',
                 },                
                 // social: {
                 //   likeCount: 77,
@@ -76,4 +77,4 @@ const KakaoShareButton = (props) => {
     )
 }
 
-export { KakaoShareButton }
+export { KakaoShare }

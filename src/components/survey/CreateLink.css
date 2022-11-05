@@ -8,11 +8,9 @@
   .shareLink {
     display: flex;
     justify-content: center;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: bold;
-    text-decoration: underline;
     text-underline-position: under;
-    text-decoration-color: #0D6EFD;
   }
   
   .areaShare {
