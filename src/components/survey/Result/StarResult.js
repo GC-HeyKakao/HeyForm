@@ -28,7 +28,6 @@ const StarResult = (props) => {
                         { star: '3', 응답수: 4 },
                         { star: '4', 응답수: 7 },
                         { star: '5', 응답수: 2 }
-
                     ]}
                     /**
                      * chart에 보여질 데이터 key (측정되는 값)

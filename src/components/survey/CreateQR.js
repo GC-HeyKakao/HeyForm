@@ -26,7 +26,7 @@ function CreateQR(props) {
 
     return (
         <>
-            <div className='shareComment'> <br></br><br></br><h6>📌 설문지를 아래의 QR코드로 공유하세요</h6></div>
+            <div className='shareComment'><br/><br/><h6>📌 설문지를 아래의 QR코드로 공유하세요</h6></div>
         <br></br>
             <div id="qrcode" className='qrcode'>
                 <QRCodeSVG value={props.link} //코드 링크 설정

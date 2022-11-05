@@ -10,7 +10,6 @@ import Table from './Table';
 function Result(props) {
 
     return (
-
         <>
             <div style={{ padding: "3%", textAlign: "center" }}>
                 <h3>🔮 설문 결과 분석 🔮</h3>

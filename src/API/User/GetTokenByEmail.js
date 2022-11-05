@@ -18,7 +18,6 @@ const GetTokenByEmail = (users) => {
     axios.get(`http://210.109.60.38:8080/user/token/${email}`)
         .then((response) => {
             console.log("ttoken", response.data);
-             
             //tokenHandler(response.data);
             //user.token = response.data; //리코일
             console.log('get token ok');

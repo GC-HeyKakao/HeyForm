@@ -1,16 +1,14 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Modal, Card, Nav, InputGroup, Form, FloatingLabel, Button, Row, Col, CloseButton } from 'react-bootstrap';
-import { DropdownCmpt } from '../components/DropdownCmpt.js'
-import { WriteSurvey } from '../components/Survey/WriteSurvey.js';
-import { Preview } from '../components/Survey/Preview.js'
-import { Helmet } from 'react-helmet'
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Button, Card, CloseButton, Col, FloatingLabel, Form, InputGroup, Modal, Nav, Row } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from "recoil";
 import { PostSurvey } from '../API/Survey/PostSurvey';
-import { UpdateSurvey } from '../API/Survey/UpdateSurvey.js';
-import { SurveySheet } from '../components/Survey/SurveySheet.js';
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { linkState, userState } from '../atom';
+import { linkState } from '../atom';
 import { RecommendCate } from '../components/AI/RecommendCate.js';
+import { DropdownCmpt } from '../components/DropdownCmpt.js';
+import { Preview } from '../components/Survey/Preview.js';
+import { WriteSurvey } from '../components/Survey/WriteSurvey.js';
 
 function CreateSurvey() {
 
@@ -134,8 +132,12 @@ function CreateSurvey() {
 				console.log('RecommendCategory: ', RecommendCategory);
 				setRecommendCategory(res);
 				setRecommendMent('와 관련된 디자인을 추천할게요!');
-				setSelectedCategory(res);
-				
+				if (res !== null) {
+					setSelectedCategory(res);
+				}
+
+				console.log('조건문', RecommendCategory == '');
+				console.log('RecommendCategory', RecommendCategory);
 
 			}, (err) => console.log(err))
 	}
@@ -282,7 +284,7 @@ function CreateSurvey() {
 									<div>
 										<DropdownCmpt list={category_list} title={selectedCategory} style={{ marginBottom: "1%", float: "left" }} setSelected={setSelectedCategory} defaultTitle="Category" />
 										<div style={{ marginTop: "2%", marginRight: "35%" }}>
-											{RecommendCategory !== '' && <h5 style={{ float: "right" }}>{RecommendCategory}{RecommendMent}</h5>}
+											{!(RecommendCategory === '' || RecommendCategory === null) && <h5 style={{ float: "right" }}>{RecommendCategory}{RecommendMent}</h5>}
 										</div>
 									</div>
 									<FloatingLabel

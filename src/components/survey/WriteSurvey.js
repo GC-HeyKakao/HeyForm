@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react'
-import { Form, Button, InputGroup, CloseButton } from 'react-bootstrap'
-import { DropdownCmpt } from '../DropdownCmpt'
-import Star from './Star';
+import { useEffect, useState } from 'react';
+import { Button, CloseButton, Form, InputGroup } from 'react-bootstrap';
+import { DropdownCmpt } from '../DropdownCmpt';
 import Likertchart from './Likertchart';
 import Slider from './Slider';
+import Star from './Star';
 
 function WriteSurvey(props) {
 	let surveyTypeList = ["단답식", "객관식", "별점", "리커트", "감정바"];
@@ -18,8 +18,6 @@ function WriteSurvey(props) {
 		setQsItemList([]);
 		props.setCurSelectedType(selectedType);
 	}, [selectedType])
-
-	// console.log("qs: " + qs+ " listt: " + qsItemList)
 
 	return (
 		<div style={{ padding: "2%", paddingTop: "5%" }}>

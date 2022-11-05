@@ -1,15 +1,11 @@
-import { useState, useContext } from 'react';
-import { Card, ListGroup, Row, Col, Accordion } from 'react-bootstrap'
-import React from 'react';
-import { FAQ } from '../components/Guide/FAQ/FAQ'
-import { FaqCreate } from '../components/Guide/FAQ/FaqCreate'
-import { FaqReply } from '../components/Guide/FAQ/FaqReply'
-import { Footer } from '../components/Footer.js'
+import React, { useState } from 'react';
+import { Accordion, Col, ListGroup, Row } from 'react-bootstrap';
+import { Footer } from '../components/Footer.js';
+import { FAQ } from '../components/Guide/FAQ/FAQ';
+import { FaqCreate } from '../components/Guide/FAQ/FaqCreate';
+import { FaqReply } from '../components/Guide/FAQ/FaqReply';
 import { WriteAsk } from '../components/Guide/WriteAsk';
 
-// function alertDialogBox(message) {
-// 	alert(message)
-// }
 
 function GuidePage() {
 
@@ -32,7 +28,7 @@ function GuidePage() {
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
-                                <ListGroup.Item eventKey="ask">문의하기</ListGroup.Item>
+                                <ListGroup.Item eventKey="ask">의겸 남기기</ListGroup.Item>
                             </ListGroup>
                         </Col>
 
@@ -71,7 +67,7 @@ function GuidePage() {
 
                                             <Col>
                                                 <WriteAsk />
-                                                
+
 
                                             </Col>
 

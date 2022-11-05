@@ -1,27 +1,33 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTable } from "react-table";
 import "./Table.css";
 
 const RespondentTable = (props) => {
-    const [response, setTutorials] = useState([]);
-    const retrieveTutorials = () => {
-        const { tutorials, totalPages } = {
-            tutorials: [
-                // {
-                //     name: "홍길동",
-                //     gender: "남성",
-                //     age_range: "20~29",
-                //     email: "heykakao@example.com",
-                //     response_date: "2022-10-15"
-                // },
-
+    const [response, setResponse] = useState([]);
+    const retrieveResponse = () => {
+        const { data, totalPages } = {
+            data: [
+                {
+                    name: "홍길동",
+                    gender: "남성",
+                    age_range: "20~29",
+                    email: "heykakao@example.com",
+                    response_date: "2022-10-15"
+                },
+                {
+                    name: "임채윤",
+                    gender: "여성",
+                    age_range: "20~29",
+                    email: "heykakao2@example.com",
+                    response_date: "2022-11-2"
+                },
             ],
             totalPages: 1,
         };
-        setTutorials(tutorials);
+        setResponse(data);
     };
 
-    useEffect(retrieveTutorials, []);
+    useEffect(retrieveResponse, []);
     const columns = useMemo(
         () => [
             {
@@ -90,19 +96,8 @@ const RespondentTable = (props) => {
                             <tbody className="tbody" >
                                 <tr>
                                     <td>
-                                        <span>-</span>
-                                    </td>                                    
-                                    <td>
-                                        <span>-</span>
-                                    </td>                                    
-                                    <td>
-                                        <span>-</span>
-                                    </td>                                    
-                                    <td>
-                                        <span>-</span>
-                                    </td>                                    
-                                    <td>
-                                        <span>-</span>
+                                        <figure className="noRecord-found"></figure>
+                                        <span className="norecord-text">No records found</span>
                                     </td>
                                 </tr>
                             </tbody>

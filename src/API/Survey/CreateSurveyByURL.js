@@ -2,11 +2,10 @@ import axios from 'axios';
 
 const CreateSurveyByURL = async (link) => {
 
-    console.log("createSurveyByurl");
-     const surveyURL = link;
-    // console.log("link");
-    //const surveyURL = 'c4ca4238a0b923820dcc509a6f75849b';
-    console.log("urllink", surveyURL);
+    //console.log("create Survey By url");
+    const surveyURL = link;
+
+    //console.log("urllink", surveyURL);
     let dto = {};
 
     const headers = {

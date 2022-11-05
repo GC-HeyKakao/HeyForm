@@ -39,7 +39,7 @@ const Circle = styled.div`
 function MyPage() {
 
     const [show, setShow] = useState(false);
-	const users = useRecoilValue(userState);
+    const users = useRecoilValue(userState);
 
     let navigate = useNavigate();
     // const UserInfo = useContext(UserInfoContextStore);
@@ -67,15 +67,15 @@ function MyPage() {
             <div className="wraper">
                 <div className="content" style={{ paddingTop: "100px", marginTop: "50px" }}>
                     <div className="center1">
-                        <Row style={{marginBottom:"20px"}}>
+                        <Row style={{ marginBottom: "20px" }}>
                             <Col><h3>이름</h3></Col>
                             <Col><h3>{users[0].name}님</h3></Col>
                         </Row>
-                        <Row style={{marginBottom:"20px"}}>
+                        <Row style={{ marginBottom: "20px" }}>
                             <Col><h3>이메일</h3></Col>
                             <Col><h3>{users[0].email}</h3></Col>
                         </Row>
-                        <Row style={{marginBottom:"20px"}}>
+                        <Row style={{ marginBottom: "20px" }}>
                             <Col><h3>알림 수신 여부</h3></Col>
                             <Col>
                                 <ToggleBtn onClick={clickedToggle} toggle={toggle}>
@@ -84,7 +84,7 @@ function MyPage() {
                             </Col>
                         </Row>
                         <Col className='center2'>
-                        <Button className="logoutBtn" onClick={handleLogoutButton}>로그아웃</Button>
+                            <Button className="logoutBtn" onClick={handleLogoutButton}>로그아웃</Button>
                         </Col>
                     </div>
                 </div>
@@ -92,13 +92,13 @@ function MyPage() {
             </div>
 
 
-            <Modal show={show} onHide={()=>{setShow(false)}}>
+            <Modal show={show} onHide={() => { setShow(false) }}>
                 <Modal.Body style={{ textAlign: "center" }}>
-                    <br/>
-                    <h2>로그아웃 하시겠습니까?<br/></h2>
-                    <br/>
-                    <Button style={{marginRight:"20px"}}onClick={()=>{navigate('/kakaologout')}}>확인</Button>
-                    <Button onClick={()=>{setShow(false)}}>취소</Button>
+                    <br />
+                    <h2>로그아웃 하시겠습니까?<br /></h2>
+                    <br />
+                    <Button style={{ marginRight: "20px" }} onClick={() => { navigate('/kakaologout') }}>확인</Button>
+                    <Button onClick={() => { setShow(false) }}>취소</Button>
                 </Modal.Body>
             </Modal>
 

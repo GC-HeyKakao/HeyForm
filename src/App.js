@@ -1,25 +1,21 @@
 import React from 'react';
-import { useEffect, useContext } from 'react';
 import './App.css';
 
-import {Routes, Route, useNavigate} from 'react-router-dom'
-import { MainPage } from './route/MainPage.js'
-import { UpperNav } from './components/UpperNav.js'
-import { CreateSurvey } from './route/CreateSurvey.js'
-import { Workspace } from './route/Workspace.js'
-import { GuidePage } from './route/GuidePage.js'
-import { MyPage } from './route/MyPage';
-import { KakaoLogin}  from './route/KakaoLogin';
-import { KakaoLogout } from './route/KakaoLogout';
+import { Route, Routes } from 'react-router-dom';
+import { RecoilRoot } from "recoil";
 import { ShareSurvey } from './components/Survey/ShareSurvey';
 import { SurveySheet } from './components/Survey/SurveySheet';
-import { RepliedSurveySheet } from './components/Survey/Reply/RepliedSurveySheet';
-import { Users } from './API/Users'
-import { RecoilRoot } from "recoil"
+import { UpperNav } from './components/UpperNav.js';
+import { CreateSurvey } from './route/CreateSurvey.js';
+import { GuidePage } from './route/GuidePage.js';
+import { KakaoLogin } from './route/KakaoLogin';
+import { KakaoLogout } from './route/KakaoLogout';
+import { MainPage } from './route/MainPage.js';
+import { MyPage } from './route/MyPage';
+import { NotFound } from './route/NotFound.js';
+import { Workspace } from './route/Workspace.js';
 
 function App() {
-  let navigate = useNavigate();
-
 
   return (
     <>
@@ -37,10 +33,9 @@ function App() {
         <Route path="/survey" element={<ShareSurvey/>}/>
         <Route path="/survey/:surveyId" element={<SurveySheet/>}/>
         {/* <Route path="/reply/:userId:surveyId" element={<RepliedSurveySheet/>}/> */}
-        <Route path="/Users" element={<Users />}/>
+        <Route path="/*" element={<NotFound />} />
       </Routes>
       </RecoilRoot>
-
 
     </>
   );

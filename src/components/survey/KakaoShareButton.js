@@ -1,9 +1,7 @@
-import { logDOM } from '@testing-library/react'
 import React, { useEffect } from 'react'
-import { Button, Dropdown } from 'react-bootstrap'
-import { JAVASCRIPT_KEY } from '../../OAuth'
 import { Helmet } from 'react-helmet'
-import sendKakaoBtn from '../../sendKakaoBtn.png';
+import { JAVASCRIPT_KEY } from '../../OAuth'
+import sendKakaoBtn from '../../sendKakaoBtn.png'
 
 const KakaoShareButton = (props) => {
 

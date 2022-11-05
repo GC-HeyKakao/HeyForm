@@ -15,3 +15,11 @@ fieldset.likertScale .likertIndicator {
   fieldset.likertScale .likertResponse > input:checked + .likertIndicator {
     background-color: #0D6EFD;
   }
+
+  .likertBand {
+    flex-grow:  4; 
+    flex-shrink: 1;
+    flex-basis: auto;
+    display: flex;
+    padding-top: 0.6em;
+  }

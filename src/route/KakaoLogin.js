@@ -1,10 +1,9 @@
-import { useNavigate, useLocation } from 'react-router-dom';
-import React, { useEffect, useState, useContext, useReducer } from "react";
-import { KAKAO_AUTH_URL, REDIRECT_URI, REST_API_KEY } from '..//OAuth';
-import { Modal } from 'react-bootstrap'
-import { PostUser } from '../API/User/PostUser';
-import { userState } from '../atom';
+import React, { useEffect, useState } from "react";
+import { Modal } from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { KAKAO_AUTH_URL, REDIRECT_URI, REST_API_KEY } from '..//OAuth';
+import { userState } from '../atom';
 
 function KakaoLogin() {
 

@@ -1,14 +1,6 @@
-// install (please make sure versions match peerDependencies)
-// yarn add @nivo/core @nivo/pie
 import { ResponsivePie } from '@nivo/pie'
 
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
 const SliderResult = (props) => {
-
     return (
         <>
             <h5>감정바 문항: 질문이 들어갈 자리입니다</h5>
@@ -16,23 +8,15 @@ const SliderResult = (props) => {
                 <ResponsivePie
                     data={[
                         {
-                            "id": "0~10",
-                            "value": 4,
-                        },
-                        {
-                            "id": "11~30",
-                            "value": 20,
-                        },
-                        {
-                            "id": "31~50",
+                            "id": "0~30",
                             "value": 100,
                         },
                         {
-                            "id": "51~70",
+                            "id": "30~60",
                             "value": 455,
                         },
                         {
-                            "id": "71~90",
+                            "id": "60~90",
                             "value": 7,
                         },
                         {

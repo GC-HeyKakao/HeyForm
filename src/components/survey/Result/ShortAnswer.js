@@ -23,7 +23,6 @@ const data = [
 ]
 
 // custom random color options
-// see randomColor package: https://github.com/davidmerfield/randomColor
 const options = {
     luminosity: 'bright',
     hue: 'blue',

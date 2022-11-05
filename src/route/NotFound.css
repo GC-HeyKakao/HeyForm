@@ -1,0 +1,22 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap');
+
+.not-found-image-wrapper {
+    border: 0;
+    padding: 0;
+    background-image: url('../notfound.png');
+    background-position: center;
+    background-size: cover;
+}
+
+.img-center {
+    text-align: center;
+  }
+
+.not-found-image {
+    width: 1024px;
+}
+
+.dohyeon {
+    font-family: 'Mrs Saint Delafield', cursive;
+}

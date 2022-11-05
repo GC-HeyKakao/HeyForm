@@ -15,7 +15,6 @@ function TestSurvey(props)
 
     return (
         <>
-
         {
           <Preview category={category} savedQsList={savedQsList} curQs={curQs} curQsItemList={curQsItemList}
               curSelectedType={curSelectedType} surveyTitle={surveyTitle} />

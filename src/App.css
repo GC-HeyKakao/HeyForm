@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Mrs Saint Delafield', cursive;
 }
 
 .App-logo {
@@ -46,6 +47,7 @@
 
 .content {
   flex: 1;
+  text-align: center;
 }
 
 .center-wrapper-150 {
@@ -70,13 +72,3 @@
 .checkbox:checked + .label .switch {
   right: 0px;
 }
-
-
-/* .b2{
-  margin: auto;
-  justify-content: center;
-  text-align: center;
-  margin-left:5%;
-  margin-right:5%;
-} */
-

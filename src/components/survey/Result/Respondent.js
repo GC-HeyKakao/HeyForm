@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
-import { Card, CloseButton, Row, Col } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap';
+import Age from './Age';
+import Calendar from './Calendar';
 import Gender from './Gender';
-import Calendar from './Calendar'
-import Age from './Age'
-import RespondentTable from './RespondentTable';
 
 function Respondent(props) {
 
@@ -36,4 +34,4 @@ function Respondent(props) {
 	)
 }
 
-export { Respondent }
+export { Respondent };

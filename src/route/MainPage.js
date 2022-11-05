@@ -5,10 +5,10 @@ import { Footer } from '../components/Footer.js'
 import React, { useState, useEffect, useContext } from "react";
 import { KAKAO_AUTH_URL } from '..//OAuth';
 import { PostUser } from '../API/User/PostUser';
-import { userState, tokenState, userIdState} from '../atom';
+import { userState, tokenState, userIdState } from '../atom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { GetTokenByEmail } from '../API/User/GetTokenByEmail'
-import { GetUserIdByEmail }from '../API/User/GetUserIdByEmail';
+import { GetUserIdByEmail } from '../API/User/GetUserIdByEmail';
 import "./MainPage.css";
 
 function MainPage() {
@@ -21,6 +21,8 @@ function MainPage() {
 	// 로그인되면 뜨는 창에 사용
 	const [user, setUser] = useState(false);
 	const [nonUser, setNonUser] = useState(false);
+
+	// 유저 상태관리
 	const users = useRecoilValue(userState);
 	const userHandler = useSetRecoilState(userState);
 	const tokens = useRecoilValue(tokenState);
@@ -37,14 +39,14 @@ function MainPage() {
 		userHandler([
 			...users,
 			{
-				token:users[0].token,
-				id:users[0].id,
-				name:users[0].name,
-				email:users[0].email,
-				age:users[0].age,
-				gender:users[0].gender,
+				token: users[0].token,
+				id: users[0].id,
+				name: users[0].name,
+				email: users[0].email,
+				age: users[0].age,
+				gender: users[0].gender,
 				isFirst: false,
-				push:false,
+				push: false,
 
 			}
 		])
@@ -102,13 +104,12 @@ function MainPage() {
 		}
 	}, [ScrollY])
 
-	
+
 	useEffect(() => {
-		if (users.length!==0) {
-			
-			if(users[users.length-1].isFirst)
-			{
-				console.log("처음임");
+		
+		if (users.length !== 0) {
+			if (users[users.length - 1].isFirst) {
+				console.log("유저 환영");
 				reset();
 				PostUser(users[0]);
 				setUser(true);
@@ -116,8 +117,7 @@ function MainPage() {
 				GetUserIdByEmail(users[0]);
 			}
 
-		} else if (users.length===0) {
-			
+		} else if (users.length === 0) {
 			// 헤이폼이 처음이신가요
 			setNonUser(true);
 			setUser(false)
@@ -130,37 +130,37 @@ function MainPage() {
 	// console.log("로컬토큰", window.localStorage.getItem('ttoken'));
 	// console.log("토토큰", token);
 
-	return ( 
+	return (
 		<>
-		{
-			users.length!==0 ?
-			<Modal show={user} onHide={() => { setUser(false) }}>
-			<Modal.Header closeButton onClick={() => navigate("/main")}>
-				<Modal.Title>로그인 성공</Modal.Title>
-			</Modal.Header>
-			<Modal.Body style={{ textAlign: "center" }}>
-				<h2>🙌 {users[0].name}님 환영합니다 🙌<br /></h2>
-				<h4>지금 바로 헤이폼을 사용해보세요💙 </h4>
-				<br />
-				<Button onClick={() => setUser(false)}>확인</Button>
-			</Modal.Body>
-		</Modal>
+			{
+				users.length !== 0 ?
+					<Modal show={user} onHide={() => { setUser(false) }}>
+						<Modal.Header closeButton onClick={() => navigate("/main")}>
+							<Modal.Title>로그인 성공</Modal.Title>
+						</Modal.Header>
+						<Modal.Body style={{ textAlign: "center" }}>
+							<h2>🙌 {users[0].name}님 환영합니다 🙌<br /></h2>
+							<h4>지금 바로 헤이폼을 사용해보세요💙 </h4>
+							<br />
+							<Button onClick={() => setUser(false)}>확인</Button>
+						</Modal.Body>
+					</Modal>
 
-		:
+					:
 
-		<Modal show={nonUser} onHide={() => { setNonUser(false) }}>
-				<Modal.Header closeButton onClick={() => navigate("/main")}>
-					<Modal.Title>🙌 환영합니다 🙌</Modal.Title>
-				</Modal.Header>
-				<Modal.Body style={{ textAlign: "center" }}>
-					<h2>헤이폼이 처음이신가요?<br /></h2>
-					<h4>📝 로그인 후 설문을 작성해보세요 📝 </h4>
-					<br />
-					<Button onClick={handleLogin}>로그인하기</Button>
-				</Modal.Body>
-			</Modal>
-		}
-			
+					<Modal show={nonUser} onHide={() => { setNonUser(false) }}>
+						<Modal.Header closeButton onClick={() => navigate("/main")}>
+							<Modal.Title>🙌 환영합니다 🙌</Modal.Title>
+						</Modal.Header>
+						<Modal.Body style={{ textAlign: "center" }}>
+							<h2>헤이폼이 처음이신가요?<br /></h2>
+							<h4>📝 로그인 후 설문을 작성해보세요 📝 </h4>
+							<br />
+							<Button onClick={handleLogin}>로그인하기</Button>
+						</Modal.Body>
+					</Modal>
+			}
+
 			<div className="wraper">
 				<div className="content">
 					<AboutProduct />

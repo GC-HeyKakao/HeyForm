@@ -23,7 +23,7 @@ const Star = (props) => {
             surveyId: props.surveyId,
             type: "별점",
             idx: props.idx,
-            value: value.toString(),
+            value: value,
         }
 
         props.replyHandler(copy);

@@ -3,181 +3,46 @@ import { useTable } from "react-table";
 import "./Table.css";
 
 const Table = (props) => {
-    const [response, setTutorials] = useState([]);
-    const retrieveTutorials = () => {
-        const { tutorials, totalPages } = {
-            tutorials: [
+    const [response, setResponse] = useState([]);
+    const retrieveResponse = () => {
+        const { data, totalPages } = {
+            data: [
                 {
-                    invoice_date: "18 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
+                    Email: "abc123@example.com",
+                    Name: "임채윤",
+                    Question1: "1번문항 답변내용",
+                    Question2: "2번문항 답변내용",
                 },
                 {
-                    invoice_date: "19 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
+                    Email: "def456@example.com",
+                    Name: "박수빈",
+                    Question1: "1번문항 답변내용",
+                    Question2: "2번문항 답변내용",
                 },
-                {
-                    invoice_date: "20 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "21 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "22 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "23 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "18 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "19 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "20 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "21 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "22 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "23 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "18 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "19 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "20 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "21 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "22 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "23 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "18 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "19 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "20 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "21 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "22 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "23 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "18 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "19 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "20 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "21 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "22 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                {
-                    invoice_date: "23 Oct 2021",
-                    company: "ABC Enterprise",
-                    invoice_no: "INV/ABC/21-22/109",
-                },
-                
             ],
             totalPages: 1,
         };
-        setTutorials(tutorials);
+        setResponse(data);
     };
 
-    useEffect(retrieveTutorials, []);
+    useEffect(retrieveResponse, []);
     const columns = useMemo(
         () => [
             {
-                Header: "invoice_date",
-                accessor: "invoice_date",
+                Header: "이메일",
+                accessor: "Email",
             },
             {
-                Header: "invoice Company",
-                accessor: "company",
+                Header: "이름",
+                accessor: "Name",
             },
             {
-                Header: "Invoice No.",
-                accessor: "invoice_no",
+                Header: "첫번째문항",
+                accessor: "Question1",
+            },
+            {
+                Header: "두번째문항",
+                accessor: "Question2",
             },
         ],
         []

@@ -1,9 +1,7 @@
-import { useNavigate, useLocation } from 'react-router-dom';
-import React, { useEffect, useState, useContext } from "react";
-import { KAKAO_AUTH_URL, REDIRECT_URI, LOGOUT_REDIRECT_URI, REST_API_KEY } from '..//OAuth';
-import { Modal } from 'react-bootstrap'
-import { userState } from '../atom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import React, { useEffect, useState } from "react";
+import { Modal } from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { KAKAO_AUTH_URL, LOGOUT_REDIRECT_URI, REST_API_KEY } from '..//OAuth';
 
 function KakaoLogout() {
 
@@ -41,7 +39,7 @@ function KakaoLogout() {
         // 카카오계정과 함께 로그아웃
         fetch(`https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}&state=${ACCESS_TOKEN}`, {
             method: 'GET',
-             })
+        })
             .then(data => {
                 console.log('data:', data);
                 if (data.url.includes(ACCESS_TOKEN)) {

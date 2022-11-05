@@ -22,7 +22,7 @@ function Slider (props) {
       surveyId: props.surveyId,
       type: "만족도",
       idx: props.idx,
-      value: value.toString(),
+      value: value,
     }
 
     props.replyHandler(copy);

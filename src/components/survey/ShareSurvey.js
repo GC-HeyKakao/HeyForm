@@ -1,8 +1,6 @@
-import { Preview } from "./Preview";
+import { CreateLink } from "./CreateLink";
 import { CreateQR } from "./CreateQR";
 import { SetPush } from "./SetPush";
-import {CreateLink } from "./CreateLink"
-import { useParams } from 'react-router-dom'
 
 //완성된 설문지를 확인해보기 위한 js
 function ShareSurvey(props)
@@ -45,6 +43,7 @@ function ShareSurvey(props)
 
             <> 
             <div>
+              
             </div>
             </>
           }
@@ -53,4 +52,4 @@ function ShareSurvey(props)
       );
 }
 
-export { ShareSurvey }
+export { ShareSurvey };

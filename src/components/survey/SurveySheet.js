@@ -1,20 +1,17 @@
-import { ShareSurvey } from "./ShareSurvey";
-import { SubmmitButton } from "./Reply/SubmmitButton";
-import { Card, Form, Col, Row, Input } from 'react-bootstrap'
-import Likertchart from './Likertchart';
-import Slider from './Slider';
-import Star from './Star';
-import { Navigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react"
-import { replyState } from "../../atom";
+import { useEffect, useState } from "react";
+import { Card, Form } from 'react-bootstrap';
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { CreateSurveyByURL } from "../../API/Survey/CreateSurveyByURL";
-import { PostSurvey } from "../../API/Survey/PostSurvey";
-import { useNavigate } from 'react-router-dom';
-import { KAKAO_AUTH_URL } from '../../OAuth';
+import { replyState } from "../../atom";
+import Likertchart from './Likertchart';
+import { SubmmitButton } from "./Reply/SubmmitButton";
+import { ShareSurvey } from "./ShareSurvey";
+import Slider from './Slider';
+import Star from './Star';
+
 
 var ckAnswer = new Array();
-let dto;
 
 //완성된 설문지를 확인해보기 위한 js
 function SurveySheet(props) {
@@ -23,8 +20,6 @@ function SurveySheet(props) {
   console.log('surveyid',surveyId)
   console.log("SurveySheet 시작");
   const navigate = useNavigate();
-
-  // console.log('surveysheet', dtos);
 
   let dto = null;
   let dtoJson = null;
@@ -199,55 +194,6 @@ function SurveySheet(props) {
                   </Card>,
 
               }[item['question_type']]
-              // {
-              //   '단답식':
-              //     // <Card.Title className='basicCard' key={idx} style={{marginBottom: "3%"}}> </Card.Title>,
-              //     <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
-              //       <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
-
-              //       <Card.Body>
-              //         <div>
-              //           <Form.Control id="answer" onKeyUp={e => { OnKey("단답식", idx + 1, e) }} size="sm" type="text" placeholder="답변을 입력해주세요." />
-              //         </div>
-              //         {/* <Form.Control id="answer" size="sm" type="text" placeholder="답변을 입력해주세요."/> */}
-              //       </Card.Body>
-              //     </Card>,
-              //   '객관식':
-              //     <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
-              //       <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
-              //       <Card.Body>
-              //         {
-              //           // savedQs['qsItemList'].map(
-              //           //    (qsItem, idx) => <Form.Check type="checkbox" id={idx} label={qsItem}/>
-              //           // )
-              //           savedQs['qsItemList'].map(
-              //             ((qsItem, ItemIdx) => <div key={ItemIdx}> <input className="form-check-input" id={ItemIdx} name={qsItem} type="checkbox" value={qsItem} onChange={(e) => is_checked("객관식", idx + 1, ItemIdx)} />  {qsItem} </div>
-              //             ))
-              //         }
-              //       </Card.Body>
-              //     </Card>,
-              //   '별점':
-              //     <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
-              //       <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
-              //       <Card.Body>
-              //         <Star replyHandler={replyHandler} idx={idx + 1} surveyId={surveyId} />
-              //       </Card.Body>
-              //     </Card>,
-              //   '리커트':
-              //     <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
-              //       <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
-              //       <Card.Body>
-              //         <Likertchart replyHandler={replyHandler} idx={idx + 1} surveyId={surveyId} />
-              //       </Card.Body>
-              //     </Card>,
-              //   '감정바':
-              //     <Card className='basicCard' key={idx} style={{ marginBottom: "3%", padding: "3%" }}>
-              //       <Card.Title> Q{idx + 1}: {savedQs['qs']} </Card.Title>
-              //       <Card.Body>
-              //         <Slider category={category} replyHandler={replyHandler} idx={idx + 1} surveyId={surveyId} />
-              //       </Card.Body>
-              //     </Card>,
-              // }[savedQs['type']]
             )
           }
           )
@@ -267,10 +213,9 @@ function SurveySheet(props) {
         }
 
       </Card>
-
     </>
 
   )
 }
 
-export { SurveySheet }
+export { SurveySheet };

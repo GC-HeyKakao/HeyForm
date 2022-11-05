@@ -1,28 +1,18 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { RiCreativeCommonsSaLine } from 'react-icons/ri';
-import styled from 'styled-components';
+import React, { useRef, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import emailjs from 'emailjs-com';
-import { Users } from '../../../API/Users'
 import { useNavigate } from 'react-router-dom';
-import { userState, tokenState, userIdState } from '../../../atom';
 import { useRecoilValue } from 'recoil';
 import { PostReply } from '../../../API/Survey/PostReply';
-
-// {"user_token":"Token","survey_id": 1,"answerDtos":[{"question_order":1,"answer_contents":"testansewr1"}]}
+import { tokenState, userIdState, userState } from '../../../atom';
 
 function SubmmitButton(props) {
 
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   let navigate = useNavigate();
   const reply = props.replys;
-  //console.log("reply", JSON.stringify(reply));
   const user = useRecoilValue(userState);
   const token = useRecoilValue(tokenState);
   const userId = useRecoilValue(userIdState);
-  const childRef =useRef();
 
 
   const example = {
@@ -56,18 +46,6 @@ function SubmmitButton(props) {
       }
     }
       answerDtos.push(answerDto[i]);
-
-      //     //console.log("each", typeof(reply[i]));
-      //   }
-
-      // const answerDto = {
-      //     age: "string",
-      //     answer_contents:"string",
-      //     gender: "string",
-      //     question_order:0,
-      //     user_id:1,
-      // }
-
       resultReply = {
 
         answerDtos: answerDto,
@@ -84,7 +62,7 @@ function SubmmitButton(props) {
 
     return (
       <>
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={() => setShow(false)}>
           <Modal.Body style={{ textAlign: "center" }}>
             <br />
             <h3>소중한 답변 감사합니다 😊</h3>
@@ -108,3 +86,4 @@ function SubmmitButton(props) {
 
 
   export { SubmmitButton };
+
