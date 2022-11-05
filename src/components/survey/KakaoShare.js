@@ -28,9 +28,8 @@ const KakaoShare = (props) => {
                 container: '#kakao-link-btn',
                 objectType: 'feed',
                 content: {
-                    title: props.name + "님으로부터 새로운 설문조사 요청이 도착했어요!\n",
-                    description: "제목: " +props.surveyTitle + "\n설명: " + props.surveyDescription + '\n' 
-                    + props.start_time + '부터\n' + props.end_time + "까지 응답해주세요 🥰",
+                    title: props.name + "님이 " + props.survey_name + " 응답을 요청했어요!\n",
+                    description: props.start_time + '\n~' + props.end_time,
                     imageUrl: 'logo.png',
                     link: {
                         mobileWebUrl: window.location.href,
@@ -38,7 +37,7 @@ const KakaoShare = (props) => {
                     },
                 },
                 itemContent: {
-                    profileText: '설문조사 요청이 들어왔어요 🙌🏻',
+                    profileText: '설문조사 요청이 도착했어요 🙌🏻',
                 },                
                 // social: {
                 //   likeCount: 77,

@@ -23,7 +23,7 @@ function ShareSurvey(props) {
           :
 
           shareWay === "Link" ?
-            <div className="areaShare">
+          <div className="areaShare">
               <div style={{ marginRight: "5%" }}>
                 <CreateLink link={window.location.href} />
               </div>

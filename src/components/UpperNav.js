@@ -33,15 +33,14 @@ function UpperNav() {
 		<Navbar bg="primary" variant="dark">
 			<Row>
 				<Col md="2" style={{ paddingLeft: 10 }}>
-
-					<Navbar.Brand onClick={() => navigate("/main")} ><img src={logo} className="main-logo" width="60%" style={{ paddingLeft: "2%" }} />{' '}</Navbar.Brand>
+					<Navbar.Brand onClick={() => navigate("/main")} ><img src={logo} className="main-logo" /></Navbar.Brand>
 				</Col>
 				<Col md="6">
 					<Nav className="me-auto">
 						{/* 로그인 해야 다른 화면으로 넘어가게 */}
-						<Nav.Link onClick={!localStorage.getItem('token') ? handleLogin : () => navigate("/create")}>설문 만들기</Nav.Link>
-						<Nav.Link onClick={!localStorage.getItem('token') ? handleLogin : () => navigate("/workspace")}>워크 스페이스</Nav.Link>
-						<Nav.Link onClick={() => navigate("/guide")}>이용 가이드</Nav.Link>
+						<Nav.Link style={{ marginTop: 10, fontSize:18 }} onClick={!localStorage.getItem('token') ? handleLogin : () => navigate("/create")}>설문 만들기</Nav.Link>
+						<Nav.Link style={{ marginTop: 10, fontSize:18 }} onClick={!localStorage.getItem('token') ? handleLogin : () => navigate("/workspace")}>워크 스페이스</Nav.Link>
+						<Nav.Link style={{ marginTop: 10, fontSize:18 }} onClick={() => navigate("/guide")}>이용 가이드</Nav.Link>
 
 					</Nav>
 				</Col>

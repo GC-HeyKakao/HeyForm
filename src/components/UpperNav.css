@@ -9,8 +9,9 @@
 }
 
 .main-logo {
-    width: 180px;
+    cursor: pointer;
 }
+
 
 @media (max-width: 2000px) {
 
@@ -32,12 +33,9 @@
     .main-logo {
         display: block;
         margin: auto;
+        cursor: pointer;
     }
 
-}
-
-.col-md-2 {
-    height: 40px;
 }
 
 .col-md-2 {
@@ -49,5 +47,5 @@
 }
 
 .col-md-6 {
-    height: 50px;
+    height: 30px;
 }
