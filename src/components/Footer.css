@@ -10,6 +10,7 @@
     margin: 0px 0px 0px 10px;
     width: 40px;
     height: 40px;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -35,6 +36,7 @@
         margin: 0px 0px 0px 5px;
         width: 30px;
         height: 30px;
+        cursor: pointer;
     }
 
 }
