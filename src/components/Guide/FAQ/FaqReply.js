@@ -70,7 +70,7 @@ function FaqReply({ className }) {
           category={category}
           setCatecory={setCatecory}
         /> */}
-        <div className="fqa-parent" style={{paddingTop:20}}>
+        <div className="fqa-parent">
           <div className="faq-list">
             {showList.map((item, index) => getQnACard(item, index))}     
           </div>

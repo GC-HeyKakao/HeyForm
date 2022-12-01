@@ -86,6 +86,7 @@ body {
 .left-content::-webkit-scrollbar {
     display: none;
 }
+
 .left-content::-webkit-scrollbar-thumb {
     background-color: rgb(174, 174, 174);
     border-radius: 100px;
@@ -361,6 +362,6 @@ input#qrCheckBox:checked+label:before {
 }
 
 .config-area {
-    height: 100vh;
+    height: auto;
     text-align: center;
 }

@@ -109,22 +109,22 @@ function MainPage() {
 			if (users.isFirst) {
 				console.log("처음임");
 				setUser(true);
-				// userHandler(
-				// 	{
-				// 		token: users.token,
-				// 		kakaoToken: users.kakaoToken,
-				// 		kakaoRefreshToken: users.kakaoRefreshToken,
-				// 		id: users.id,
-				// 		name: users.name,
-				// 		profileImg: users.profileImg,
-				// 		email: users.email,
-				// 		age: users.age,
-				// 		gender: users.gender,
-				// 		isFirst: false,
-				// 		push: users.push,
-				// 		login: users.login,
-				// 	}
-				// )
+				userHandler(
+					{
+						token: users.token,
+						kakaoToken: users.kakaoToken,
+						kakaoRefreshToken: users.kakaoRefreshToken,
+						id: users.id,
+						name: users.name,
+						profileImg: users.profileImg,
+						email: users.email,
+						age: users.age,
+						gender: users.gender,
+						isFirst: false,
+						push: users.push,
+						login: users.login,
+					}
+				)
 			}
 			else {
 				// PostUserToken(users, userHandler);
@@ -157,10 +157,10 @@ function MainPage() {
 					<Modal.Title>🙌 {users.name}님 환영합니다 🙌</Modal.Title>
 				</Modal.Header>
 				<Modal.Body style={{ textAlign: "center" }}>
-					<h4>지금 바로 헤이폼을 사용해보세요💙 </h4>
+					<h4>지금 바로 헤이폼을 사용해보세요 🖤</h4>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button onClick={() => setUser(false)}>확인</Button>
+					<Button variant='secondary' onClick={() => setUser(false)}>확인</Button>
 				</Modal.Footer>
 			</Modal>
 
@@ -174,7 +174,7 @@ function MainPage() {
 					<h4>📝 로그인 후 설문을 작성해보세요 📝 </h4>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button onClick={handleLogin}>로그인하기</Button>
+					<Button variant='secondary' onClick={handleLogin}>로그인하기</Button>
 				</Modal.Footer>
 			</Modal>
 
