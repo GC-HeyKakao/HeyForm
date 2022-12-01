@@ -2,6 +2,23 @@ import * as React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 
 const StarResult = (props) => {
+
+    console.log("별점 들어옴", props.resultDto[props.idx][0]);
+
+    const data = [
+        { star: '1', 응답수: 0 },
+        { star: '2', 응답수: 0 },
+        { star: '3', 응답수: 0 },
+        { star: '4', 응답수: 0 },
+        { star: '5', 응답수: 0 }
+    ]
+
+    for (var i=0; i<Object.keys(props.resultDto[props.idx][0]).length; i++)
+    {
+        let index = Number(props.resultDto[props.idx][0][i].star)-1;
+        data[index].응답수=props.resultDto[props.idx][0][i].응답수;
+    }
+
     const handle = {
         barClick: (data) => {
             console.log(data);
@@ -15,20 +32,14 @@ const StarResult = (props) => {
     return (
         // chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정
         <>
-            <h5>별점 문항: 질문이 들어갈 자리입니다</h5>
-            <div style={{ width: '750px', height: '500px', marginLeft: "100px" }}>
+            <h5>Q{props.idx}: {props.title}</h5>
+            <div style={{ width: "auto", height:"400px", padding: "0px", margin: "auto" }}>
                 <ResponsiveBar
                     /**
                      * chart에 사용될 데이터
                      */
                     // data = props.data;
-                    data={[
-                        { star: '1', 응답수: 5 },
-                        { star: '2', 응답수: 1 },
-                        { star: '3', 응답수: 4 },
-                        { star: '4', 응답수: 7 },
-                        { star: '5', 응답수: 2 }
-                    ]}
+                    data={data}
                     /**
                      * chart에 보여질 데이터 key (측정되는 값)
                      */
@@ -40,7 +51,7 @@ const StarResult = (props) => {
                     /**
                      * chart margin
                      */
-                    margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+                    margin={{ top: 50, right: 30, bottom: 50, left: 60 }}
                     /**
                      * chart padding (bar간 간격)
                      */

@@ -8,13 +8,12 @@ const Remove = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #dee2e6;
+  color: #5c636a;
   font-size: 24px;
   cursor: pointer;
   &:hover {
-    color: #0D6EFD;
+    color: #dee2e6;
   }
-  display: none;
 `;
 
 const TodoItemBlock = styled.div`
@@ -23,11 +22,6 @@ const TodoItemBlock = styled.div`
   align-items: center;
   padding-top: 12px;
   padding-bottom: 12px;
-  &:hover {
-    ${Remove} {
-      display: initial;
-    }
-  }
 `;
 
 const Text = styled.div`

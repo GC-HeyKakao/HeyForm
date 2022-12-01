@@ -1,15 +1,17 @@
 import axios from 'axios';
 import { forwardRef, useImperativeHandle } from "react";
-import { tokenState } from '../../atom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { linkState } from '../../atom';
+import { userState } from '../../atom';
+import { PostUserToken } from '../User/PostUserToken';
 
 // props -> surveyJson,userToken
 // route.CreateSurvey에서 사용!
 const PostSurvey = forwardRef((props, ref) => {
 
-    const user_token=useRecoilValue(tokenState);
-    const linkHandler = useSetRecoilState(linkState);
+    const users = useRecoilValue(userState);
+    const userHandler = useSetRecoilState(userState);
+    const user_token=users.token;
+    const setLink = props.setLink;
 
     useImperativeHandle(ref, () => ({
 
@@ -27,11 +29,24 @@ const PostSurvey = forwardRef((props, ref) => {
 
             console.log('확인', JSON.stringify(props.surveyJson));
 
-                axios.post(`http://210.109.60.38:8080/survey/${user_token}`, props.surveyJson)
+                axios.post(`https://210.109.60.38:8080/survey/${user_token}`, props.surveyJson)
                   .then((response) => {
-                    linkHandler(response.data);
-                    console.log(response.data)
-                    console.log('post survey ok');
+
+                    // if (response.status === 203) {
+                    //     console.log(users)
+                    //     PostUserToken(users.kakaoToken, users, userHandler);
+                    //     //console.log('ok', users)
+                    //     //console.log('get survey by token ok');
+                    //     //console.log("설문링크", response.data);
+                    //     setLink(response.data);
+                    // } else {
+                        setLink(response.data);
+                    // }
+                    
+                    // console.log("설문링크", response.data);
+                    // setLink(response.data);
+                    // console.log(response.data)
+                    // console.log('post survey ok');
                 })
                 .catch((error) => {
                     console.log(error);

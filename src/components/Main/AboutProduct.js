@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import Fade from "react-reveal/Fade"; // Import reasct-reveal(Fade)
-import './AboutProduct';
 
 const IntroBlock = styled.div`
   margin: 0px 0px 300px 0px;
-  
   h1 {
     margin: 10;
 	text-align : center;
@@ -31,7 +29,6 @@ const IntroBlock = styled.div`
 	margin-bottom: 80px;
 	height: 70%;
 	width: 70%;
-
   }
 
   @media (max-width: 768px) {
@@ -70,10 +67,10 @@ const IntroBlock = styled.div`
 
 function AboutProduct() {
 	return (
-		<div>
+		<div className="body" style={{marginTop:'30px'}}>
 			<div>
 				<Fade big>
-					<IntroBlock style={{marginTop:"5%"}}>
+					<IntroBlock>
 						<h2>사용자에게 편의를 주는 솔루션을</h2>
 						<h1><strong>헤이폼</strong>이 제안합니다.</h1>
 						<img src="main_promotion.png" align="center" />

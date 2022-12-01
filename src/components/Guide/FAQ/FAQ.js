@@ -33,18 +33,19 @@ function FAQ({ className }) {
             setCardOnOff([...tempCard]);
           }}
         >
-          <span className="question-mark">Q.</span>
-          <span>{item.question}</span>
+          <p className="question-mark">Q.</p>
+          <p>{item.question}</p>
         </div>
         <div
           className={
             qnaList[index].show
               ? "faq-card-answer"
-              : "faq-card-answer faq-card-none"
+              : "faq-card-none"
           }
         >
-          <span className="answer-mark">A.</span>
-          <span className="FAQ-card-answer">{item.answer}</span>
+          
+          <p className="answer-mark">A.</p>
+          <p>{item.answer}</p>
         </div>
       </div>
     );
@@ -69,7 +70,7 @@ function FAQ({ className }) {
           setCatecory={setCatecory}
         /> */}
       <div className="fqa-parent">
-        <div className="faq-list" style={{ paddingTop: 20 }}>
+        <div className="faq-list">
           {showList.map((item, index) => getQnACard(item, index))}
         </div>
       </div>

@@ -1,20 +1,16 @@
 import ReactStars from 'react-stars'
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { replyState } from "../../atom.js"
-import { useRecoilValue } from 'recoil';
 
 const Star = (props) => {
     const [currentValue, setCurrentValue] = useState(0);
+    const replys = props.replys;
+    let copy = replys;
 
-    const replys = useRecoilValue(replyState);
+    // useEffect(() => {
 
-    let copy = [...replys];
-
-    useEffect(() => {
-
-        console.log(replys);
-    }, [replys]);
+    //     console.log(replys);
+    // }, [replys]);
 
     function setValue(value) {
 
@@ -32,17 +28,68 @@ const Star = (props) => {
 
     return (
         <>
-            <div className='center-wrapper-120'>
-                <div className='center'>
-                    <ReactStars
-                        count={5}
-                        value={currentValue}
-                        onChange={(value) => { setCurrentValue(value); setValue(value) }}
-                        size={50}
-                        color2={'#ffd700'}
-                        edit={true}
-                    />
-                </div>
+            <div className='center'>
+                {
+                    props.value === undefined ?
+                        <ReactStars
+                            count={5}
+                            value={currentValue}
+                            color1='#EBEBEB'
+                            onChange={(value) => { setCurrentValue(value); setValue(value) }}
+                            size={50}
+                            color2={'#ffd700'}
+                            edit={true}
+                            half={false}
+
+                        />
+
+                        :
+
+                        props.value === undefined && props.view === 'view' ?
+                            <ReactStars
+                                count={5}
+                                value={currentValue}
+                                color1='#EBEBEB'
+                                onChange={(value) => { setCurrentValue(value); setValue(value) }}
+                                size={40}
+                                color2={'#ffd700'}
+                                edit={true}
+                                half={false}
+
+                            />
+
+                            :
+
+                            props.value !== undefined && props.view === 'view' ?
+                                <ReactStars
+                                    count={5}
+                                    value={Number(props.value)}
+                                    color1={'#EBEBEB'}
+                                    //onChange={(value) => { setCurrentValue(value); setValue(value) }}
+                                    size={40}
+                                    color2={'#ffd700'}
+                                    edit={false}
+
+                                />
+
+                                :
+
+                                <ReactStars
+                                    count={5}
+                                    value={Number(props.value)}
+                                    color1={'#EBEBEB'}
+                                    //onChange={(value) => { setCurrentValue(value); setValue(value) }}
+                                    size={50}
+                                    color2={'#ffd700'}
+                                    edit={false}
+
+                                />
+
+
+
+                }
+
+
             </div>
 
             {/* {
@@ -50,8 +97,6 @@ const Star = (props) => {
             } */}
 
         </>
-
-
 
     );
 }

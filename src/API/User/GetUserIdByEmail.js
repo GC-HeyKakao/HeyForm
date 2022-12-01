@@ -1,23 +1,36 @@
 import axios from 'axios';
-import { userIdState, userState } from '../../atom';
-import { useRecoilValue } from 'recoil';
-import { useSetRecoilState } from 'recoil';
-import { useRecoilState } from 'recoil';
 
-const GetUserIdByEmail = (users) => {
+const GetUserIdByEmail = (users, userHandler, token) => {
 
-    console.log("get token 시작");
+    console.log("get id 시작");
 
     let email = users.email;
 
-    axios.get(`http://210.109.60.38:8080/user/id/${email}`)
-        .then((response) => {
-            //console.log("ttoken", response.data);
-             
-            //tokenHandler(response.data);
-            //user.token = response.data; //리코일
-            console.log('get token ok');
-            window.localStorage.setItem("userID", response.data);
+    function reset(id) {
+        console.log('reset id')         
+
+		userHandler(
+			{
+				token:users.token,
+                kakaoToken: users.kakaoToken,
+                kakaoRefreshToken: users.kakaoRefreshToken,
+                id:id,
+				name:users.name,
+                profileImg: users.profileImg,
+				email:users.email,
+				age:users.age,
+				gender:users.gender,
+				isFirst: false,
+				push: users.push,
+                login: users.login,
+			}
+		)
+	}
+
+    axios.get(`https://210.109.60.38:8080/user/id/${email}`)
+        .then((response) => {    
+            reset(response.data);
+            
         })
         .catch((error) => {
             console.log(error);

@@ -20,3 +20,9 @@
 .dohyeon {
     font-family: 'Mrs Saint Delafield', cursive;
 }
+
+@media (max-width: 1000px) {
+    .nfimg {
+        display: none;
+    }
+}

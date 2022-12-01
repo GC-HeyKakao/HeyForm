@@ -3,18 +3,23 @@ import { useState, useEffect } from 'react'
 import { replyState } from "../../atom.js"
 import { useRecoilValue } from 'recoil';
 import './Likertchart.css'
+import { Card } from 'react-bootstrap';
+import { textAlign } from "@mui/system";
 
 const Likertchart = (props) => {
     const [currentValue, setCurrentValue] = useState(0);
 
-    const replys = useRecoilValue(replyState);
+    const replys = props.replys;
 
-    let copy = [...replys];
+    let copy = replys;
 
-    useEffect(() => {
+    const answerValue = props.value;
+    let answerChecked = [false, false, false, false, false];
+    answerChecked[answerValue] = true;
 
-        console.log(replys);
-    }, [replys]);
+    // useEffect(() => {
+    //     console.log(replys);
+    // }, [replys]);
 
     function setValue(value) {
 
@@ -39,16 +44,52 @@ const Likertchart = (props) => {
             { value: 5, text: "매우 그렇다" }
         ],
         onChange: val => {
-            
+
             setCurrentValue(val)
             setValue(val.value)
         }
 
     }
-    return(
-        <div style={{marginTop:"5%"}}>
-        <Likert {...likertOptions}/>
-        </div>
+
+    let likertOptions2 = {
+        responses: [
+            { value: 1, text: "전혀 그렇지 않다", checked: answerChecked[1] },
+            { value: 2, text: "그렇지 않다", checked: answerChecked[2] },
+            { value: 3, text: "보통이다", checked: answerChecked[3] },
+            { value: 4, text: "그렇다", checked: answerChecked[4] },
+            { value: 5, text: "매우 그렇다", checked: answerChecked[5] }
+        ],
+
+        onChange: val => {
+            setCurrentValue(val)
+            setValue(val.value)
+        }
+    }
+
+    return (
+    <>
+        {props.back === 'black' &&
+        <div>
+            {
+                props.value === undefined ?
+                    <div style={{color:'rgb(248,248,253'}}><Likert {...likertOptions} /></div>
+                    :
+                    <div style={{color:'rgb(248,248,253'}}><Likert {...likertOptions2} disabled /></div>
+            }
+        </div>}
+
+        {props.back === 'white' &&
+        <div>
+            {
+                props.value === undefined ?
+                    <Likert className='white' {...likertOptions} />
+                    :
+                    <Likert {...likertOptions2} disabled />
+            }
+        </div>}
+
+        </>
     );
+
 }
 export default Likertchart;

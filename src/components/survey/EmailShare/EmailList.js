@@ -1,8 +1,6 @@
 import React from 'react';
-import {EmailItem} from './EmailItem';
 import styled from 'styled-components';
-import { emailState } from '../../../atom';
-import { useRecoilValue } from 'recoil';
+import { EmailItem } from './EmailItem';
 
 
 const EmailListBlock = styled.div`
@@ -12,10 +10,7 @@ const EmailListBlock = styled.div`
   overflow-y: auto;
 `;
 
-const EmailList = ({onDel}) => {
-
-    
-    const emails = useRecoilValue(emailState);
+const EmailList = ({emails, onDel}) => {
 
     return (
         <EmailListBlock>
@@ -27,4 +22,4 @@ const EmailList = ({onDel}) => {
     );
 };
 
-export {EmailList};
+export { EmailList };

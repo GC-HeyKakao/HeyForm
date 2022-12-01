@@ -2,8 +2,14 @@ import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import { JAVASCRIPT_KEY } from '../../OAuth'
 import sendKakaoBtn from '../../sendKakaoBtn.png'
+import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
+import { Button } from "react-bootstrap";
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atom';
 
 const KakaoShare = (props) => {
+
+    const users = useRecoilValue(userState);
 
     useEffect(() => {
         console.log(props);
@@ -28,16 +34,16 @@ const KakaoShare = (props) => {
                 container: '#kakao-link-btn',
                 objectType: 'feed',
                 content: {
-                    title: props.name + "님이 " + props.survey_name + " 응답을 요청했어요!\n",
-                    description: props.start_time + '\n~' + props.end_time,
+                    title: users.name + "님이 설문 응답을 요청했어요 🙌🏻",
+                    description: props.surveyTitle + '\n' + props.surveyDescription,
                     imageUrl: 'logo.png',
                     link: {
-                        mobileWebUrl: window.location.href,
-                        webUrl: window.location.href,
+                        mobileWebUrl: props.link,
+                        webUrl: props.link,
                     },
                 },
                 itemContent: {
-                    profileText: '설문조사 요청이 도착했어요 🙌🏻',
+                    profileText: '헤이폼',
                 },                
                 // social: {
                 //   likeCount: 77,
@@ -48,8 +54,8 @@ const KakaoShare = (props) => {
                     {
                         title: '설문 응답하러 가기',
                         link: {
-                            mobileWebUrl: window.location.href,
-                            webUrl: window.location.href, // 링크 변경 필요
+                            mobileWebUrl: props.link,
+                            webUrl:props.link,
                         },
                     },
                 ],
@@ -64,11 +70,9 @@ const KakaoShare = (props) => {
             <Helmet>
                 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
             </Helmet>
-            <div className="kakao-share-button">
+            <div style={{ float:'left', marginBottom:'20px'}} >
                 {/* Kakao share button */}
-                <button id="kakao-link-btn" style={{ backgroundColor:"transparent", color:"black", border:"none"}}>
-                <img src = {sendKakaoBtn}></img>
-                </button>
+                <Button size='lg' id="kakao-link-btn" variant='light'>카카오톡 💛</Button>
             </div >
         
         </>

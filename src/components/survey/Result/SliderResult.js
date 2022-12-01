@@ -1,29 +1,63 @@
 import { ResponsivePie } from '@nivo/pie'
 
 const SliderResult = (props) => {
+
+    console.log("감정바 들어옴", props.resultDto[props.idx][0]);
+
+    let data = [
+        {
+            "id": "0~30",
+            "value": 0,
+        },
+        {
+            "id": "30~60",
+            "value": 0,
+        },
+        {
+            "id": "60~90",
+            "value": 0,
+        },
+        {
+            "id": "90~100",
+            "value": 0,
+        }
+    ]
+
+    let val = new Array;
+
+    for(var i=0; i<4; i++) {
+        val[i]=0;
+    }
+
+
+    for(var i=0; i<Object.keys(props.resultDto[props.idx][0]).length; i++) {
+
+        if(props.resultDto[props.idx][0][i].id < 30) {
+            val[0]++;
+        }
+        else if(props.resultDto[props.idx][0][i].id >= 30 && props.resultDto[props.idx][0][i].id<60) {
+            val[1]++;
+        }
+        else if(props.resultDto[props.idx][0][i].id >= 60 && props.resultDto[props.idx][0][i].id<90) {
+            val[2]++;
+        }
+        else if(props.resultDto[props.idx][0][i].id >= 90 && props.resultDto[props.idx][0][i].id<=100) {
+            val[3]++;
+        }
+        
+    }
+
+    for(var i =0; i<4; i++)
+    {
+        data[i].value = val[i];
+    }
+
     return (
         <>
-            <h5>감정바 문항: 질문이 들어갈 자리입니다</h5>
+            <h5>Q{props.idx}: {props.title}</h5>
             <div style={{ height: "500px" }}>
                 <ResponsivePie
-                    data={[
-                        {
-                            "id": "0~30",
-                            "value": 100,
-                        },
-                        {
-                            "id": "30~60",
-                            "value": 455,
-                        },
-                        {
-                            "id": "60~90",
-                            "value": 7,
-                        },
-                        {
-                            "id": "90~100",
-                            "value": 547,
-                        }
-                    ]}
+                    data={data}
                     margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
                     innerRadius={0.5}
                     padAngle={0.7}

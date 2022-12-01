@@ -1,9 +1,10 @@
 .footer {
-    background-color: #282c34;
+    /* background-color: #282c34; */
     padding-top: 15px;
     padding-bottom: 5px;
-    color: white;
+    color: #282c34;
     text-align: right;
+    font-size: 13px;
 }
 
 .footerIcon {
@@ -15,19 +16,19 @@
 
 @media (max-width: 768px) {
     .footer {
-        background-color: #282c34;
+        background-color: white;
         padding-top: 15px;
         padding-bottom: 5px;
-        color: white;
+        color: #282c34;
         text-align: right;
         font-size: 10px;
     }
 
     .footerName {
-        background-color: #282c34;
+        background-color: white;
         padding-top: 15px;
         padding-bottom: 5px;
-        color: white;
+        color: #282c34;
         text-align: right;
         font-size: 15px;
     }

@@ -9,7 +9,7 @@ const GetAllSurvey = async () => {
     };
 
     // 모든 설문 정보 가져오기
-    const response = await axios.get('http://210.109.60.38:8080/survey', headers)
+    const response = await axios.get('https://210.109.60.38:8080/survey', headers)
         .then((response) => {
             console.log('get all survey ok');
             console.log(response.data)

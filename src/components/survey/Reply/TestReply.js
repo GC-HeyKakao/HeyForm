@@ -17,7 +17,7 @@ function Testreply()
     let backgroundColor = 'white';
     if (category == '운동') {
       backgroundColor = '#DEEBF7'
-    } else if (category == '만족도') {
+    } else if (category == '만족') {
       backgroundColor = '#FFE5EB';
     }
     else if (category == '환경') {

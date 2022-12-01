@@ -5,12 +5,12 @@ import { emailState } from '../../../atom';
 import { useSetRecoilState } from 'recoil';
 
 const CircleButton = styled.button`
-  background: #0D6EFD;
+  background: #565e64;
   &:hover {
-    background: #0D6EFD;
+    background: #898D91;
   }
   &:active {
-    background: #0D6EFD;
+    background: #898D91;
   }
 
   z-index: 5;
@@ -37,7 +37,7 @@ const CircleButton = styled.button`
   ${props =>
     props.open &&
     css`
-      background: #ff6b6b;
+      background: #EC4F4D;
       &:hover {
         background: #ff8787;
       }
@@ -50,6 +50,7 @@ const CircleButton = styled.button`
 
 const InsertFormPositioner = styled.div`
   width: 100%;
+  height: 0px;
   bottom: 0;
   left: 0;
   position: absolute;
@@ -58,10 +59,9 @@ const InsertFormPositioner = styled.div`
 const InsertForm = styled.form`
   background: #f8f9fa;
   padding-left: 32px;
-  padding-top: 32px;
+  padding-top: 64px;
   padding-right: 32px;
-  padding-bottom: 72px;
-
+  padding-bottom: 45px;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   border-top: 1px solid #e9ecef;

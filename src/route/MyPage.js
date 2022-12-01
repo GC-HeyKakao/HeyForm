@@ -1,109 +1,137 @@
-import { Button, Row, Col, Modal } from 'react-bootstrap';
-import { Footer } from '../components/Footer.js'
-import React, { useState, useEffect } from "react";
+// @mui
+import { Container, Stack, TextField, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+// hooks
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import styled, { css } from "styled-components";
-import { userState } from '../atom';
+import useResponsive from '../hooks/useResponsive';
+// components
+
+import { Button, Modal } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
-import './MyPage.css'
+import { userState } from '../atom';
+import { KAKAO_AUTH_URL } from '..//OAuth';
 
-const ToggleBtn = styled.button`
-  width: 120px;
-  height: 50px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  background-color: ${(props) => (!props.toggle ? "none" : "#FFCC33")};
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.5s ease-in-out;
-`;
-const Circle = styled.div`
-  background-color: white;
-  width: 38px;
-  height: 38px;
-  border-radius: 50px;
-  position: absolute;
-  left: 5%;
-  transition: all 0.5s ease-in-out;
-  ${(props) =>
-        props.toggle &&
-        css`
-      transform: translate(70px, 0);
-      transition: all 0.5s ease-in-out;
-    `}
-`;
+import "./MyPage.css";
 
+// @mui
+
+// ----------------------------------------------------------------------
+
+const StyledRoot = styled('div')(({ theme }) => ({
+    [theme.breakpoints.up('md')]: {
+        display: 'flex',
+    },
+}));
+
+const StyledSection = styled('div')(({ theme }) => ({
+    width: '100%',
+    maxWidth: 480,
+    marginLeft: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    textAlign: 'center',
+    boxShadow: theme.customShadows,
+    backgroundColor: theme.palette.background.default,
+}));
+
+const StyledContent = styled('div')(({ theme }) => ({
+    maxWidth: 480,
+    margin: 'auto',
+    // minHeight: '85vh',
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign: 'center',
+    flexDirection: 'column',
+    padding: theme.spacing(5, 0),
+}));
+
+// ----------------------------------------------------------------------
 function MyPage() {
 
     const [show, setShow] = useState(false);
     const users = useRecoilValue(userState);
 
     let navigate = useNavigate();
-    // const UserInfo = useContext(UserInfoContextStore);
 
-    // 토글 스위치를 활용한 알람 수신 여부 변경
-    const [toggle, setToggle] = useState(false);
-    const clickedToggle = () => {
-        setToggle((prev) => !prev);
-        !toggle ? localStorage.setItem('push', true) : localStorage.setItem('push', false);
-    };
-
-
-    // 로그아웃 버튼을 누를 때
-    const handleLogoutButton = (e) => {
-        setShow(true);
-    }
+    const mdUp = useResponsive('up', 'md');
 
     useEffect(() => {
-        console.log(localStorage.getItem('push'));
-        // console.log(UserInfo);
-    }, [toggle]);
+        if (!users.login) {
+            window.location.href = KAKAO_AUTH_URL;
+        }
+
+    }, [])
 
     return (
         <>
-            <div className="wraper">
-                <div className="content" style={{ paddingTop: "100px", marginTop: "50px" }}>
-                    <div className="center1">
-                        <Row style={{ marginBottom: "20px" }}>
-                            <Col><h3>이름</h3></Col>
-                            <Col><h3>{users[0].name}님</h3></Col>
-                        </Row>
-                        <Row style={{ marginBottom: "20px" }}>
-                            <Col><h3>이메일</h3></Col>
-                            <Col><h3>{users[0].email}</h3></Col>
-                        </Row>
-                        <Row style={{ marginBottom: "20px" }}>
-                            <Col><h3>알림 수신 여부</h3></Col>
-                            <Col>
-                                <ToggleBtn onClick={clickedToggle} toggle={toggle}>
-                                    <Circle toggle={toggle} />
-                                </ToggleBtn>
-                            </Col>
-                        </Row>
-                        <Col className='center2'>
-                            <Button className="logoutBtn" onClick={handleLogoutButton}>로그아웃</Button>
-                        </Col>
-                    </div>
-                </div>
-                <Footer />
-            </div>
 
+            <StyledRoot>
+                {/* <img src={logo}
+                    sx={{
+                        position: 'fixed',
+                        top: { xs: 16, sm: 24, md: 40 },
+                        left: { xs: 16, sm: 24, md: 40 },
+                    }}
+                /> */}
 
-            <Modal show={show} onHide={() => { setShow(false) }}>
+                {mdUp && (
+                    <StyledSection>
+                        {/* <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
+                            {users.name}님
+                        </Typography> */}
+                        <div className="box" style={{ background: "#BDBDBD" }}>
+                            {/* <img className="profile" src='https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/944/eabb97e854d5e5927a69d311701cc211_res.jpeg' /> */}
+                            <img className="profile" src={users.profileImg} />
+                        </div>
+                    </StyledSection>
+                )}
+
+                <Container maxWidth="sm">
+                    <StyledContent>
+                        <Typography variant="h4" gutterBottom style={{ marginTop: 30 }}>
+                            안녕하세요. <strong>{users.name}</strong>님 🖤
+                        </Typography>
+                        <Typography variant="h6" gutterBottom>
+                            오늘도 좋은 하루 되세요 🤗
+                        </Typography>
+
+                        <hr style={{ marginBottom: 50 }}></hr>
+
+                        <Stack spacing={3}>
+                            <TextField label="이메일" defaultValue={users.email} inputProps={{ readOnly: true }} />
+                            <TextField label="성별" defaultValue={users.gender} inputProps={{ readOnly: true }} />
+                            <TextField label="연령대" defaultValue={users.age} inputProps={{ readOnly: true }} />
+                        </Stack>
+
+                        {/* <Stack direction="row" alignItems="center" sx={{ my: 2 }}>
+                            <Typography variant="h6">알림 수신</Typography>
+                            <Checkbox name="push" />
+                        </Stack> */}
+
+                        <Button variant='secondary' className="logoutBtn" onClick={() => { setShow(true) }}>
+                            로그아웃
+                        </Button>
+                    </StyledContent>
+                </Container>
+            </StyledRoot>
+
+            <Modal show={show} onHide={() => { setShow(false) }}  >
+                <Modal.Header closeButton>
+                    <Modal.Title>Logout</Modal.Title>
+                </Modal.Header>
                 <Modal.Body style={{ textAlign: "center" }}>
-                    <br />
-                    <h2>로그아웃 하시겠습니까?<br /></h2>
-                    <br />
-                    <Button style={{ marginRight: "20px" }} onClick={() => { navigate('/kakaologout') }}>확인</Button>
-                    <Button onClick={() => { setShow(false) }}>취소</Button>
+                    <h3>로그아웃 하시겠습니까? 😢<br /></h3>
                 </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => { setShow(false); navigate('/kakaologout') }}>확인</Button>
+                    <Button variant="light" onClick={() => { setShow(false) }}>취소</Button>
+                </Modal.Footer>
             </Modal>
-
         </>
-    )
+    );
 }
 
-export { MyPage }
+export { MyPage };
+

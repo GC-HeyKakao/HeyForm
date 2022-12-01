@@ -1,25 +1,68 @@
 /* Likertchart.js */
 fieldset.likertScale .likertIndicator {
-    border: solid #0D6EFD;
-    background-color: white;
-    border-radius: 1.0em;
-  }
-  
-  fieldset.likertScale .likertLine {
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 0.5em;
-    border-top: 3px solid #0D6EFD;
-  }
+  border: solid #565e64;
+  background-color: rgb(248, 248, 253);
+  border-radius: 1.0em;
+}
 
-  fieldset.likertScale .likertResponse > input:checked + .likertIndicator {
-    background-color: #0D6EFD;
-  }
+fieldset.likertScale .likertLine {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 0.5em;
+  border-top: 3px solid #565e64;
+}
 
-  .likertBand {
-    flex-grow:  4; 
-    flex-shrink: 1;
-    flex-basis: auto;
-    display: flex;
-    padding-top: 0.6em;
+fieldset.likertScale .likertResponse>input:checked+.likertIndicator {
+  background-color: #565e64;
+}
+
+
+.likertBand {
+  flex-grow: 4;
+  flex-shrink: 1;
+  flex-basis: auto;
+  display: flex;
+  padding-top: 0.6em;
+}
+
+fieldset.likertScale .likertIndicator {
+  width : 1.5em;
+  height: 1.5em;
+}
+
+/* .likertResponse:hover .likertIndicator {
+  background-color:#0D6EFD;
+} */
+
+@media (max-width: 578px) {
+  .likertText {
+    font-size: 5px;
   }
+  .likertLine {
+    
+  }
+}
+
+@media (max-width: 768px) {
+  .likertText {
+    font-size: 12px;
+  }
+  .likertScale {
+    max-width: 330px;
+  }
+}
+
+.likertText:black {
+  color: rgb(248, 248, 253);
+  /* background-color: rgb(248, 248, 253); */
+}
+
+.likertText.white {
+  color: rgb(248, 248, 253);
+  /* background-color: rgb(248, 248, 253); */
+}
+
+
+.likertBand {
+  /* background-color: rgb(248, 248, 253); */
+}

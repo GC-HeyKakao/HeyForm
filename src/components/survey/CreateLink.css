@@ -1,30 +1,52 @@
 .shareComment {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.shareLink {
+  display: flex;
+  justify-content: center;
+  font-size: 17px;
+  text-underline-position: under;
+}
+
+.areaShare {
+  text-align: center;
+  background: white;
+  border-radius: 7px;
+  border: 1px solid #CDCDD0;
+  display: flex;
+  justify-content: center;
+}
+
+.areaComment {
+  display: flex;
+  justify-content: center;
+}
+
+.areaPush {
+  display: flex;
+  justify-content: center;
+} 
+
+@media (max-width: 500px) {
+  .shareComment {
     display: flex;
     justify-content: center;
     font-weight: bold;
-    margin-top:40px
+    margin-top: 40px;
+    margin-bottom: 10px;
   }
   
   .shareLink {
     display: flex;
     justify-content: center;
-    font-size: 17px;
-    font-weight: bold;
+    font-size: 10px;
     text-underline-position: under;
   }
-  
-  .areaShare {
-    background: white;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .areaComment {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .areaPush {
-    display: flex;
-    justify-content: center;
-  }
+
+}

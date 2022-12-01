@@ -1,27 +1,46 @@
 import axios from 'axios';
-import { tokenState, userState } from '../../atom';
-import { useRecoilValue } from 'recoil';
-import { useSetRecoilState } from 'recoil';
-import { useRecoilState } from 'recoil';
+import { GetUserIdByEmail } from './GetUserIdByEmail';
 
-const GetTokenByEmail = (users) => {
+const GetTokenByEmail = (users, userHandler) => {
 
     console.log("get token 시작");
-    
-    //const [token, tokenHandler] = useRecoilState(tokenState);
-    //const tokenHandler = useSetRecoilState(tokenState);
 
     let email = users.email;
+    let token;
     console.log("email", email);
     //let email = users.email; //리코일
 
-    axios.get(`http://210.109.60.38:8080/user/token/${email}`)
+    function reset(token) {
+
+        console.log("token reset", token);
+		userHandler(
+			{
+                token: '',
+                kakaoToken: users.kakaoToken,
+                kakaoRefreshToken: users.kakaoRefreshToken,
+                id:users.id,
+				name:users.name,
+                profileImg: users.profileImg,
+				email:users.email,
+				age:users.age,
+				gender:users.gender,
+				isFirst: false,
+				push: false,
+                login: true,
+			}
+		)
+	}
+
+    axios.get(`https://210.109.60.38:8080/user/token/${email}`)
         .then((response) => {
-            console.log("ttoken", response.data);
+             
             //tokenHandler(response.data);
             //user.token = response.data; //리코일
-            console.log('get token ok');
-            window.localStorage.setItem("ttoken", response.data);
+            token = response.data;
+            console.log('get token ok', token);
+            reset(token);
+            //GetUserIdByEmail(users, userHandler, token);
+            // window.localStorage.setItem("ttoken", response.data);
         })
         .catch((error) => {
             console.log(error);
@@ -29,6 +48,7 @@ const GetTokenByEmail = (users) => {
             return "error";
         })
 
+        return token;
 }
 
 export { GetTokenByEmail };

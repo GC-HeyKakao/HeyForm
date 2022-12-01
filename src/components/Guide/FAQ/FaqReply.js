@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./FAQ.css";
 
 const qnaList_reply = [
   {
@@ -34,8 +35,8 @@ function FaqReply({ className }) {
               setCardOnOff([...tempCard]);
             }}
           >
-            <span className="question-mark">Q.</span>
-            <span>{item.question}</span>
+            <p className="question-mark">Q.</p>
+            <p>{item.question}</p>
           </div>
           <div
             className={
@@ -44,8 +45,8 @@ function FaqReply({ className }) {
                 : "faq-card-answer faq-card-none"
             }
           >
-            <span className="answer-mark">A.</span>
-            <span className="FAQ-card-answer">{item.answer}</span>
+            <p className="answer-mark">A.</p>
+            <p className="FAQ-card-answer">{item.answer}</p>
           </div>
         </div>
       );

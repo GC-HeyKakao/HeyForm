@@ -1,14 +1,14 @@
 .customSlider {
-  max-width: 500px;
-  margin : auto
-
+  max-width: 100%;
+  margin: auto
 }
 
 .percentage {
   margin-left: 350px;
   /* margin-top: 20px; 진동현상 없애기*/
-  display:flex;
-  font-weight:normal; ;
+  display: flex;
+  font-weight: normal;
+  ;
 }
 
 /* Slider type: exercise */
@@ -22,14 +22,14 @@
 
 .customSlider-track-exercise.customSlider-track-exercise-0 {
   border-radius: 20px;
-  background: #0D6EFD;
-  margin-left: 20px;
+  background: #3366FF;
+  /* margin-left: 10px; */
 }
 
 .customSlider-thumb-exercise {
   cursor: pointer;
   /*color for the thumb */
-  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='0' y='55' fill='red' font-size='60'>🏀</text></svg>");
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='0' y='55' fill='red' font-size='60'>⚽️</text></svg>");
   background-color: transparent;
   /* shape of the thumb: circle */
   width: 60px;
@@ -51,8 +51,8 @@
 
 .customSlider-track-satisfy.customSlider-track-satisfy-0 {
   border-radius: 20px;
-  background: #FF0044;
-  margin-left: 20px;
+  background: #E1317D;
+  margin-left: 5px;
 }
 
 .customSlider-thumb-satisfy {
@@ -64,7 +64,7 @@
   width: 60px;
   height: 60px;
   border-radius: 100%;
-  margin-left:  5px;
+  margin-left: 0px;
   /* remove default outline when selected */
   outline: none;
 }
@@ -75,25 +75,296 @@
   height: 40px;
   background: #eee;
   border-radius: 20px;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .customSlider-track-echo.customSlider-track-echo-0 {
   border-radius: 20px;
-  background: #3CB371;
-  
+  background: #3C9648;
 }
 
 .customSlider-thumb-echo {
   cursor: pointer;
   /*color for the thumb */
-  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='-3' y='55' fill='red' font-size='60'>🍀</text></svg>");
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='-3' y='57' fill='red' font-size='60'>🌳</text></svg>");
   background-color: transparent;
   /* shape of the thumb: circle */
   width: 60px;
   height: 60px;
+  border-radius: 50%;
+  margin-left: 0px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+/* Slider type: politics */
+.customSlider-track-politics {
+  top: 15px;
+  height: 40px;
+  background: #eee;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-politics.customSlider-track-politics-0 {
+  border-radius: 10px;
+  background: #eee;
+}
+
+.customSlider-thumb-politics {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='0' y='50' fill='red' font-size='55'>🛎️</text></svg>");
+  background-color: transparent;
+  /* shape of the thumb: circle */
+  width: 60px;
+  height: 60px;
+  border-radius: 10%;
+  margin-left: 0px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+/* Slider type: school */
+.customSlider-track-school {
+  top: 15px;
+  height: 40px;
+  background: rgb(238, 238, 238);
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-school.customSlider-track-school-0 {
+  border-radius: 20px;
+  background: #F07F4D;
+
+}
+
+.customSlider-thumb-school {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='60px' width='60px'> <text x='0' y='50' fill='red' font-size='60'>🏫</text></svg>");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  /* shape of the thumb: circle */
+  width: 65px;
+  height: 68px;
+  /* border-radius: 100%; */
+  margin-left: 0px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+/* Slider type: default */
+.customSlider-track-default {
+  top: 15px;
+  height: 40px;
+  background: rgb(238, 238, 238);
+  border-color: #2C2C2C;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-default.customSlider-track-default-0 {
+  border-radius: 20px;
+  background: white;
+}
+
+.customSlider-thumb-default {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='65px' width='65px'> <text x='5' y='55' fill='red' font-size='50'>🔘</text></svg>");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  /* shape of the thumb: circle */
+  width: 60px;
+  height: 60px;
   border-radius: 100%;
-  margin-left: 15px;
+  margin-left: 0px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+
+/* Slider type: movie */
+.customSlider-track-movie {
+  top: 15px;
+  height: 40px;
+  background: rgb(238, 238, 238);
+  border-color: #2C2C2C;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-movie.customSlider-track-movie-0 {
+  border-radius: 20px;
+  background: #0B0049;
+}
+
+.customSlider-thumb-movie {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='65px' width='65px'> <text x='5' y='53' fill='red' font-size='50'>🎞️</text></svg>");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  /* shape of the thumb: circle */
+  width: 60px;
+  height: 60px;
+  border-radius: 0%;
+  margin-left: 0px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+
+/* Slider type: music */
+.customSlider-track-music {
+  top: 15px;
+  height: 40px;
+  background: rgb(238, 238, 238);
+  border-color: #2C2C2C;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-music.customSlider-track-music-0 {
+  border-radius: 20px;
+  background: #939494;
+}
+
+.customSlider-thumb-music {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='65px' width='65px'> <text x='5' y='57' fill='red' font-size='55'>🎧</text></svg>");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  /* shape of the thumb: circle */
+  width: 60px;
+  height: 80px;
+  border-radius: 0%;
+  margin-left: 0px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+
+/* Slider type: game */
+.customSlider-track-game {
+  top: 15px;
+  height: 40px;
+  background: rgb(238, 238, 238);
+  border-color: #2C2C2C;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-game.customSlider-track-game-0 {
+  border-radius: 20px;
+  background: #515554;
+}
+
+.customSlider-thumb-game {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='75px' width='75px'> <text x='0' y='65' fill='red' font-size='75'>🎮</text></svg>");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  /* shape of the thumb: circle */
+  width: 100px;
+  height: 80px;
+  border-radius: 0%;
+  margin-left: 0px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+
+/* Slider type: art */
+.customSlider-track-art {
+  top: 15px;
+  height: 40px;
+  background: rgb(238, 238, 238);
+  border-color: #2C2C2C;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-art.customSlider-track-art-0 {
+  border-radius: 20px;
+  background: #7F5A58;
+}
+
+.customSlider-thumb-art {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='65px' width='65px'> <text x='0' y='58' fill='red' font-size='65'>🎨</text></svg>");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  /* shape of the thumb: circle */
+  width: 65px;
+  height: 60px;
+  border-radius: 0%;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+
+/* Slider type: meal */
+.customSlider-track-meal {
+  top: 15px;
+  height: 40px;
+  background: rgb(238, 238, 238);
+  border-color: #2C2C2C;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-meal.customSlider-track-meal-0 {
+  border-radius: 20px;
+  background: #D63623;
+}
+
+.customSlider-thumb-meal {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='65px' width='65px'> <text x='5' y='52' fill='red' font-size='58'>🍱</text></svg>");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  /* shape of the thumb: circle */
+  width: 60px;
+  height: 60px;
+  border-radius: 10%;
+  margin-left: 0px;
+  /* remove default outline when selected */
+  outline: none;
+}
+
+/* Slider type: animal */
+.customSlider-track-animal {
+  top: 15px;
+  height: 40px;
+  background: rgb(238, 238, 238);
+  border-color: #2C2C2C;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.customSlider-track-animal.customSlider-track-animal-0 {
+  border-radius: 20px;
+  background: #595A55;
+}
+
+.customSlider-thumb-animal {
+  cursor: pointer;
+  /*color for the thumb */
+  background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='80px' width='60px'> <text x='0' y='55' fill='red' font-size='60'>🐶</text></svg>");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  /* shape of the thumb: circle */
+  width: 70px;
+  height: 70px;
+  border-radius: 0%;
+  margin-left: 0px;
   /* remove default outline when selected */
   outline: none;
 }

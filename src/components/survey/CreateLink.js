@@ -1,31 +1,42 @@
-import { Button } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 import "./CreateLink.css";
 
 function CreateLink(props) {
 
-    const copyLink =  async() => {
+    const [show, setShow] = useState(false);
+
+    const copyLink = async () => {
         try {
             await navigator.clipboard.writeText(props.link);
-            alert('링크가 복사되었습니다 😊');
-          } catch (error) {
-            alert('링크가 복사되지 않았습니다 😥');
-          }
+            setShow(true);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
         <>
-            <div className='shareComment'> <br /><h5>🌟 아래의 링크로 설문을 공유하세요 🌟</h5></div>
-            <br></br>
-            <div className='shareLink'>
+            <div style={{ marginLeft:'5px', marginBottom: '30px', float: 'left', textAlign:'center' }}>
+                <div className='shareComment'><h5>설문 링크</h5></div>
+                {/* <div className='shareLink'>
                 {props.link}
+            </div> */}
+                <Button size='lg' variant='light' className='center' onClick={copyLink}>복사하기</Button>
             </div>
-            <br/>
-            <div className='center-wrapper-120'>
-            <Button className='center' onClick={copyLink}>복사하기</Button>
-            </div>
+            <Modal show={show} onHide={() => { setShow(false); }}  >
+                <Modal.Body style={{ textAlign: "center" }}>
+                    <br />
+                    <h4>링크가 복사되었습니다 😊</h4>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant='secondary' onClick={() => { setShow(false); }}>확인</Button>
+                </Modal.Footer>
+            </Modal>
         </>
     )
 
 }
 
-export { CreateLink }
+export { CreateLink };
+

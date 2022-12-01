@@ -1,27 +1,47 @@
-
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import emailjs from 'emailjs-com';
 import { Button, Modal } from 'react-bootstrap'
+import { AskSubmitButton } from './AskSubmitButton';
+import { userState } from '../../atom';
+import { useRecoilValue } from 'recoil';
 import "./WriteAsk.css";
 
 function WriteAsk() {
 
-  const [show, setShow] = useState(false);
-  const submitForm = document.querySelector("#subscribe");
-  const [askTitle, setAskTitle] = useState('');
-  const [askContent, setAskContent] = useState('');
-  //email 보내기
+  const user = useRecoilValue(userState);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [askContent, setAskContent] = useState({
+    "qa_answer": "",
+    "qa_contents": content,
+    "qa_title":title,
+    "user_email": user.email,
+  })
 
-  function submitAsk() {
+  useEffect(() => {
 
-  }
+    setAskContent({
+      ...askContent,
+      qa_answer:user.email,
+      qa_contents:content,
+      qa_id:0,
+      qa_title:title,
+    })
+    
 
-  function handleButton() {
-    submitAsk(askTitle + askContent);
-    setShow(true);
-  }
+  }, [ title, content]);
+
+  useEffect(()=>{
+    
+  }, [askContent])
+
+  const getValue = e => {
+    const { name, value } = e.target;
+    setTitle(value);
+
+  };
 
   return (
     <>
@@ -29,42 +49,44 @@ function WriteAsk() {
         <div className='form-wrapper'>
           <input className="title-input"
             type='text'
-            placeholder='제목을 입력해주세요.'
-            //onChange={getValue}
+            placeholder='&nbsp;제목을 입력해주세요.'
+            onChange={getValue}
             name='title'
-            onChange={(event) => {
-              setAskTitle(event.target.value);
-              console.log(askTitle);
-            }} />
+            // onChange={(event) => {
+            //   setAskTitle(event.target.value);
+            //   console.log(askTitle);
+            // }} 
+            />
           <CKEditor
             editor={ClassicEditor}
-            data=""
+            data="아래에 의견을 작성해주세요 🥰"
             onReady={editor => {
               // You can store the "editor" and use when it is needed.
               console.log('Editor is ready to use!', editor);
             }}
             onChange={(event, editor) => {
               const data = editor.getData();
-              setAskContent(data);
-              console.log(askContent);
+              setContent(String(data));
             }}
           />
         </div>
-        <form>
+
+        <AskSubmitButton askContent={askContent}/>
+        {/* <form>
           <Button style={{ margin: "3%" }} onClick={handleButton}>
             발송
           </Button>
-        </form>
+        </form> */}
       </div>
-      <Modal show={show} onHide={() => { setShow(false); }}>
+      {/* <Modal show={show} onHide={() => { setShow(false); }}>
         <Modal.Body style={{ textAlign: "center" }}>
           <br />
           <h4>소중한 의견 감사합니다😍</h4>
           <br />
-          {/* 설문 josn post하기 */}
+          
           <Button onClick={() => { setShow(false); }}>확인</Button>
         </Modal.Body>
-      </Modal>
+      </Modal> */}
     </>
 
   )

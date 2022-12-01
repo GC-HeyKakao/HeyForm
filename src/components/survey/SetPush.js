@@ -1,27 +1,18 @@
 import { EmailShareButton } from "../Survey/EmailShare/EmailShareButton"
 import { KakaoShare } from "./KakaoShare"
-
+import { Row, Col, Button } from 'react-bootstrap';
 function SetPush(props) {
 
+    console.log(props);
     return (
-        <>
-            <div className='shareComment'><br /><h5>🙌 지금 바로 설문 응답을 요청하세요 🙌</h5></div>
-            <br></br>
-            <div className="center" style={{ marginTop: "3%" }}>
-                <div style={{ marginBottom: "3%" }}>
-                    <KakaoShare surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} start_time={props.start_time} end_time={props.end_time} />
-                    <br></br>
-                </div>
-                <div style={{ marginTop: "3%" }}>
-                    <EmailShareButton link={window.location.href} />
-                </div>
-
+        <div style={{ float:'left', marginLeft:'15%'}}> 
+            <div className='shareComment'><br /><h5>설문 공유 📬</h5></div>
+            <div style={{ marginTop: "10px"}}>
+                    <KakaoShare link={props.link} surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} start_time={props.start_time} end_time={props.end_time} />
+                    <EmailShareButton link={props.link} />
             </div>
             <br></br>
-            <div className='qrcodeBtn'>
-
-            </div>
-        </>
+        </div>
     )
 }
 

@@ -1,10 +1,9 @@
-import React, { useCallback } from 'react';
-import { RiCreativeCommonsSaLine } from 'react-icons/ri';
-import styled from 'styled-components';
-import { Button } from 'react-bootstrap';
 import emailjs from 'emailjs-com';
-import { emailState } from '../../../atom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React, {useState} from 'react';
+import { Button, Modal } from 'react-bootstrap';
+import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
+import { userState } from '../../../atom';
 
 const EmailHeadBlock = styled.div`
   h1 {
@@ -21,26 +20,28 @@ const EmailHeadBlock = styled.div`
 `;
 
 const TasksLeft = styled.div`
-  color: #0D6EFD;
+  color: #565e64;
   font-size: 18px;
   margin-top: 40px;
   font-weight: bold;
 `;
 
-function EmailHead({ link }) {
+function EmailHead({ link, emails, onDel }) {
 
   let count = 0;
+  const users = useRecoilValue(userState);
+  const [show, setShow] = useState(false);
 
   function SendEmail(email) {
 
-    alert(email);
+    //alert(email);
 
     emailjs.init("QWLdVWHIWIdwz4wqd");
 
     //email-js 템플릿 파라미터
     var params = {
       to_email: email,
-      from_user_name: "헤이카카오",
+      from_user_name: users.name,
       survey_link: link,
     }
 
@@ -52,37 +53,46 @@ function EmailHead({ link }) {
     ).then((result) => {
 
       if (count == 0) {
-        alert("메일을 전송했습니다! 응답을 기다려보세요🥰")
+        // alert("메일을 전송했습니다! 응답을 기다려보세요🥰")
+        setShow(true);
       }
-
       count++;
 
     }, (error) => {
     });
   }
 
-  //const [emails, setEmail] = useRecoilState(emailState);
-  const emails = useRecoilValue(emailState);
-
   return (
     <>
-      
+
       <EmailHeadBlock>
 
         <br></br>
-        <h1>이메일로 설문 요청</h1>
+        <h2>이메일로 설문 요청</h2>
         <p></p>
-        <div className="day">설문을 요청할 상대방의 이메일을 입력해주세요!</div>
-
-        <Button style={{ margin: "3%" }} type="submit"
-          onClick={() => { {emails.map(emails => { SendEmail(emails.text) });}}}>
+        <div className="day">설문 요청할 상대의 이메일을 입력해주세요 💌</div>
+        <TasksLeft>총 {emails.length}명</TasksLeft>
+        <Button variant='secondary' style={{ marginTop: "5%" }} type="submit"
+          onClick={() => { { emails.map(emails => { SendEmail(emails.text) }); } }}>
           발송
         </Button>
-        <TasksLeft>총 {emails.length}명</TasksLeft>
       </EmailHeadBlock>
+
+
+      <Modal show={show} onHide={() => { setShow(false); }} centerd>
+        <Modal.Body style={{ textAlign: "center" }}>
+          <br />
+          <h4>이메일을 성공적으로 발송했습니다!<br></br></h4>
+          <h5>응답을 기다려보세요🥰<br /></h5>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => { setShow(false); }}>확인</Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 
 }
 
 export { EmailHead };
+

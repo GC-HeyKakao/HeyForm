@@ -2,37 +2,48 @@ import { ResponsivePie } from '@nivo/pie'
 
 const Age = (props) => {
 
+    const data=[
+        {
+            "id": "10대 이하",
+            "value": 0,
+        },
+        {
+            "id": "20대",
+            "value": 0,
+        },
+        {
+            "id": "30대",
+            "value": 0,
+        },
+        {
+            "id": "40대",
+            "value": 0,
+        },
+        {
+            "id": "50대",
+            "value": 0,
+        },
+        {
+            "id": "60대 이상",
+            "value": 0,
+        },
+        
+    ];
+
+    for(var i=0; i<Object.keys(props.age).length; i++) {
+        
+        for(var j=0; j<6; j++) {
+            if(props.age[i].id == data[j].id){
+                data[j].value = props.age[i].value;
+            }
+        }
+    }
+
     return (
         // 10~14 15~19 -> 10~19로, 70~79, 80~89, 90~ -> 70~
         <div style={{ height: "500px" }}>
             <ResponsivePie
-                data={[
-                    {
-                        "id": "10대 이하",
-                        "value": 4,
-                    },
-                    {
-                        "id": "20대",
-                        "value": 335,
-                    },
-                    {
-                        "id": "30대",
-                        "value": 100,
-                    },
-                    {
-                        "id": "40대",
-                        "value": 455,
-                    },
-                    {
-                        "id": "50대",
-                        "value": 7,
-                    },
-                    {
-                        "id": "60대 이상",
-                        "value": 4,
-                    },
-                    
-                ]}
+                data={data}
                 margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
                 innerRadius={0.5}
                 padAngle={0.7}

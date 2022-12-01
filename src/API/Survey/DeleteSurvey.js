@@ -7,7 +7,7 @@ const DeleteSurvey = async (surveyId) => {
     };
 
     // 특정 survey 삭제하기
-    const response = axios.delete(`http://210.109.60.38:8080/survey/{surveyId}?surveyId=${surveyId}`, headers)
+    const response = axios.delete(`https://210.109.60.38:8080/survey/{surveyId}?surveyId=${surveyId}`, headers)
         .then((response) => {
             console.log('delete survey (id:' + surveyId + ') ok');
             console.log(response.data)

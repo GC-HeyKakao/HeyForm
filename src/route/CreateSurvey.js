@@ -1,14 +1,80 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Button, Card, CloseButton, Col, FloatingLabel, Form, InputGroup, Modal, Nav, Row } from 'react-bootstrap';
+import { Button, Card, Col, Form, InputGroup, Modal, Nav, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
+import { MdDelete } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from "recoil";
+import { useRecoilValue } from 'recoil';
+import styled, { css } from 'styled-components';
+import { KAKAO_AUTH_URL } from '..//OAuth';
+import { GetRecommendCategory } from '../API/AI/GetRecommendCategory.js';
 import { PostSurvey } from '../API/Survey/PostSurvey';
-import { linkState } from '../atom';
-import { RecommendCate } from '../components/AI/RecommendCate.js';
+import { DateRangeSelector } from '../components/Survey/DateRangeSelector.js';
+import { userState } from '../atom';
 import { DropdownCmpt } from '../components/DropdownCmpt.js';
 import { Preview } from '../components/Survey/Preview.js';
 import { WriteSurvey } from '../components/Survey/WriteSurvey.js';
+
+// @css
+import './CreateSurvey.css';
+// @mui
+// import { styled } from '@mui/material/styles';
+
+// const Main = styled('div')(({ theme }) => ({
+// 	paddingLeft: theme.spacing(2),
+// 	paddingRight: theme.spacing(2),
+// 	paddingBottom: theme.spacing(3),
+//    // paddingRight: theme.spacing(3),
+//    [theme.breakpoints.up('lg')]: {
+//       paddingLeft: theme.spacing(6),
+//       paddingRight: theme.spacing(6),
+//    },
+// }));
+
+const Main = styled.div`
+  paddingLeft: 10px;
+  paddingRight: 10px;
+  paddingBottom: 10px;
+`
+
+const Remove = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0.0.0.0);
+  font-size: 24px;
+  cursor: pointer;
+  &:hover {
+    color: rgba(0.0.0.0);
+  }
+  display: none;
+`;
+
+const ItemBlock = styled.div`
+
+  display: flex;
+  align-items: center;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  &:hover {
+	background-color: #535353;
+    ${Remove} {
+      display: initial;
+    }
+  }
+`;
+
+const Text = styled.div`
+  flex: 1;
+  font-size: 18px;
+  color: white;
+  margin-bottom: 1%;
+  margin-left: 15px;
+  ${(props) =>
+		props.done &&
+		css`
+      color: #ced4da;
+    `}
+`;
 
 function CreateSurvey() {
 
@@ -16,15 +82,16 @@ function CreateSurvey() {
 	const [, updateState] = useState();
 	const forceUpdate = useCallback(() => updateState({}, []));
 
-	let category_list = ['만족도', '운동', '환경'];
+	let category_list = ['기본', '운동', '환경','동물', '정치', '학교', '음악', '영화', '예술', '식사', '게임'];
 	let [savedQsList, setSavedQsList] = useState([]);
 	let [curQs, setCurQs] = useState('');
 	let [curQsItemList, setCurQsItemList] = useState([]);
 	let [curSelectedType, setCurSelectedType] = useState('Type');
 	let [makeQsSwitch, setMakeQsSwitch] = useState(false);
+	let [qsType, setQsType] = useState('');
 	let [survey, setSurvey] = useState([]);
 	let [viewSwitch, setViewSwitch] = useState('create');
-	let [shareWay, setShareWay] = useState('shareWay');
+	const [shareWay, setShareWay] = useState('null');
 	let count = window.localStorage.getItem("count");
 
 	//post에 사용
@@ -32,7 +99,7 @@ function CreateSurvey() {
 	let [surveyDescription, setSurveyDescription] = useState(null);
 	let [surveyId, setSurveyId] = useState(0);
 	let surveyState = useRef(-1);
-	let [selectedCategory, setSelectedCategory] = useState('Category')
+	let [selectedCategory, setSelectedCategory] = useState('카테고리')
 	window.localStorage.setItem("count", 1);
 
 	//저장시 모달 보여주기에서 사용
@@ -60,7 +127,30 @@ function CreateSurvey() {
 	let choiceDtos = new Array();
 	let choiceDtos2 = new Array();
 
-	const link = useRecoilValue(linkState);
+	// const link = useRecoilValue(linkState);
+	const [link, setLink] = useState("");
+
+	const myRef = useRef({});
+	const users = useRecoilValue(userState);
+
+	// //질문 등록 버튼
+	// const [plusButton, setPlusButton] = useState("+");
+
+	// const setPlusBtn = () => {
+	// 	if (plusButton === "+") {
+	// 		setPlusButton("질문 등록");
+	// 	}
+	// 	else if (plusButton === "질문 등록") {
+	// 		myRef.current.createQuestion();
+	// 		setPlusButton("+");
+	// 	}
+	// }
+
+	useEffect(() => {
+		if (!users.login) {
+			window.location.href = KAKAO_AUTH_URL;
+		}
+	}, [])
 
 	useEffect(() => {
 		setCurQs('');
@@ -84,15 +174,18 @@ function CreateSurvey() {
 		const linkCheckbox = document.getElementById('linkCheckBox');
 		const qrCheckBox = document.getElementById('qrCheckBox');
 
-		const link_checked = linkCheckbox.checked;
+		// const link_checked = linkCheckbox.checked;
+		const link_checked = true;
 		const qr_checked = qrCheckBox.checked;
 
-		if (link_checked == true) {
-			setShareWay("Link");
-		}
-		else if (qr_checked == true) {
+		if (qr_checked == true) {
 			setShareWay("QR");
+		} else {
+			setShareWay("null");
 		}
+		// else {
+		// 	setShareWay("null");
+		// }
 	}
 
 	//공유 시간 및 날짜
@@ -124,16 +217,26 @@ function CreateSurvey() {
 
 	const [RecommendCategory, setRecommendCategory] = useState('');
 	const [RecommendMent, setRecommendMent] = useState('');
+	const [isRecommended, setIsRecommended] = useState(false);
+
 
 	function category() {
+		setIsRecommended(true);
+		
 		// AI모듈
-		RecommendCate(surveyTitle, category_list)
+		GetRecommendCategory(surveyTitle, category_list)
 			.then((res) => {
-				console.log('RecommendCategory: ', RecommendCategory);
+				
+
 				setRecommendCategory(res);
-				setRecommendMent('와 관련된 디자인을 추천할게요!');
-				if (res !== null) {
+				console.log('RecommendCategory: ', RecommendCategory);
+				// setRecommendMent('와 관련된 디자인을 추천할게요!');
+				if (RecommendCategory !== '') {
 					setSelectedCategory(res);
+					setRecommendMent('와 관련된 디자인을 추천할게요!');
+				}
+				else {
+					setSelectedCategory("기본");
 				}
 
 				console.log('조건문', RecommendCategory == '');
@@ -144,17 +247,8 @@ function CreateSurvey() {
 
 	// 설문 저장하기 버튼을 누를 때
 	function handleSurveySaveButton() {
-
-		window.localStorage.setItem("count", parseInt(window.localStorage.getItem("count")) + 1);
-		window.localStorage.setItem("savedQsList[" + count + "]", JSON.stringify(savedQsList));
-		window.localStorage.setItem("curQs[" + count + "]", JSON.stringify(curQs));
-		window.localStorage.setItem("curQsItemList[" + count + "]", JSON.stringify(curQsItemList));
-		window.localStorage.setItem("curSelectedType[" + count + "]", JSON.stringify(curSelectedType));
-		window.localStorage.setItem("surveyTitle[" + count + "]", JSON.stringify(surveyTitle));
-		window.localStorage.setItem("category[" + count + "]", selectedCategory);
-		window.localStorage.setItem("creater[" + count + "]", window.localStorage.getItem("token"));
-
-		setShow(true);
+		// setShow(true);
+		setViewSwitch('공유');
 	}
 
 	// 설문 제작 완료 버튼을 누를때 (공유탭))
@@ -166,9 +260,6 @@ function CreateSurvey() {
 		surveyDto.category = selectedCategory;
 		surveyDto.description = surveyDescription;
 		surveyDto.survey_title = surveyTitle;
-		// surveyDto.survey_id = count; // +++ 현재 로컬에 있는 값이라 수정해야함
-		// surveyDto.survey_url = 'http://localhost:3000' + '/survey/' + count;
-		//surveyDto.survey_url = 'http://210.109.63.151'+'/survey/'+count; //+++ 배포할 때 이걸로
 
 		start_time_temp = startDate + ' ' + startTime + ':00'
 		end_time_temp = endDate + ' ' + endTime + ':00';
@@ -183,7 +274,7 @@ function CreateSurvey() {
 		let end_time = new Date(end_time_temp);
 		let current_time = new Date(current_time_temp);
 
-		console.log('현재', surveyState.current);
+		// console.log('현재', surveyState.current);
 
 		if (start_time > end_time) {
 			alert("설문 종료 시간은 설문 시작 시간 이전일 수 없습니다.");
@@ -198,7 +289,6 @@ function CreateSurvey() {
 				// 종료된 설문
 				surveyState.current = 2;
 			} else {
-				alert("?")
 			}
 		}
 
@@ -264,120 +354,161 @@ function CreateSurvey() {
 
 	return (
 		<>
-			<Row>
-				<Nav variant="pills" defaultActiveKey="create" className="center-wrapper-150" style={{ padding: 15 }} onSelect={(e) => setViewSwitch(e)}>
-					<Nav.Item className="center">
-						<Nav.Link eventKey="create">제작</Nav.Link>
-					</Nav.Item>
-					<Nav.Item className="center">
-						<Nav.Link eventKey="share">공유</Nav.Link>
-					</Nav.Item>
-				</Nav>
-			</Row>
+			<Nav justify variant="tabs" defaultActiveKey="create" onSelect={(e) => setViewSwitch(e)}>
+				<Nav.Item className="center">
+					<Nav.Link eventKey="create">설문지 작성</Nav.Link>
+				</Nav.Item>
+				<Nav.Item className="center">
+					<Nav.Link eventKey="share">설문지 설정</Nav.Link>
+				</Nav.Item>
+			</Nav>
 
 			{
 				viewSwitch == 'create' ?
 					<>
-						<Row style={{ paddingTop: 10 }}>
-							<Col style={{ width: '50%' }}>
-								<Card className='basicCard'>
-									<div>
-										<DropdownCmpt list={category_list} title={selectedCategory} style={{ marginBottom: "1%", float: "left" }} setSelected={setSelectedCategory} defaultTitle="Category" />
-										<div style={{ marginTop: "2%", marginRight: "35%" }}>
+						<Row className='create-row'>
+							<div className='left' style={{ background: 'primary', height: '100%', oveerflowY:'auto' }}>
+								<div className='left-content'>
+									<Card style={{ backgroundColor: "#2c2c2c", padding: "2%", border: "white" }}>
+										<DropdownCmpt list={category_list} title={selectedCategory} style={{ marginBottom: "1%", float: "left", padding: 10 }} setSelected={setSelectedCategory} defaultTitle="Category" />
+										<div style={{ marginTop: "2%" }}>
 											{!(RecommendCategory === '' || RecommendCategory === null) && <h5 style={{ float: "right" }}>{RecommendCategory}{RecommendMent}</h5>}
 										</div>
-									</div>
-									<FloatingLabel
-										controlId="floatingTextarea"
-										label="설문 제목을 입력해주세요"
-										className="mb-3"
-										style={{ paddingLeft: "1%", paddingRight: "1%" }}
-									>
-										<Form.Control as="textarea" placeholder="설문지 제목을 입력해주세요" onChange={(e) => {
-											setSurveyTitle(e.target.value);
-										}} />
-									</FloatingLabel>
-									<FloatingLabel
-										controlId="floatingTextarea"
-										label="설문에 대한 설명을 입력해주세요"
-										className="mb-8"
-										style={{ paddingLeft: "1%", paddingRight: "1%" }}
-									>
-										<Form.Control as="textarea" placeholder="설문에 대한 설명을 입력해주세요" style={{ height: "100px" }} onChange={(e) => {
-											setSurveyDescription(e.target.value);
-										}} />
-									</FloatingLabel>
+									</Card>
 
-									<Button
-										letiant="secondary" size="sm"
-										style={{ position: "absolute", top: "90%", left: "46%", zIndex: 1, width: "auto" }}
-										onClick={() => {
-											setMakeQsSwitch(true);
-											category();
-										}}> +
-									</Button>
+									<Form.Control className="title-area" size="lg" as="textarea" placeholder="설문지 제목을 입력해주세요"
+										style={{backgroundColor: "#2c2c2c" }}
+										onChange={(e) => {
+											setSurveyTitle(e.target.value);
+										}}>{surveyTitle}</Form.Control>
+
+									<Form.Control className="des-area" size="sm" as="textarea" placeholder="설문에 대한 설명을 입력해주세요"
+										style={{ backgroundColor: "#2c2c2c" }} onChange={(e) => {
+											setSurveyDescription(e.target.value)
+										}}>{surveyDescription}</Form.Control>
+
+									<div className="content">
+										<Button className='plus-button'>+</Button>
+										<div className="dropdown-content">
+												<a href="#" onClick={()=> {
+													if(!isRecommended) {
+														// category();
+													}
+													console.log("단답식");
+													setQsType("단답식");
+													setMakeQsSwitch(true);
+												}}>단답식</a>
+												<a href="#" onClick={()=> {
+													if(!isRecommended) {
+														// category();
+													}
+													console.log("객관식");
+													setQsType("객관식");
+													setMakeQsSwitch(true);
+												}}>객관식</a>
+												<a href="#" onClick={()=> {
+													if(!isRecommended) {
+														// category();
+													}
+													console.log("별점");
+													setQsType("별점");
+													setMakeQsSwitch(true);
+												}}>별점</a>
+												<a href="#" onClick={()=> {
+													if(!isRecommended) {
+														// category();
+													}
+													console.log("리커트");
+													setQsType("리커트");
+													setMakeQsSwitch(true);
+												}}>리커트</a>
+												<a href="#" onClick={()=> {
+													if(!isRecommended) {
+														// category();
+													}
+													console.log("감정바");
+													setQsType("감정바");
+													setMakeQsSwitch(true);
+												}}>감정바</a>
+											</div>
+									</div>
 
 									{/* 설문 작성 */}
 									{
-										makeQsSwitch ? <WriteSurvey category={selectedCategory} savedQsList={savedQsList} setSavedQsList={setSavedQsList} curQs={curQs} setCurQs={setCurQs}
+										makeQsSwitch ?
+										<WriteSurvey ref={myRef} type={qsType} category={selectedCategory} savedQsList={savedQsList} setSavedQsList={setSavedQsList} curQs={curQs} setCurQs={setCurQs}
 											curQsItemList={curQsItemList} setCurQsItemList={setCurQsItemList}
 											curSelectedType={curSelectedType} setCurSelectedType={setCurSelectedType} setMakeQsSwitch={setMakeQsSwitch} />
 											: null
 									}
-									<div style={{ margin: "1%" }}>
+
+									<div className='qs-list' style={{ width: "95%", margin: "auto", marginTop: "5%", marginBottom: "5%", position: 'relative' }}>
 										{/* 문항 리스트 */}
 										{
 											savedQsList.map((savedQs, idx) => {
 												return (
-													<Card className='basicCard' key={idx} style={{ marginBottom: "1%", marginTop: "1%" }}>
-														<CloseButton onClick={() => {
-															let copy = [...savedQsList];
-															copy.splice(idx, 1);
-															setSavedQsList(copy);
 
-															copy = [...curQsItemList];
-															copy.splice(idx, 1);
-															setCurQsItemList(copy);
-														}} />
-														<Card.Title className='basicCard' style={{ marginLeft: "3%", marginBottom: "2%" }} > Q{idx + 1}: {savedQs['qs']} </Card.Title>
-													</Card>
+													<div key={idx} className="item-block" style={{ overflow: "auto" }}>
+														<ItemBlock>
+															<Text>Q{idx + 1}: {savedQs['qs']}</Text>
+															<Remove onClick={() => {
+																let copy = [...savedQsList];
+																copy.splice(idx, 1);
+																setSavedQsList(copy);
+
+																copy = [...curQsItemList];
+																copy.splice(idx, 1);
+																setCurQsItemList(copy);
+															}}>
+																<MdDelete style={{width:'30px', height:'30px', marginRight:'20px'}}/>
+															</Remove>
+														</ItemBlock>
+													</div>
+													// <Card className='basicCard' key={idx} style={{ marginBottom: "1%", marginTop: "1%" }}>
+													// <CloseButton onClick={() => {
+													// 	let copy = [...savedQsList];
+													// 	copy.splice(idx, 1);
+													// 	setSavedQsList(copy);
+
+													// 	copy = [...curQsItemList];
+													// 	copy.splice(idx, 1);
+													// 	setCurQsItemList(copy);
+													// }} />
+													// 	<Card.Title className='qustion-list-card' style={{ marginLeft: "3%", marginBottom: "2%" }} > Q{idx + 1}: {savedQs['qs']} </Card.Title>
+													// </Card>
 												)
 											})
 										}
+
 									</div>
+								</div>
 
-									<InputGroup style={{ marginTop: "10%" }}>
-										{/* <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+								<InputGroup style={{ marginTop: "10%" }}>
+									{/* <InputGroup.Checkbox aria-label="Checkbox for following text input" />
 										<InputGroup.Text>익명 체크</InputGroup.Text> */}
-										<div />
-									</InputGroup>
-								</Card>
-							</Col>
+									<div />
+								</InputGroup>
+							</div>
 
-							<Col style={{ marginRight: "1%" }}>
+							<div className='right'>
 								<Preview category={selectedCategory} savedQsList={savedQsList} curQs={curQs} curQsItemList={curQsItemList}
 									curSelectedType={curSelectedType} setCurQs={setCurQs} setCurQsItemList={setCurQsItemList}
 									surveyTitle={surveyTitle} surveyDescription={surveyDescription} />
-							</Col>
-						</Row>
-						<Row>
-							<Col >
-								<div className="center-wrapper-120">
-									<Button letiant="primary" className="center" style={{ marginTop: 30 }} onClick={handleSurveySaveButton}>설문 저장하기</Button>
-								</div>
-							</Col>
+
+							</div>
 						</Row>
 
 						{/* 설문 저장하기 버튼 클릭시 나오는 화면 */}
-						<Modal show={show} onHide={() => { setShow(false); }}>
+						<Modal show={show} onHide={() => { setShow(false); }}  >
 							<Modal.Body style={{ textAlign: "center" }}>
 								<br />
-								<h2>설문이 저장되었습니다!<br /></h2>
+								<h3>설문이 저장되었습니다!<br /></h3>
 								<h4>지금 바로 설문을 공유할 수 있습니다🥰</h4>
-								<br />
-								{/* 설문 josn post하기 */}
-								<Button onClick={() => { setShow(false) }}>확인</Button>
 							</Modal.Body>
+							{/* 설문 josn post하기 */}
+							<Modal.Footer>
+								<Button variant='secondary' onClick={() => { setShow(false) }}>확인</Button>
+							</Modal.Footer>
 						</Modal>
 					</>
 
@@ -385,88 +516,52 @@ function CreateSurvey() {
 					// 공유 탭
 
 					<>
-						<div style={{ textAlign: "center", paddingTop: "1%", paddingLeft: "10%", paddingRight: "10%" }}>
-							<Row>
-								<Col>
-									<Form.Label style={{ paddingBottom: "1%" }}><h3>시작 시간 설정</h3></Form.Label>
-									<Form.Control style={{ marginBottom: "1%" }} type="date"
-										onChange={(e) => setStartDate(e.target.value)} defaultValue={dateString} />
-									<Form.Control style={{ marginBottom: "1%" }} type="time"
-										onChange={(e) => setStartTime(e.target.value)} defaultValue={timeString} />
-								</Col>
-								<Col>
-									<Form.Label style={{ paddingBottom: "1%" }}><h3>마감 시간 설정</h3></Form.Label>
-									<Form.Control style={{ marginBottom: "1%" }} type="date" defaultValue={nextDateString}
-										onChange={(e) => setEndDate(e.target.value)} />
-									<Form.Control style={{ marginBottom: "1%" }} type="time"
-										onChange={(e) => setEndTime(e.target.value)} defaultValue={timeString} />
-								</Col>
-							</Row>
-							<Row style={{ textAlign: "center", paddingTop: "5%" }}>
-								<Col>
-									<Card style={{ padding: '5%', textAlign: "center" }}>
-										<div className='checkbox'>
-											<input className="form-check-input" id="linkCheckBox" name="shareWay" type="checkbox" value="" onChange={(e) => {
-												checkOnlyOne(e.target)
-												is_checked()
-											}} /> 링크로 생성하기
-										</div>
-									</Card>
-								</Col>
-								<Col>
-									<Card style={{ padding: '5%', textAlign: "center" }}>
-										<div className='checkbox'>
-											<input className="form-check-input" id="qrCheckBox" name="shareWay" type="checkbox" value="" onChange={(e) => {
-												checkOnlyOne(e.target)
-												is_checked()
-											}} /> QR로 생성하기
-										</div>
-									</Card>
+						<div className="config-area" style={{ width: "100%", backgroundColor: "#F8F8FD", display: "flex", justifyContent: "center" }}>
 
-								</Col>
-							</Row>
-
-							<Row>
-								<Col >
-									<div className="center-wrapper-120">
-										<Button letiant="primary" className="center"
-											style={{ marginTop: 30 }}
-											onClick={() => {
-
-												handleSurveyCreateButton()
-											}}>설문 제작 완료</Button>
-										<div>
-											{
-												console.log(survey)
-											}
-										</div>
+							<div style={{ margin: "auto", marginTop: "5%", marginBottom: "5%" }}>
+								<h5 style={{ fontWeight: "bold" }}>응답 기간 설정 📮</h5>
+								<div className="text-center p-4" >
+									<DateRangeSelector startDateHandler={setStartDate} endDateHandler={setEndDate} startTimeHandler={setStartTime} endTimeHandler={setEndTime}/>
+									<div style={{ marginTop: '10px' }}>
+										<input className="form-check-input" id="qrCheckBox" name="shareWay" type="checkbox" value="" onChange={(e) => {
+											checkOnlyOne(e.target)
+											is_checked()
+										}} /> QR코드 생성하기
 									</div>
-								</Col>
-							</Row>
+
+									<Button variant="secondary" className="center"
+										style={{ marginTop: 30 }}
+										onClick={() => {
+											handleSurveyCreateButton()
+										}}>설문 제작 완료</Button>
+
+								</div>
+							</div>
 						</div>
+
 						{/* 설문 제작 완료 버튼 클릭시 나오는 화면 */}
-						<Modal show={showCreate} onHide={() => { setShowCreate(false); }}>
+						<Modal show={showCreate} onHide={() => { setShowCreate(false); }}  >
 							<Modal.Body style={{ textAlign: "center" }}>
 								<br />
-								<h2>설문이 생성되었습니다!<br /></h2>
+								<h3>설문이 생성되었습니다!<br /></h3>
 								<h4>완성된 설문을 확인하시겠습니까?🥰</h4>
-								<br />
 								{/* 설문 josn post하기 */}
-								<Button style={{ marginRight: "20px" }} onClick={() => { localStorage[link] = shareWay; navigate("/survey/" + link); }}>확인</Button>
-								<Button onClick={() => { setShowCreate(false) }}>취소</Button>
 							</Modal.Body>
+							<Modal.Footer>
+								<Button variant='secondary' onClick={() => { navigate("/survey/" + link, { state: shareWay }); }}>확인</Button>
+								<Button variant="light" onClick={() => { setShowCreate(false) }}>취소</Button>
+							</Modal.Footer>
 						</Modal>
 
 						<Helmet>
 							<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 						</Helmet>
 					</>
-
-
 			}
-			<PostSurvey ref={childRef} userToken={localStorage.getItem('token')} surveyJson={surveyJson} />
+			<PostSurvey ref={childRef} setLink={setLink} surveyJson={surveyJson} />
 		</>
 	)
 }
 
 export { CreateSurvey };
+

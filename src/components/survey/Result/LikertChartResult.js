@@ -12,23 +12,42 @@ const LikertChartResult = (props) => {
         },
     };
 
+    const data = [
+        { likert: '전혀 그렇지 않다', 응답수: 0 },
+        { likert: '그렇지 않다', 응답수: 0 },
+        { likert: '보통이다', 응답수: 0 },
+        { likert: '그렇다', 응답수: 0 },
+        { likert: '매우 그렇다', 응답수: 0 }
+    ];
+
+    console.log("리커트들어옴", props.resultDto[props.idx][0]);
+
+    for(var i=0; i<Object.keys(props.resultDto[props.idx][0]).length; i++) {
+
+        let index = Number(props.resultDto[props.idx][0][i].likert)-1;
+        data[index].응답수=props.resultDto[props.idx][0][i].응답수;
+    }
+
+    
+
     return (
         // chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정
         <>
-            <h5>리커트 척도 문항: Q1. 주기적으로 새로운 친구를 만든다.</h5>
-            <div style={{ width: '800px', height: '450px', padding: "0px", marginLeft: "100px" }} >
+            <h5>Q{props.idx}: {props.title}</h5>
+            <div style={{width: "auto", height:"400px", padding: "0px", margin: "auto"}} >
                 <ResponsiveBar className="center"
                     /**
                      * chart에 사용될 데이터
                      */
                     // data = props.data;
-                    data={[
-                        { likert: '전혀 그렇지 않다', 응답수: 5 },
-                        { likert: '그렇지 않다', 응답수: 10 },
-                        { likert: '보통이다', 응답수: 30 },
-                        { likert: '그렇다', 응답수: 12 },
-                        { likert: '매우 그렇다', 응답수: 1 }
-                    ]}
+                    // data={[
+                    //     { likert: '전혀 그렇지 않다', 응답수: 5 },
+                    //     { likert: '그렇지 않다', 응답수: 10 },
+                    //     { likert: '보통이다', 응답수: 30 },
+                    //     { likert: '그렇다', 응답수: 12 },
+                    //     { likert: '매우 그렇다', 응답수: 1 }
+                    // ]}
+                    data={data}
                     /**
                      * chart에 보여질 데이터 key (측정되는 값)
                      */
@@ -40,7 +59,7 @@ const LikertChartResult = (props) => {
                     /**
                      * chart margin
                      */
-                    margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+                    margin={{ top: 50, right: 30, bottom: 50, left: 100 }}
                     /**
                      * chart padding (bar간 간격)
                      */

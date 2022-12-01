@@ -2,6 +2,21 @@ import * as React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 
 const Gender = (props) => {
+
+    const data = [
+        { gender: '남성', 응답자수: 0},
+        { gender: '여성', 응답자수: 0},
+    ];
+    
+    for(var i=0; i<Object.keys(props.gender).length; i++) {
+        if(props.gender[i].gender == 'male') {
+            data[0].응답자수 = props.gender[i].응답자수;
+        }
+        else if(props.gender[i].gender == 'female') {
+            data[1].응답자수 = props.gender[i].응답자수;
+        }
+    }
+
     const handle = {
         barClick: (data) => {
             console.log(data);
@@ -14,16 +29,13 @@ const Gender = (props) => {
 
     return (
         // chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정
-        <div style={{ width: '600px', height: '400px', marginLeft: "200px"}}>
+        <div style={{ width: "auto", height:"500px", padding:"0px", margin: "auto"}}>
             <ResponsiveBar
                 /**
                  * chart에 사용될 데이터
                  */
                 // data = props.data;
-                data={[
-                    { gender: '남성', 응답자수: 5},
-                    { gender: '여성', 응답자수: 10},
-                ]}
+                data={data}
                 /**
                  * chart에 보여질 데이터 key (측정되는 값)
                  */
@@ -35,7 +47,7 @@ const Gender = (props) => {
                 /**
                  * chart margin
                  */
-                margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 30, bottom: 50, left: 60 }}
                 /**
                  * chart padding (bar간 간격)
                  */
