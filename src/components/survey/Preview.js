@@ -70,9 +70,9 @@ function Preview(props) {
 	return (
 		<>
 			{/* <Card className='basicCard' style={{ padding: "3%", backgroundColor: backgroundColor, overflowY: "scroll", width: "auto", height: "580px" }}> */}
-			<div className='right' style={{ padding: "3%", backgroundColor: backgroundColor, overflowY: "auto", width: "100%", height: "100%" }}>
+			<div className='right' style={{ padding: "3%", backgroundColor: backgroundColor, overflowY: "auto", width: "100%" }}>
 				<h2 style={{ color: textColor, marginLeft: "8%", marginTop: "10%", textAlign: "left", fontWeight: "bold" }}>{props.surveyTitle}</h2>
-				<h6 style={{ color: textColor, marginLeft: "10%", marginTop: "5%", marginBottom: "7%", textAlign: "left" }}>{props.surveyDescription}</h6>
+				<h6 style={{ color: textColor, marginLeft: "10%", marginRight: "5%",marginTop: "5%", marginBottom: "7%", textAlign: "left" }}>{props.surveyDescription}</h6>
 				{
 					props.savedQsList.map((savedQs, idx) => {
 						return (
@@ -103,7 +103,7 @@ function Preview(props) {
 									</Card>,
 								'별점':
 									<Card className='basicCard' key={idx} style={{ margin: "5%", marginBottom: "3%", padding: "3%", border: "none", borderRadius: "20px" }}>
-										<Card.Title style={{ marginTop: '10px', marginLeft: '10px' }}> Q{idx + 1}: {savedQs['qs']} </Card.Title>
+										<Card.Title style={{ marginTop: '15px', marginLeft: '10px' }}> Q{idx + 1}: {savedQs['qs']} </Card.Title>
 										<Card.Body>
 											<Star value={0} />
 										</Card.Body>

@@ -164,7 +164,7 @@ function Slider(props) {
                       trackClassName="customSlider-track-school"
                       thumbClassName="customSlider-thumb-school"
                       value={Number(props.value)}
-                      
+                      disabled
                     />
 
                   :
@@ -190,7 +190,7 @@ function Slider(props) {
                         trackClassName="customSlider-track-music"
                         thumbClassName="customSlider-thumb-music"
                         value={Number(props.value)}
-                        
+                        disabled
                       />
 
                     :
@@ -322,7 +322,7 @@ function Slider(props) {
                                   trackClassName="customSlider-track-movie"
                                   thumbClassName="customSlider-thumb-movie"
                                   value={Number(props.value)}
-                                  
+                                  disabled
                                 />
 
                               :

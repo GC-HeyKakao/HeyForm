@@ -124,26 +124,53 @@ function SurveySheet(props) {
 
   console.log(category);
   let backgroundColor = 'white';
-  if (category == '운동') {
-    backgroundColor = '#DEEBF7'
-  } else if (category == '만족') {
-    backgroundColor = '#FFE5EB';
-  }
-  else if (category == '환경') {
-    backgroundColor = '#E2F0D9'
-  }
-  else if (category == '정치') {
-    backgroundColor = '#eee'
-  }
-  else if (category == '학교') {
-    backgroundColor = '#fef5d4'
-  }
+	let textColor = 'black';
+	if (category == '운동') {
+		backgroundColor = '#DEEBF7'
+	} 
+    else if (category == '기본') {
+		backgroundColor = '#F8F8FD';
+	}
+	else if (category == '환경') {
+		backgroundColor = '#ACE383'
+	}
+	else if (category == '동물') {
+		backgroundColor = '#FDEEF4';
+	}
+	else if (category == '정치') {
+		backgroundColor = '#eee'
+	}
+	else if (category == '학교') {
+		backgroundColor = '#fef5d4'
+	}
+	else if (category == '음악') {
+		backgroundColor = '#EC67AD'
+	}
+    else if (category == '영화') {
+		backgroundColor = '#272E56';
+		textColor = 'white';
+	}
+	else if (category == '예술') {
+		backgroundColor = '#7E354D'
+		textColor = 'white';
+	}
+	else if (category == '게임') {
+		backgroundColor = '#342D7E'
+		textColor = 'white';
+	}
+	else if (category == '식사') {
+		backgroundColor = '#FAEBD7'
+	}
+	else {
+		backgroundColor = '#F8F8FD'
+	}
+
 
   return (
     <>
       <Card className='basicCard' style={{ padding: "3%", backgroundColor: backgroundColor, border:"none" }}>
-        <h2 style={{ marginBottom: "3%", textAlign: "center" }}>{surveyTitle}</h2>
-        <h6 style={{ marginBottom: "5%", textAlign: "center" }}>{surveyDes}</h6>
+        <p className='h1' style={{  marginLeft:"5%", color: textColor, marginBottom: "3%", marginTop:"3%" }}>{surveyTitle}</p>
+        <p className='h4' style={{ marginLeft:"5%", color: textColor, marginBottom: "5%"}}>{surveyDes}</p>
         {
           console.log("map", savedQsList)}
         {
@@ -153,7 +180,7 @@ function SurveySheet(props) {
               {
                 '단답식':
                   // <Card.Title className='basicCard' key={idx} style={{marginBottom: "3%"}}> </Card.Title>,
-                  <Card className='basicCard' key={item} style={{ margin: "5%", marginBottom: "3%", padding: "3%", border: "none", borderRadius: "20px" }}>
+                  <Card className='basicCard' key={item} style={{ marginLeft:"5%", marginRight:"5%", marginBottom: "40px", padding: "3%", border: "none", borderRadius: "20px" }}>
                     <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
                     <Card.Body>
                       <div>
@@ -163,8 +190,8 @@ function SurveySheet(props) {
                     </Card.Body>
                   </Card>,
                 '객관식':
-                  <Card className='basicCard' key={item} style={{ margin: "5%", marginBottom: "3%", padding: "3%", border: "none", borderRadius: "20px" }}>
-                    <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
+                <Card className='basicCard' key={item} style={{ marginLeft:"5%", marginRight:"5%", marginBottom: "40px", padding: "3%", border: "none", borderRadius: "20px" }}>
+                <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
                     <Card.Body>
                   {
                         <MultipleChoice replys={replys} item={item} replyHandler={replyHandler} surveyId={surveyId}></MultipleChoice>
@@ -172,22 +199,22 @@ function SurveySheet(props) {
                     </Card.Body>
                   </Card>,
                 '별점':
-                  <Card className='basicCard' key={item} style={{ margin: "5%", marginBottom: "3%", padding: "3%", border: "none", borderRadius: "20px" }}>
-                    <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
+                <Card className='basicCard' key={item} style={{ marginLeft:"5%", marginRight:"5%", marginBottom: "40px", padding: "3%", border: "none", borderRadius: "20px" }}>
+                <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
                     <Card.Body>
                       <Star replys={replys} replyHandler={replyHandler} idx={item['question_order'] + 1} surveyId={surveyId} />
                     </Card.Body>
                   </Card>,
                 '리커트':
-                <Card className='basicCard' key={item} style={{ margin: "5%", marginBottom: "3%", padding: "3%", border: "none", borderRadius: "20px" }}>
-                  <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
+                <Card className='basicCard' key={item} style={{ marginLeft:"5%", marginRight:"5%", marginBottom: "40px", padding: "3%", border: "none", borderRadius: "20px" }}>
+                <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
                   <Card.Body>
                     <Likertchart back='white' replys={replys} replyHandler={replyHandler} idx={item['question_order'] + 1} surveyId={surveyId} />
                     </Card.Body>
                   </Card>,
                 '감정바':
-                <Card className='basicCard' key={item} style={{ margin: "5%", marginBottom: "3%", padding: "3%", border: "none", borderRadius: "20px" }}>
-                  <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
+                <Card className='basicCard' key={item} style={{ marginLeft:"5%", marginRight:"5%", marginBottom: "40px", padding: "3%", border: "none", borderRadius: "20px" }}>
+                <Card.Title> Q{item['question_order'] + 1}: {item['question_contents']} </Card.Title>
                   <Card.Body>
                     <Slider replys={replys} category={category} replyHandler={replyHandler} idx={item['question_order'] + 1} surveyId={surveyId} />
                     </Card.Body>

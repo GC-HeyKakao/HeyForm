@@ -45,7 +45,7 @@ fieldset.likertScale .likertIndicator {
 
 @media (max-width: 768px) {
   .likertText {
-    font-size: 12px;
+    font-size: 10px;
   }
   .likertScale {
     max-width: 330px;
