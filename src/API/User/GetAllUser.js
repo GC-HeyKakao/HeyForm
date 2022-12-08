@@ -5,7 +5,7 @@ const GetAllUser = async () => {
   // /user/
 
   // 모든 유저 정보 가져오기
-  const response = await axios.get('https://210.109.60.38:8080/user')
+  const response = await axios.get('http://210.109.60.38:8000/user')
     .catch((error) => {
       console.log(error)
     })

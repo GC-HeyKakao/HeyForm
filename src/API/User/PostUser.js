@@ -21,7 +21,7 @@ const PostUser = async (users) => {
 
     console.log("user register start");
     console.log(JSON.stringify(body, null, 2))
-    axios.post("https://210.109.60.38:8080/user/register", body)
+    axios.post("http://210.109.60.38:8000/user/register", body)
         .then((response) => {
             //GetTokenByEmail(response.data, userHandler);
             //GetUserIdByEmail(response.data, userHandler);

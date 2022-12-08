@@ -5,7 +5,7 @@ const GetAnswerResult = async (surveyId) => {
     let AnswersResult = null;
     console.log(surveyId);
     // 모든 답변 정보 가져오기
-    const response = await axios.get(`https://210.109.60.38:8080/answer/survey/result/${surveyId}`)
+    const response = await axios.get(`http://210.109.60.38:8000/answer/survey/result/${surveyId}`)
         .then((response) => {
             console.log('get answer result ok');
             console.log(response.data)

@@ -98,9 +98,9 @@ function KakaoLogin() {
                     )
                     
                     console.log('ACCESS_TOKEN',ACCESS_TOKEN);
-                    axios.post(`https://210.109.60.38:8080/user/token/request?Kakaotoken=${ACCESS_TOKEN}`)
+                    axios.post(`http://210.109.60.38:8000/user/token/request?Kakaotoken=${ACCESS_TOKEN}`)
                         .then((response) => {
-                            console.log('response.data.token', response.data.token);
+                            console.log('response.data.token', "-", response.data.token, "-");
                             userHandler(
                                 {
                                     token: response.data.token,
@@ -120,6 +120,7 @@ function KakaoLogin() {
                         })
                         .catch((error) => {
                             console.log(error);
+                            console.log('jwt가져오기실패');
                             return "error";
                         })
 

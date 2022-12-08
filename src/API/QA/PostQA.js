@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const PostQA = async (qa) => {
-    console.log("hello qa");
+    // console.log("hello qa");
     let post = false;
     
-    await axios.post('https://210.109.60.38:8080//qa/save', qa)
+    await axios.post('http://210.109.60.38:8000//qa/save', qa)
         .then((response) => {
             console.log('문의 저장 성공');
             post = true;

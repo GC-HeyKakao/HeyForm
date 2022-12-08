@@ -35,7 +35,7 @@ const KakaoShare = (props) => {
                 objectType: 'feed',
                 content: {
                     title: users.name + "님이 설문 응답을 요청했어요 🙌🏻",
-                    description: props.surveyTitle + '\n' + props.surveyDescription,
+                    description: props.surveyTitle + '\n' + props.surveyDescription + '\n' + props.end_time,
                     imageUrl: 'logo.png',
                     link: {
                         mobileWebUrl: props.link,

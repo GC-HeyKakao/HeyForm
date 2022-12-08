@@ -392,7 +392,7 @@ function CreateSurvey() {
 										<div className="dropdown-content">
 												<a href="#" onClick={()=> {
 													if(!isRecommended) {
-														// category();
+														category();
 													}
 													console.log("단답식");
 													setQsType("단답식");
@@ -400,7 +400,7 @@ function CreateSurvey() {
 												}}>단답식</a>
 												<a href="#" onClick={()=> {
 													if(!isRecommended) {
-														// category();
+														category();
 													}
 													console.log("객관식");
 													setQsType("객관식");
@@ -408,7 +408,7 @@ function CreateSurvey() {
 												}}>객관식</a>
 												<a href="#" onClick={()=> {
 													if(!isRecommended) {
-														// category();
+														category();
 													}
 													console.log("별점");
 													setQsType("별점");
@@ -416,7 +416,7 @@ function CreateSurvey() {
 												}}>별점</a>
 												<a href="#" onClick={()=> {
 													if(!isRecommended) {
-														// category();
+														category();
 													}
 													console.log("리커트");
 													setQsType("리커트");
@@ -424,7 +424,7 @@ function CreateSurvey() {
 												}}>리커트</a>
 												<a href="#" onClick={()=> {
 													if(!isRecommended) {
-														// category();
+														category();
 													}
 													console.log("감정바");
 													setQsType("감정바");

@@ -9,7 +9,7 @@ const GetUserAnswer = async (id) => {
     };
 
     // 모든 답변 정보 가져오기
-    const response = await axios.get(`https://210.109.60.38:8080/answer/user/${id}`, headers)
+    const response = await axios.get(`http://210.109.60.38:8000/answer/user/${id}`, headers)
         .then((response) => {
             // console.log(response.data)
             Answers = JSON.stringify(response.data);

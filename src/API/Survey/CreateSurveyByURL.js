@@ -14,7 +14,7 @@ const CreateSurveyByURL = async (link) => {
 
     console.log('cre resp');
 
-    const response = await axios.get(`https://210.109.60.38:8080/survey/paper/${surveyURL}`, headers)
+    const response = await axios.get(`http://210.109.60.38:8000/survey/paper/${surveyURL}`, headers)
         .then((response) => {
             dto = response.data;
             window.localStorage.setItem("questionDto", JSON.stringify(dto));

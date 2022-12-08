@@ -3,7 +3,6 @@ import './App.css';
 
 import { Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from "recoil";
-import { ShareSurvey } from './components/Survey/ShareSurvey';
 import { SurveySheet } from './components/Survey/SurveySheet';
 import { CreateSurvey } from './route/CreateSurvey.js';
 import { GuidePage } from './route/GuidePage.js';
@@ -14,6 +13,7 @@ import { MyPage } from './route/MyPage';
 import { NotFound } from './route/NotFound.js';
 import { Workspace } from './route/Workspace.js';
 import { useState } from 'react';
+
 
 // @mui
 import { styled } from '@mui/material/styles';
@@ -81,7 +81,6 @@ function App() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/kakaologin" element={<KakaoLogin />} />
             <Route path="/kakaologout" element={<KakaoLogout />} />
-            <Route path="/survey" element={<ShareSurvey />} />
             <Route path="/survey/:surveyId" element={<SurveySheet />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>

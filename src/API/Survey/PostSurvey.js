@@ -22,16 +22,15 @@ const PostSurvey = forwardRef((props, ref) => {
                 Authorization: user_token
             };
 
-
             const body = {
                 surveyDto: "props.surveyJson"
             }
 
             console.log('확인', JSON.stringify(props.surveyJson));
 
-                axios.post(`https://210.109.60.38:8080/survey/${user_token}`, props.surveyJson)
+                axios.post(`http://210.109.60.38:8000/survey/${users.kakaoToken}`, props.surveyJson)
                   .then((response) => {
-
+                    console.log(response);
                     // if (response.status === 203) {
                     //     console.log(users)
                     //     PostUserToken(users.kakaoToken, users, userHandler);
@@ -50,7 +49,7 @@ const PostSurvey = forwardRef((props, ref) => {
                 })
                 .catch((error) => {
                     console.log(error);
-                    console.error(error.response.data);
+                    // console.error(error.response.data);
                 })
         },
     }));

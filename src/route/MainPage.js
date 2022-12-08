@@ -8,6 +8,7 @@ import { userState } from '../atom';
 import { Footer } from '../components/Footer.js';
 import { AboutProduct } from '../components/Main/AboutProduct.js';
 import "./MainPage.css";
+import { Snackbar, Alert } from '@mui/material';
 
 function MainPage() {
 
@@ -17,6 +18,7 @@ function MainPage() {
 	// const token = UserInfo.token;
 
 	// 로그인되면 뜨는 창에 사용
+	const [show, setShow] = useState(false);
 	const [user, setUser] = useState(false);
 	const [nonUser, setNonUser] = useState(false);
 
@@ -177,7 +179,6 @@ function MainPage() {
 					<Button variant='secondary' onClick={handleLogin}>로그인하기</Button>
 				</Modal.Footer>
 			</Modal>
-
 			{/* <div className="wraper"> */}
 				{/* <div className="content"> */}
 					<AboutProduct />

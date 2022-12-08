@@ -11,12 +11,12 @@ import { userState } from '../atom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { GetSurveyBySurveyId } from '../API/Survey/GetSurveyBySurveyId';
 import { KAKAO_AUTH_URL } from '..//OAuth';
-import { Link } from 'react-scroll';
 
 // @mui
 import { styled } from '@mui/material/styles';
 // css
 import './Workspace.css';
+import { GetAnswerResult } from '../API/Answer/GetAnswerResult';
 
 const Main = styled('div')(({ theme }) => ({
    paddingLeft: theme.spacing(3),
@@ -159,7 +159,6 @@ function Workspace() {
       //사용자 토큰으로 모든 survey정보를 가져와서 워크스페이스를 구성한다. 
       GetSurveyByToken(users, userHandler)
          .then((res) => {
-            console.log('users', users);
             console.log('res: ', res);
             surveyQuestionDto = JSON.parse(JSON.stringify(res));
             surveyQuestionDtoTemp = new Array();
@@ -220,7 +219,7 @@ function Workspace() {
 
          }, (err) => console.log(err))
 
-      GetUserAnswer(users.id)
+         GetUserAnswer(users.id)
          .then((res) => {
             console.log('reply res: ', res);
             userAnswerDto = JSON.parse(res);

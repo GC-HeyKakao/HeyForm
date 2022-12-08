@@ -7,7 +7,7 @@ const GetRecommendCategory = async (surveyTitle, category_list) => {
     let matched_keyword = null;
     let reference_keyword = null;
 
-    await axios.post(`https://210.109.60.38:8080/survey/title/recommand?categories=${category_list}&title=${surveyTitle}`)
+    await axios.post(`http://210.109.60.38:8000/survey/title/recommand?categories=${category_list}&title=${surveyTitle}`)
         .then((response) => {;
             console.log("matched_keyword 카테고리: ", response.data.matched_keyword)
             console.log("reference_keyword 카테고리: ", response.data.reference_keyword)

@@ -98,7 +98,7 @@
     color: white;
     font-size: 18px;
     font-weight: bold;
-    letter-spacing: -0.06em;
+    /* letter-spacing: -0.06em; */
     box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: opacity 0.3s ease-in;
@@ -129,7 +129,7 @@
     color: white;
     font-size: 18px;
     font-weight: bold;
-    letter-spacing: -0.06em;
+    /* letter-spacing: -0.06em; */
     box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: opacity 0.3s ease-in;
@@ -148,7 +148,7 @@
 
 .startBtn {
     display: block;
-    width: 25%;
+    width: 20%;
     margin-left: 40%;
     margin-right: 40%;
     position: fixed;

@@ -14,7 +14,7 @@ const WriteSurvey = forwardRef((props, ref) => {
 	let [qs, setQs] = useState('');
 	let frm, arr;
 
-	console.log(props.type);
+	// console.log(props.type);
 
 	useEffect(() => {
 		// setQsItemList([]);
@@ -70,7 +70,7 @@ const WriteSurvey = forwardRef((props, ref) => {
 
 	function CheckEnter(frm) {
 		for (var i = 0; i < frm.length; i++) {
-			console.log(i, frm[i]);
+			// console.log(i, frm[i]);
 			frm[i].focus();
 		}
 	}

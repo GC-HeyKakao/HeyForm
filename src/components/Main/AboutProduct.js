@@ -6,7 +6,7 @@ import styled from "styled-components";
 import category from '../../promo_category.png';
 import mobile from '../../promo_mobile.png';
 import multi from '../../promo_multi.png';
-// import main from '../../promo_main.png';
+import main from '../../promo_main.png';
 import preview from '../../promo_preview.png';
 import share from '../../promo_share.png';
 import { KAKAO_AUTH_URL } from '../../OAuth';
@@ -48,9 +48,10 @@ const IntroBlock = styled.div`
 	// display: block;
 	margin-left: 10%;
 	margin-right: 10%;
-	margin-bottom: 80px;
+	// margin-bottom: 80px;
 	height: 80%;
 	width: 80%;
+
   }
 
   @media (max-width: 768px) {
@@ -110,7 +111,6 @@ const IntroBlock = styled.div`
 	  width: 90%;
 	  margin-left: 5%;
 	  margin-right: 5%;
-	  margin-bottom: 80px;
 	}
 
   }
@@ -132,17 +132,17 @@ function AboutProduct() {
 			<div>
 				<Fade big>
 					<IntroBlock>
-					<h2>사용자에게 편의를 주는 솔루션을</h2>
+					{/* <h2>사용자에게 편의를 주는 솔루션을</h2>
 						<h6><strong>헤이폼</strong>이 제안합니다 😎</h6>
-						<br/>
-						{/* <img src={main} /> */}
+						<br/> */}
+						<img src={main} style={{width:'85%'}} />
 
 						<br/>
 						<div style={{ textAlign: 'center' }}>
-							<Button variant='secondary' style={{ marginBottom:"150px", fontSize:'20px'}}
+							<btn><Button variant='secondary' style={{marginTop:"30px"}}
 								size="lg" onClick={users.login ? () => navigate("/create") : handleLogin}>
 								헤이폼 시작하기
-							</Button>
+							</Button></btn>
 						</div>
 
 					</IntroBlock>
@@ -163,7 +163,7 @@ function AboutProduct() {
 							편하게 공유할 수 있습니다. <br />
 						</h3>
 						<br/>
-						<img src={share} style={{width:'55%'}}/>
+						<img src={share} style={{width:'60%'}}/>
 					</IntroBlock>
 
 
