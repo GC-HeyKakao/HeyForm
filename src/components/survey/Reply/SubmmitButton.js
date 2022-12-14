@@ -82,9 +82,9 @@ function SubmmitButton(props) {
       <Modal show={show} onHide={() => { setShow(false) }}  >
         <Modal.Body style={{ textAlign: "center" }}>
           <br />
-          <h2>소중한 답변 감사합니다 😊</h2>
+          <h3>소중한 답변 감사합니다 😊</h3>
           <br />
-          <h4>응답한 설문지는 <br />워크스페이스에서 확인 가능합니다 📮</h4>
+          <h5>응답한 설문지는 <br />워크스페이스에서 확인 가능합니다 📮</h5>
         </Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={() => navigate('/main')}>확인</Button>

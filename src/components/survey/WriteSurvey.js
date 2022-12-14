@@ -7,6 +7,8 @@ import Slider from './Slider';
 import Star from './Star';
 import './WriteSurvey.css';
 
+let isEnter = false;
+
 const WriteSurvey = forwardRef((props, ref) => {
 	let surveyTypeList = ["단답식", "객관식", "별점", "리커트", "감정바"];
 	let [selectedType, setSelectedType] = useState(props.type);
@@ -22,10 +24,18 @@ const WriteSurvey = forwardRef((props, ref) => {
 		props.setCurSelectedType(selectedType);
 		frm = document.getElementsByName("enter-event");
 		arr = Array.prototype.slice.call(frm);
-		for (var i = 0; i < frm.length; i++) {
-			// console.log(i, frm[i]);
-			frm[i].focus();
+		
+		if(isEnter==true) {
+			for (var i = 0; i < frm.length; i++) {
+				// console.log(i, frm[i]);
+				isEnter=false;
+				frm[i].focus();
+			}
 		}
+		
+		console.log("isEnter", isEnter);
+
+		
 	}, [props])
 
 	useEffect(() => {
@@ -59,6 +69,9 @@ const WriteSurvey = forwardRef((props, ref) => {
 		// console.log(arr);
 
 		if (e.key == 'Enter') {
+			isEnter=true;
+			console.log("isEnter", isEnter)
+
 			let copy = [...qsItemList, ''];
 			setQsItemList(copy);
 			props.setCurQsItemList(copy);
@@ -66,6 +79,7 @@ const WriteSurvey = forwardRef((props, ref) => {
 				// console.log("idx", idx);
 			})
 		}
+
 	}
 
 	function CheckEnter(frm) {
@@ -114,6 +128,7 @@ const WriteSurvey = forwardRef((props, ref) => {
 													props.setCurQsItemList(copy);
 												}}
 												onKeyPress={onKeyPress}
+												
 												value={choice} />
 											<button className="btn btn-outline-secondary" type="button" id="button-addon2"
 												style={{ background: "rgba(0,0,0,0)", border: "none", boxShadow: "none" }}

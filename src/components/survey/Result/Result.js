@@ -22,102 +22,102 @@ function Result(props) {
 
         //사용자 토큰으로 모든 survey정보를 가져와서 워크스페이스를 구성한다. 
         GetResult(surveyId)
-           .then((res) => {
-            console.log('Result res: ', res);
-            console.log('result res type ', typeof(res));
-            setResultDto(res);
-           }, (err) => console.log(err))
-  
-     }, [props]);
-  
+            .then((res) => {
+                console.log('Result res: ', res);
+                console.log('result res type ', typeof (res));
+                setResultDto(res);
+            }, (err) => console.log(err))
+
+    }, [props]);
+
 
     return (
 
         <>
-            <div style={{ padding: "3%", textAlign: "center" }}>
-                <h3>🔮 설문 결과 분석 🔮</h3>
+            <Card style={{ padding: "3%", textAlign: "center" }}>
+                <h3><strong>🔮 설문 결과 분석 🔮</strong></h3>
 
                 {
-          resultDto && savedQsList && savedQsList.map((item) => {
-            return (
-              {
-                '단답식':
-                <Row style={{ marginTop: "5%" }}>
-                <Col>
-                      <ShortAnswer resultDto = {resultDto} idx = {item['question_order'] + 1} title={item['question_contents']}></ShortAnswer>
-                      </Col>
-                      </Row>,
+                    resultDto && savedQsList && savedQsList.map((item) => {
+                        return (
+                            {
+                                '단답식':
+                                    <Card className='basicCard' style={{ margin: "5%", marginBottom: "3%", padding: "3%", borderRadius: "20px" }}>
+                                        <Card.Body>
+                                            <ShortAnswer resultDto={resultDto} idx={item['question_order'] + 1} title={item['question_contents']}></ShortAnswer>
+                                        </Card.Body>
+                                    </Card>,
 
-                    
-                '객관식':
-                <Row style={{ marginTop: "5%" }}>
-                <Col>
-                      <MultipleChoice choiceDto = {item['choiceDtos']} resultDto = {resultDto} idx = {item['question_order'] + 1} title={item['question_contents']}></MultipleChoice>
-                      </Col>
-                      </Row>,
+                                '객관식':
+                                    <Card className='basicCard' style={{ margin: "5%", marginBottom: "3%", padding: "3%", borderRadius: "20px" }}>
+                                        <Card.Body>
+                                            <MultipleChoice choiceDto={item['choiceDtos']} resultDto={resultDto} idx={item['question_order'] + 1} title={item['question_contents']}></MultipleChoice>
+                                        </Card.Body>
+                                    </Card>,
 
-                '별점':
-                <Row style={{ marginTop: "5%" }}>
-                <Col>
-                      <StarResult resultDto = {resultDto} idx = {item['question_order'] + 1} title={item['question_contents']}></StarResult>
-                      </Col>
-                      </Row>,
 
-                '리커트':
-                <Row style={{ marginTop: "5%" }}>
-                <Col>
-                      <LikertChartResult resultDto = {resultDto} idx = {item['question_order'] + 1} title={item['question_contents']}></LikertChartResult>
-                      </Col>
-                      </Row>,
-                '감정바':
-                <Row style={{ marginTop: "5%" }}>
-                <Col>
-                      <SliderResult resultDto = {resultDto} idx = {item['question_order'] + 1} title={item['question_contents']}></SliderResult>
-                      </Col>
-                      </Row>,
+                                '별점':
+                                    <Card className='basicCard' style={{ margin: "5%", marginBottom: "3%", padding: "3%", borderRadius: "20px" }}>
+                                        <Card.Body>
+                                            <StarResult resultDto={resultDto} idx={item['question_order'] + 1} title={item['question_contents']}></StarResult>
+                                        </Card.Body>
+                                    </Card>,
 
-              }[item['question_type']]
+                                '리커트':
+                                    <Card className='basicCard' style={{ margin: "5%", marginBottom: "3%", padding: "3%", borderRadius: "20px" }}>
+                                        <Card.Body>
+                                            <LikertChartResult resultDto={resultDto} idx={item['question_order'] + 1} title={item['question_contents']}></LikertChartResult>
+                                        </Card.Body>
+                                    </Card>,
 
-              
-            )
-            
-          }
-          )
-        }
+                                '감정바':
+                                    <Card className='basicCard' style={{ margin: "5%", marginBottom: "3%", padding: "3%", borderRadius: "20px" }}>
+                                        <Card.Body>
+                                            <SliderResult resultDto={resultDto} idx={item['question_order'] + 1} title={item['question_contents']}></SliderResult>
+                                        </Card.Body>
+                                    </Card>,
 
-<div style={{ marginTop: "10%" }}>
+                            }[item['question_type']]
+
+
+                        )
+
+                    }
+                    )
+                }
+
+                {/* <div style={{ marginTop: "10%" }}>
                     <h3 style={{ marginTop: "10%" }}>📌 설문 응답 결과 📌</h3>
                     <Row style={{ marginTop: "5%" }}>
                         <Col>
-                            {/* 응답자 목록 테이블  */}
                             <Table>
                             </Table>
                         </Col>
-                    </Row>
-            {/* </div>
+                    </Row> */}
+                {/* </div>
                 응답자 분석 
                 <Row style={{ marginTop: "5%" }}>
                     <Col> */}
-                        {/* 설문 결과 그래프 */}
-                        {/* <LikertChartResult></LikertChartResult>
+                {/* 설문 결과 그래프 */}
+                {/* <LikertChartResult></LikertChartResult>
                     </Col>
                 </Row>                
                 <Row style={{ marginTop: "10%" }}>
                     <Col> */}
-                        {/* 설문 결과 그래프 */}
-                        {/* <SliderResult></SliderResult>
+                {/* 설문 결과 그래프 */}
+                {/* <SliderResult></SliderResult>
                     </Col>
                 </Row>
                 <Row style={{ marginTop: "10%" }}>
                     <Col> */}
-                        {/* 설문 결과 그래프 */}
-                        {/* <StarResult></StarResult>
+                {/* 설문 결과 그래프 */}
+                {/* <StarResult></StarResult>
                     </Col>
                 </Row>
                 <Row style={{ marginTop: "10%" }}>
                     <Col> */}
-                        {/* 설문 결과 그래프 */}
-                        {/* <MultipleChoice></MultipleChoice>
+                {/* 설문 결과 그래프 */}
+                {/* <MultipleChoice></MultipleChoice>
                     </Col>
                 </Row>
                 <Row style={{ marginTop: "10%", width:"auto", marginBottom: "10%" }}>
@@ -129,13 +129,13 @@ function Result(props) {
                     <h3 style={{ marginTop: "10%" }}>📌 설문 응답 결과 📌</h3>
                     <Row style={{ marginTop: "5%" }}>
                         <Col> */}
-                            {/* 응답자 목록 테이블  */}
-                            {/* <Table>
+                {/* 응답자 목록 테이블  */}
+                {/* <Table>
                             </Table>
                         </Col>
                     </Row> */}
-            </div>
-        </div>
+                {/* </div> */}
+            </Card>
         </>
     )
 }

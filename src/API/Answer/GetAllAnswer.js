@@ -9,7 +9,7 @@ const GetAllAnswer = async () => {
     };
 
     // 모든 답변 정보 가져오기
-    const response = await axios.get('http://210.109.60.38:8000/answer', headers)
+    const response = await axios.get('https://210.109.63.71:8080/answer', headers)
         .then((response) => {
             console.log('get all answer ok');
             console.log(response.data)

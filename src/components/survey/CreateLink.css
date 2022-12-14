@@ -15,12 +15,18 @@
 }
 
 .areaShare {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  margin-left: 5%;
+  margin-right: 5%;
   text-align: center;
   background: white;
-  border-radius: 7px;
-  border: 1px solid #CDCDD0;
+  border: none;
   display: flex;
   justify-content: center;
+  border-radius: 20px;
 }
 
 .areaComment {

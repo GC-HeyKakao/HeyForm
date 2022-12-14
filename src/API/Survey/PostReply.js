@@ -6,7 +6,7 @@ const PostReply = async (reply) => {
     // /survey/post/{userAccount}
     
     //console.log("넘기는 답", reply);
-    await axios.post('http://210.109.60.38:8000/survey/paper/result', reply)
+    await axios.post('https://210.109.63.71:8080/survey/paper/result', reply)
         .then((response) => {
             console.log('응답 저장 성공');
             

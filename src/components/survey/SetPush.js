@@ -6,8 +6,8 @@ function SetPush(props) {
     console.log(props);
     return (
         <div style={{ float:'left', marginLeft:'15%'}}> 
-            <div className='shareComment'><br /><h5>설문 공유 📬</h5></div>
-            <div style={{ marginTop: "10px"}}>
+            <div className='shareComment'><br /><p className='h4'>설문 공유</p></div>
+            <div style={{ marginTop: "20px"}}>
                     <KakaoShare link={props.link} surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} start_time={props.start_time} end_time={props.end_time} />
                     <EmailShareButton link={props.link} />
             </div>

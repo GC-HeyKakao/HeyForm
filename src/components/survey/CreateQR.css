@@ -1,5 +1,5 @@
 .qrcode {
-  display: flex;
+  display: none;
   justify-content: center;
 }
 
@@ -8,15 +8,6 @@
   justify-content: center;
   margin-bottom: 5%;
 }  
-
-.areaShare {
-  text-align: center;
-  background: white;
-  border-radius: 7px;
-  border: 1px solid #CDCDD0;
-  display: flex;
-  justify-content: center;
-}
 
 .areaComment {
   display: flex;

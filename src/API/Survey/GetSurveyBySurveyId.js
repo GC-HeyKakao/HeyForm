@@ -9,7 +9,7 @@ const GetSurveyBySurveyId = async (surveyId, users, userHandler) => {
     };
 
     // 모든 설문 정보 가져오기
-    const response = await axios.get(`http://210.109.60.38:8000/survey/list/${surveyId}?userToken=${users.kakaoToken}`, headers)
+    const response = await axios.get(`https://210.109.63.71:8080/survey/list/${surveyId}?userToken=${users.token}`, headers)
         .then((response) => {
             SurveyInfo = response.data;
         })

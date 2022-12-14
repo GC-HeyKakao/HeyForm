@@ -27,7 +27,7 @@ const GetUserIdByEmail = (users, userHandler, token) => {
 		)
 	}
 
-    axios.get(`http://210.109.60.38:8000/user/id/${email}`)
+    axios.get(`https://210.109.63.71:8080/user/id/${email}`)
         .then((response) => {    
             reset(response.data);
             

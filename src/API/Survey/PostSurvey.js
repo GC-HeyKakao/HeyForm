@@ -28,7 +28,7 @@ const PostSurvey = forwardRef((props, ref) => {
 
             console.log('확인', JSON.stringify(props.surveyJson));
 
-                axios.post(`http://210.109.60.38:8000/survey/${users.kakaoToken}`, props.surveyJson)
+                axios.post(`https://210.109.63.71:8080/survey/${users.token}`, props.surveyJson)
                   .then((response) => {
                     console.log(response);
                     // if (response.status === 203) {

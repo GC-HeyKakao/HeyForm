@@ -21,6 +21,8 @@ function KakaoLogin() {
     const grant_type = "authorization_code";
     let ACCESS_TOKEN = '';
     let REFRESH_TOKEN = '';
+    let ID = '';
+    let JWT_TOKEN = '';
     let age;
 
     const getKakaoToken = () => {
@@ -97,8 +99,9 @@ function KakaoLogin() {
                         }
                     )
                     
+
                     console.log('ACCESS_TOKEN',ACCESS_TOKEN);
-                    axios.post(`http://210.109.60.38:8000/user/token/request?Kakaotoken=${ACCESS_TOKEN}`)
+                    axios.post(`https://210.109.63.71:8080/user/token/request?Kakaotoken=${ACCESS_TOKEN}`)
                         .then((response) => {
                             console.log('response.data.token', "-", response.data.token, "-");
                             userHandler(

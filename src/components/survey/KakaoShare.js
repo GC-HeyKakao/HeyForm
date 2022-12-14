@@ -72,7 +72,7 @@ const KakaoShare = (props) => {
             </Helmet>
             <div style={{ float:'left', marginBottom:'20px'}} >
                 {/* Kakao share button */}
-                <Button size='lg' id="kakao-link-btn" variant='light'>카카오톡 💛</Button>
+                <Button size='lg' id="kakao-link-btn" variant='light'><p className="h6" style={{marginTop:5}}>카카오톡 💛</p></Button>
             </div >
         
         </>

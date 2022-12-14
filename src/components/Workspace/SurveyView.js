@@ -76,8 +76,8 @@ function SurveyView(props) {
   return (
     <>
       <Card className='basicCard' style={{ marginTop: "20px", padding: "3%", backgroundColor: backgroundColor, border: "none", overflowY: "auto", width: "100%", height: "100%" }}>
-        <p className='h1' style={{ color: textColor, marginLeft: "10%", marginRight: "10%", marginTop: "7%", textAlign: "left", fontWeight: "bold" }}>{surveyTitle}</p>
-        <p className='h4' style={{ color: textColor, marginLeft: "10%", marginRight: "10%", marginTop: "2%", marginBottom: "5%", textAlign: "left" }}>{surveyDes}</p>
+        <p className='h1' style={{ color: textColor, textAlign:"center", marginTop: "20px", fontWeight: "bold" }}>{surveyTitle}</p>
+        <p className='h4' style={{ color: textColor, textAlign:"center", marginTop: "2%", marginBottom: "5%" }}>{surveyDes}</p>
         {
           savedQsList && savedQsList.map((item) => {
             return (

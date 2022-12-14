@@ -58,6 +58,9 @@ function App() {
     console.log = function no_console() { };
     console.warn = function no_console() { };
     console.error = function no_console() { };
+    console.info = function no_console() { };
+    
+    // console.warn = console.error = () => {};
   }
   const [open, setOpen] = useState(false);
 

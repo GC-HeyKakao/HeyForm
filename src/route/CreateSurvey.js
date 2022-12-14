@@ -181,7 +181,7 @@ function CreateSurvey() {
 		if (qr_checked == true) {
 			setShareWay("QR");
 		} else {
-			setShareWay("null");
+			setShareWay("writer");
 		}
 		// else {
 		// 	setShareWay("null");
@@ -218,25 +218,27 @@ function CreateSurvey() {
 	const [RecommendCategory, setRecommendCategory] = useState('');
 	const [RecommendMent, setRecommendMent] = useState('');
 	const [isRecommended, setIsRecommended] = useState(false);
-
+	const [cate, setCate] = useState("");
 
 	function category() {
 		setIsRecommended(true);
 		
 		// AI모듈
-		GetRecommendCategory(surveyTitle, category_list)
+		GetRecommendCategory(surveyTitle, category_list, setRecommendCategory)
 			.then((res) => {
 				
-
+				console.log("cate res", res);
 				setRecommendCategory(res);
 				console.log('RecommendCategory: ', RecommendCategory);
+				// setRecommendCategory("기본");
 				// setRecommendMent('와 관련된 디자인을 추천할게요!');
 				if (RecommendCategory !== '') {
-					setSelectedCategory(res);
+					setSelectedCategory(RecommendCategory);
 					setRecommendMent('와 관련된 디자인을 추천할게요!');
 				}
 				else {
 					setSelectedCategory("기본");
+					// setRecommendMent('과 관련된 디자인을 추천할게요!');
 				}
 
 				console.log('조건문', RecommendCategory == '');
@@ -244,6 +246,33 @@ function CreateSurvey() {
 
 			}, (err) => console.log(err))
 	}
+
+	useEffect(() => {
+		if (RecommendCategory !== '' &&  RecommendCategory!=="기본") {
+
+			//name의 마지막 음절의 유니코드(UTF-16) 
+			const charCode = RecommendCategory.charCodeAt(RecommendCategory.length - 1);
+    
+			//유니코드의 한글 범위 내에서 해당 코드의 받침 확인
+			const consonantCode = (charCode - 44032) % 28;
+			
+			if(consonantCode === 0){
+				//0이면 받침 없음 -> 를
+				setRecommendMent(RecommendCategory+'와 관련된 디자인을 추천할게요!');
+			}
+			else {
+				setRecommendMent(RecommendCategory+'과 관련된 디자인을 추천할게요!');
+
+			}
+			
+			setSelectedCategory(RecommendCategory);
+		}
+		// else {
+		// 	setSelectedCategory("기본");
+
+		// }
+		
+	}, [RecommendCategory])
 
 	// 설문 저장하기 버튼을 누를 때
 	function handleSurveySaveButton() {
@@ -307,13 +336,19 @@ function CreateSurvey() {
 				}
 
 				// //객관식이면 객관식 질문 문항들을 함께 전송해야함
+				// //객관식이면 객관식 질문 문항들을 함께 전송해야함
 				if (questionDtos[i].question_type == '객관식') {
 					console.log("객관식임");
+					choiceDtos=[];
+
 					for (let j = 0; j < savedQsList[i].qsItemList.length; j++) {
+						console.log("확인", savedQsList[i].qsItemList[j]);
 						choiceDtos[j] = {
 							choice_order: j,
 							choice_contents: savedQsList[i].qsItemList[j],
 						}
+						
+						console.log("확인", choiceDtos[j]);
 					}
 
 					questionDtos[i] = {
@@ -322,6 +357,8 @@ function CreateSurvey() {
 						question_contents: savedQsList[i].qs,
 						choiceDtos: choiceDtos,
 					}
+
+					console.log("확인", choiceDtos);
 
 				} else {
 
@@ -359,7 +396,7 @@ function CreateSurvey() {
 					<Nav.Link eventKey="create">설문지 작성</Nav.Link>
 				</Nav.Item>
 				<Nav.Item className="center">
-					<Nav.Link eventKey="share">설문지 설정</Nav.Link>
+					<Nav.Link eventKey="share">응답 기간 설정</Nav.Link>
 				</Nav.Item>
 			</Nav>
 
@@ -369,12 +406,12 @@ function CreateSurvey() {
 						<Row className='create-row'>
 							<div className='left' style={{ background: 'primary', height: '100%', oveerflowY:'auto' }}>
 								<div className='left-content'>
-									<Card style={{ backgroundColor: "#2c2c2c", padding: "2%", border: "white" }}>
-										<DropdownCmpt list={category_list} title={selectedCategory} style={{ marginBottom: "1%", float: "left", padding: 10 }} setSelected={setSelectedCategory} defaultTitle="Category" />
-										<div style={{ marginTop: "2%" }}>
-											{!(RecommendCategory === '' || RecommendCategory === null) && <h5 style={{ float: "right" }}>{RecommendCategory}{RecommendMent}</h5>}
+									<div style={{ backgroundColor: "#2c2c2c", padding: "2%", border: "white" }}>
+										<DropdownCmpt list={category_list} title={selectedCategory} style={{ width:"90px", marginBottom: "1%", float: "left", padding:10}} setSelected={setSelectedCategory} defaultTitle="Category" />
+										<div style={{ marginTop:'15px', color:"white", float:"left", marginRight:"4%", textAlign:"left" }}>
+											{!(RecommendCategory === '' || RecommendCategory === null) && <h5 style={{ marginTop: "0px", marginLeft:"0%" }}>{RecommendMent}</h5>}
 										</div>
-									</Card>
+									</div>
 
 									<Form.Control className="title-area" size="lg" as="textarea" placeholder="설문지 제목을 입력해주세요"
 										style={{backgroundColor: "#2c2c2c" }}
@@ -516,25 +553,24 @@ function CreateSurvey() {
 					// 공유 탭
 
 					<>
-						<div className="config-area" style={{ width: "100%", backgroundColor: "#F8F8FD", display: "flex", justifyContent: "center" }}>
+						<div className="config-area" style={{ width: "100%", minHeight:'120vh', backgroundColor: "#F8F8FD", display: "flex", justifyContent: "center" }}>
 
-							<div style={{ margin: "auto", marginTop: "5%", marginBottom: "5%" }}>
-								<h5 style={{ fontWeight: "bold" }}>응답 기간 설정 📮</h5>
+							<div style={{ margin: "auto", marginTop: "50px", marginBottom: "10px" }}>
+								<h6 style={{ fontWeight: "bold" }}>날짜를 드래그하거나 클릭하세요! 😉</h6>
 								<div className="text-center p-4" >
 									<DateRangeSelector startDateHandler={setStartDate} endDateHandler={setEndDate} startTimeHandler={setStartTime} endTimeHandler={setEndTime}/>
-									<div style={{ marginTop: '10px' }}>
+									{/* <div style={{ marginTop: '10px' }}>
 										<input className="form-check-input" id="qrCheckBox" name="shareWay" type="checkbox" value="" onChange={(e) => {
 											checkOnlyOne(e.target)
 											is_checked()
 										}} /> QR코드 생성하기
-									</div>
-
+									</div> */}
+									<div>
 									<Button variant="secondary" className="center"
-										style={{ marginTop: 30 }}
+										style={{ marginTop: '10px' }}
 										onClick={() => {
 											handleSurveyCreateButton()
-										}}>설문 제작 완료</Button>
-
+										}}>설문 제작 완료</Button></div>
 								</div>
 							</div>
 						</div>

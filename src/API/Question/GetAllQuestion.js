@@ -7,7 +7,7 @@ const GetAllQuestion = async () => {
     };
 
     // 모든 질문 정보 가져오기
-    const response = await axios.get('http://210.109.60.38:8000/question', headers)
+    const response = await axios.get('https://210.109.63.71:8080/question', headers)
         .then((response) => {
             console.log('get all question ok');
             console.log(response.data)

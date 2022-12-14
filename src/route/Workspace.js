@@ -99,8 +99,10 @@ function Workspace() {
    let surveyQuestionDto = [];
    let surveyQuestionDtoTemp = [];
 
+   
    function handleDeleteBtn() {
       view.current = "삭제";
+      
       if (selectNum + 1 <= ingCount) {
          setShowDeleteIng(true);
       } else {
@@ -112,10 +114,13 @@ function Workspace() {
    //설문 '삭제' 클릭 -> '설문을 삭제하시겠습니까?' 에서 '확인'을 클릭하면 실행
    function handleDelete() {
       setShow(false);
+      console.log('ingCount', ingCount);
+      console.log('beforeCount', beforeCount);
+      console.log('selectnum', selectNum);
       view.current = '설문지';
       if (ingCount < selectNum + 1 && selectNum + 1 <= ingCount + beforeCount) {
          //시작 전
-         DeleteSurvey(beforeId[selectNum - ingCount]);
+         DeleteSurvey(users, beforeId[selectNum - ingCount]);
          beforeUrl.splice(selectNum - ingCount, 1);
          setBeforeUrl(beforeUrl);
          beforeId.splice(selectNum - ingCount, 1)
@@ -128,7 +133,7 @@ function Workspace() {
       } else if (ingCount + beforeCount < selectNum + 1) {
          //종료
          console.log('else if selectNum', selectNum);
-         DeleteSurvey(endId[selectNum - ingCount - beforeCount]);
+         DeleteSurvey(users, endId[selectNum - ingCount - beforeCount]);
          endUrl.splice(selectNum - ingCount - beforeCount, 1);
          setEndUrl(endUrl);
          endId.splice(selectNum - ingCount - beforeCount, 1)
@@ -159,7 +164,7 @@ function Workspace() {
       //사용자 토큰으로 모든 survey정보를 가져와서 워크스페이스를 구성한다. 
       GetSurveyByToken(users, userHandler)
          .then((res) => {
-            console.log('res: ', res);
+            console.log('get survey by token res: ', res);
             surveyQuestionDto = JSON.parse(JSON.stringify(res));
             surveyQuestionDtoTemp = new Array();
             console.log('surveyQuestionDto', surveyQuestionDto);
@@ -390,7 +395,7 @@ function Workspace() {
                   {/* 설문 결과 보기 (그래프) */}
                   {view.current === "결과" && selectNum !== -1 &&
                      <Col style={{ marginTop: '30px', marginBottom: '30px' }}>
-                        <Result surveyId={surveyQuestionDtoState[selectNum].surveyDto.survey_id} />
+                        <Result surveyQuestionDto={surveyQuestionDtoState[selectNum]} surveyId={surveyQuestionDtoState[selectNum].surveyDto.survey_id} />
                      </Col>}
 
 

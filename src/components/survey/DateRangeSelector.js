@@ -23,7 +23,8 @@ const DateRangeSelector = (props, { ranges, onChange, onSubmit, ...rest }) => {
         endDate: new Date(),
         key: "selection"
     });
-    const [show, setShow] = useState(false);
+
+    const [show, setShow] = useState(true);
 
     const orientation = window.matchMedia("(max-width: 500px)").matches
         ? "vertical"
@@ -39,10 +40,10 @@ const DateRangeSelector = (props, { ranges, onChange, onSubmit, ...rest }) => {
         console.log(ranges.selection);
     };
 
-    // const onClickDone = () => {
-    //      onSubmit(selectedDateRange);
-    //      setShow(true);
-    // };
+    const onClickDone = () => {
+         onSubmit(selectedDateRange);
+        //  setShow(true);
+    };
 
     const onClickClear = () => {
         setSelectedDateRange({
@@ -50,7 +51,7 @@ const DateRangeSelector = (props, { ranges, onChange, onSubmit, ...rest }) => {
             endDate: new Date(),
             key: "selection"
         });
-        setShow(false);
+    //    setShow(false);
     };
 
     return (
@@ -72,20 +73,22 @@ const DateRangeSelector = (props, { ranges, onChange, onSubmit, ...rest }) => {
                         className="btn btn-transparent text-primary rounded-0 px-4 mr-2"
                         onClick={() => setShow(true)}
                     >
-                        Done
+                        확인
                     </button>
                     <button
                         className="btn btn-transparent text-danger rounded-0 px-4"
                         onClick={onClickClear}
                     >
-                        Clear
+                        초기화
                     </button>
                 </div>
             </div>
 
             {show && (
                 <div className="h-100 mt-3 alert alert-transparent" direction={orientation}>
-                    <Card className='basicCard' key={"key"} style={{ display: "inline-block", margin: "2%", marginBottom: "3%", padding: "4%", border: "none", borderRadius: "20px" }}>
+                    <h6><strong>⏰ 를 눌러서 시간을 조정할 수 있어요!</strong></h6>
+
+                    <Card className='basicCard' key={"key"} style={{ display: "inline-block", margin: "2%", marginBottom: "3%", padding: "4%", border: "none", borderRadius: "20px", boxShadow: "1px 1px 4px 0px gray" }}>
                         <h5>
                             시작 일시
                         </h5>
@@ -99,7 +102,7 @@ const DateRangeSelector = (props, { ranges, onChange, onSubmit, ...rest }) => {
                                 onChange={(e) => props.startTimeHandler(e.target.value)} defaultValue={timeString} />
                         </div>
                     </Card>
-                    <Card className='basicCard' key={"key"} style={{ display: "inline-block", margin: "2%", marginBottom: "3%", padding: "4%", border: "none", borderRadius: "20px" }}>
+                    <Card className='basicCard' key={"key"} style={{ display: "inline-block", margin: "2%", marginBottom: "3%", padding: "4%", border: "none", borderRadius: "20px", boxShadow: "1px 1px 4px 0px gray" }}>
                         <h5>
                             마감 일시
                         </h5>

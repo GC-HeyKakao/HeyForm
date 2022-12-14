@@ -29,7 +29,7 @@ const Gender = (props) => {
 
     return (
         // chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정
-        <div style={{ width: "auto", height:"500px", padding:"0px", margin: "auto"}}>
+        <div style={{ width: "auto", maxWidth:'1000px', height:"500px", padding:"0px", margin: "auto"}}>
             <ResponsiveBar
                 /**
                  * chart에 사용될 데이터

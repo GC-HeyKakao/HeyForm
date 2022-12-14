@@ -71,8 +71,8 @@ function Preview(props) {
 		<>
 			{/* <Card className='basicCard' style={{ padding: "3%", backgroundColor: backgroundColor, overflowY: "scroll", width: "auto", height: "580px" }}> */}
 			<div className='right' style={{ padding: "3%", backgroundColor: backgroundColor, overflowY: "auto", width: "100%" }}>
-				<h2 style={{ color: textColor, marginLeft: "8%", marginTop: "10%", textAlign: "left", fontWeight: "bold" }}>{props.surveyTitle}</h2>
-				<h6 style={{ color: textColor, marginLeft: "10%", marginRight: "5%",marginTop: "5%", marginBottom: "7%", textAlign: "left" }}>{props.surveyDescription}</h6>
+				<h2 style={{ color: textColor, textAlign:"center", marginTop: "20px", fontWeight: "bold" }}>{props.surveyTitle}</h2>
+				<h6 style={{ color: textColor, textAlign:"center", marginTop: "5%", marginBottom: "7%"}}>{props.surveyDescription}</h6>
 				{
 					props.savedQsList.map((savedQs, idx) => {
 						return (

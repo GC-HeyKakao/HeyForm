@@ -44,6 +44,7 @@ function ShortAnswer(props) {
     return (
         <>
             <h5>Q{props.idx}: {props.title}</h5>
+            <br/>
             { console.log("주관식 들어옴", props.resultDto[props.idx]) }
             <TagCloud 
                 minSize={5}

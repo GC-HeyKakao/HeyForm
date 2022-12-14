@@ -8,6 +8,9 @@ import Star from './Star';
 import { SurveyFooter } from "./SurveyFooter";
 import { MultipleChoice } from "./MultipleChoice";
 import { ShortAnswer } from "./ShortAnswer";
+import { userState } from "../../atom";
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { GetSurveyByToken } from "../../API/Survey/GetSurveyByToken";
 import '../../components/Survey/Preview.css'
 
 
@@ -18,11 +21,57 @@ function SurveySheet(props) {
 
   const { surveyId } = useParams();
   let { state } = useLocation();
+  const [shareWay, setShareWay] = useState("respondent");
+  const users = useRecoilValue(userState);
+  const userHandler = useSetRecoilState(userState);
+
+  const [surveyQuestionDtoState, setSurveyQuestionDto] = useState([]);
+  let surveyQuestionDto = [];
+  let surveyQuestionDtoTemp = [];
+  const [userUrl, setUserUrl] = useState([]);
+
+
+  useEffect(() => {
+    //사용자 토큰으로 모든 survey정보를 가져와서 워크스페이스를 구성한다. 
+    GetSurveyByToken(users, userHandler)
+       .then((res) => {
+          console.log('get survey by token res: ', res);
+          surveyQuestionDto = JSON.parse(JSON.stringify(res));
+          surveyQuestionDtoTemp = new Array();
+          console.log('surveyQuestionDto', surveyQuestionDto);
+
+          if (res === null) {
+             surveyQuestionDto = [];
+          }
+
+          for (let i = 0; i < surveyQuestionDto.length; i++) {
+             if (surveyQuestionDto[i].surveyDto.survey_state === 0) {
+                //진행 중
+                userUrl.push(surveyQuestionDto[i].surveyDto.survey_url);
+                surveyQuestionDtoTemp.push(surveyQuestionDto[i]);
+             }
+          }
+
+          // console.log('surveyQuestionDtoTemp', surveyQuestionDtoTemp);
+          setSurveyQuestionDto(surveyQuestionDtoTemp);
+          // console.log('surveyQuestionDtoState', surveyQuestionDtoState);
+
+          setUserUrl(userUrl);
+          console.log("userUrl", userUrl);
+
+          if(userUrl.includes(surveyId)) {
+            setShareWay("writer");
+          }
+
+       }, (err) => console.log(err))
+
+
+ }, []);
   
-  console.log("shareWay", state);
-  if(state==null){
-    state="respondent";
-  }
+  // console.log("shareWay", state);
+  // if(state==null){
+  //   state="respondent";
+  // }
   console.log('surveyid', surveyId)
   console.log("SurveySheet 시작");
 
@@ -168,9 +217,9 @@ function SurveySheet(props) {
 
   return (
     <>
-      <Card className='basicCard' style={{ padding: "3%", backgroundColor: backgroundColor, border:"none" }}>
-        <p className='h1' style={{  marginLeft:"5%", color: textColor, marginBottom: "3%", marginTop:"3%" }}>{surveyTitle}</p>
-        <p className='h4' style={{ marginLeft:"5%", color: textColor, marginBottom: "5%"}}>{surveyDes}</p>
+      <Card style={{ padding: "3%", backgroundColor: backgroundColor, border: "none", minHeight:"100vh" }}>
+        <p className='h1' style={{ textAlign:"center", color: textColor, marginBottom: "3%", marginTop:"3%", fontWeight:"bold",  }}>{surveyTitle}</p>
+        <p className='h4' style={{ textAlign:"center", color: textColor, marginBottom: "5%"}}>{surveyDes}</p>
         {
           console.log("map", savedQsList)}
         {
@@ -235,7 +284,7 @@ function SurveySheet(props) {
                 end_time={surveyEndTime}
                 replys={replys} 
                 surveyId={survey_id} 
-                shareWay={ state } />
+                shareWay={ shareWay } />
 
           
           //설문 작성자면 설문지를 공유하는 <ShareSurvey /> 컴포넌트를, 작성자가 아니라면 응답을 제출할 수 있는 <SubmmitButton /> 컴포넌트를 보여줌.

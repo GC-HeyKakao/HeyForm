@@ -7,7 +7,7 @@ const PostUserToken = async (ACCESS_TOKEN, REFRESH_TOKEN, users, userHandler) =>
     console.log(users);
     let post = false;
 
-    await axios.post(`http://210.109.60.38:8000/user/token/request?Kakaotoken=${ACCESS_TOKEN}`)
+    await axios.post(`https://210.109.63.71:8080/user/token/request?Kakaotoken=${ACCESS_TOKEN}`)
         .then((response) => {
             console.log('PostUserToken ok');
             console.log('response.data.token', response.data.token);

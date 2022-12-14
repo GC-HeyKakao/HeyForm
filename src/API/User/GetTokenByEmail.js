@@ -31,7 +31,7 @@ const GetTokenByEmail = (users, userHandler) => {
 		)
 	}
 
-    axios.get(`http://210.109.60.38:8000/user/token/${email}`)
+    axios.get(`https://210.109.63.71:8080/user/token/${email}`)
         .then((response) => {
              
             //tokenHandler(response.data);

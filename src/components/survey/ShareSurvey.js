@@ -38,25 +38,21 @@ function ShareSurvey(props) {
 
           :
 
-          shareWay === "null" ?
-            <div className="areaShare" style={{ width: "auto" }}>
-              <row>
-                <div style={{ margin: "auto" }}>
-                  <CreateLink link={window.location.href} />
-                </div>
-                <div style={{ marginLeft: "auto" }}>
-                  <SetPush surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} start_time={props.start_time} end_time={props.end_time} />
-                </div>
-              </row>
+          shareWay === "writer" ?
+            <div className="areaShare">
+              <CreateLink link={HOST + "survey/" + props.link} />
+              <CreateQR link={props.link} />
+              <SetPush link={HOST + "survey/" + props.link} surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} start_time={props.start_time} end_time={props.end_time} />
             </div>
 
             :
 
             shareWay === "workSpace" ?
 
-              <div className="areaShare">
-                    <CreateLink link={HOST + "survey/" + props.link} />
-                    <SetPush link={HOST + "survey/" + props.link} surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} start_time={props.start_time} end_time={props.end_time} />
+            <div className="areaShare">
+                <CreateLink link={HOST + "survey/" + props.link} />
+                <CreateQR link={props.link} />
+                <SetPush link={HOST + "survey/" + props.link} surveyTitle={props.surveyTitle} surveyDescription={props.surveyDescription} start_time={props.start_time} end_time={props.end_time} />
               </div>
 
 

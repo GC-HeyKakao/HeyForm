@@ -44,7 +44,7 @@ function KakaoLogout() {
 
     const expireToken = () => {
         // 토큰 만료시키기
-        fetch('https://kapi.kakao.com/v1/user/logout', {
+        fetch('https://kapi.kakao.com/v1/user/unlink', {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${users.kakaoToken}` },
         })

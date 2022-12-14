@@ -44,7 +44,7 @@ function EmailShareButton(props) {
             <div style={{ float:'left', marginLeft:'10px', marginBottom:'20px'}} >
                 {/* Email share button */}
                     {/* <img src={sendEmailBtn} style={{height:'100px'}}></img> */}
-                    <Button size='lg' onClick={() => { handleShow() }} id="Email-link-btn" variant='light'>이메일 💌</Button>
+                    <Button size='lg' style={{fontSize:"17px"}} onClick={() => { handleShow() }} id="Email-link-btn" variant='light'><p className="h6" style={{marginTop:5}}>이메일 💌</p></Button>
             </div >
 
         </>
